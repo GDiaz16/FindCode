@@ -1,4 +1,4 @@
-package codebook;
+package findcode;
 
 public class MotorDeBusqueda {
 

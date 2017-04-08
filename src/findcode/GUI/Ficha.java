@@ -9,6 +9,12 @@ package findcode.GUI;
  *
  * @author cesar
  */
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+
 public class Ficha extends javax.swing.JPanel {
 
     /**
@@ -31,7 +37,7 @@ public class Ficha extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        textCodigo = new javax.swing.JTextPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -40,7 +46,7 @@ public class Ficha extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        inputText = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jButton12 = new javax.swing.JButton();
@@ -56,9 +62,9 @@ public class Ficha extends javax.swing.JPanel {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Titulo");
 
-        jTextPane1.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        jTextPane1.setText("Codigo");
-        jScrollPane2.setViewportView(jTextPane1);
+        textCodigo.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        textCodigo.setText("Codigo");
+        jScrollPane2.setViewportView(textCodigo);
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -103,10 +109,15 @@ public class Ficha extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel5.setText("Codigos relacionados");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jTextArea2.setRows(1);
-        jScrollPane4.setViewportView(jTextArea2);
+        inputText.setColumns(20);
+        inputText.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        inputText.setRows(1);
+        inputText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputTextKeyReleased(evt);
+            }
+        });
+        jScrollPane4.setViewportView(inputText);
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel4.setText("Lista de ingredientes");
@@ -232,49 +243,58 @@ public class Ficha extends javax.swing.JPanel {
         this.getParent().add(resultado);
         resultado.getParent().remove(this);
         resultado.getParent().validate();
-        
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton13ActionPerformed
 
+    private void inputTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextKeyReleased
+         setText();
+    }//GEN-LAST:event_inputTextKeyReleased
+    private SimpleAttributeSet colores(String palabraReservada) {
+        SimpleAttributeSet simp = new SimpleAttributeSet();
+        StyleConstants.setBold(simp, true);
+        StyleConstants.setItalic(simp, true);
+        StyleConstants.setFontSize(simp, 24);
+        return simp;
+    }
+
+   
+
+    private void setText() {
+        SimpleAttributeSet simp = colores(inputText.getText());
+        try {
+            textCodigo.getStyledDocument().insertString(textCodigo.getStyledDocument().getLength(), inputText.getText(), simp);
+
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Ficha.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea inputText;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane textCodigo;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,4 @@
-package codebook.GUI;
+package findcode.GUI;
 
 public class Resultado extends javax.swing.JPanel {
 

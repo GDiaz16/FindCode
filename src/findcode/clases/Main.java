@@ -1,6 +1,6 @@
 package findcode.clases;
 
-import codebook.GUI.Inicio;
+import findcode.GUI.Inicio;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;

@@ -6,12 +6,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MySQL {
 
     private Connection conexion;
+    private PreparedStatement sentencia;
 
     public MySQL() {
         
@@ -24,8 +28,20 @@ public class MySQL {
         
     }
     
-    public Connection getConnection(){
+    public Connection conexion(){
         return conexion;
+    }
+    
+    public PreparedStatement getSentencia(){
+        return sentencia;
+    }
+    
+    public void setSentencia(String sentencia){
+        try {
+            this.sentencia = conexion.prepareStatement(sentencia);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
     public void crearTablas() {

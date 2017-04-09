@@ -20,7 +20,7 @@ public class Main {
         // Crear ventana
         JFrame frame = new JFrame();
         frame.add(new Inicio());
-        frame.setSize(600, 600);
+        frame.setSize(800, 600);
         frame.setDefaultCloseOperation(3);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

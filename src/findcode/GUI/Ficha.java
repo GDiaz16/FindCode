@@ -9,32 +9,18 @@ package findcode.GUI;
  *
  * @author cesar
  */
-import java.awt.Color;
-import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.DefaultListModel;
-import javax.swing.text.StyleConstants;
-import java.util.HashSet;
-import java.util.StringTokenizer;
-import java.awt.event.MouseAdapter;
-import javax.swing.JLabel;
-import java.awt.Font;
 
 public class Ficha extends javax.swing.JPanel {
 
-    HashSet<String> palabrasClave = new HashSet<>();
-    String[] codigoDesarmado;
-    DefaultListModel model;
-
-    int caret;
+    private findcode.clases.Ficha ficha;
 
     public Ficha() {
         initComponents();
-        cargarPalabras();
-        cargarDatos();
+        ficha = new findcode.clases.Ficha();
+        ficha.setListaIngredientes(listaIngredientes);
+        ficha.setPopUp(popUp);
+        ficha.setTextCodigo(textCodigo);
+
     }
 
     /**
@@ -215,8 +201,9 @@ public class Ficha extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -278,14 +265,7 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_inputTextKeyReleased
 
     private void textCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCodigoKeyReleased
-        caret = textCodigo.getCaretPosition();
-        if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
-                && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN) {
-            separador(textCodigo.getText());
-            setText();
-        }
-        textCodigo.setCaretPosition(caret);
-        setListaIngredientes();
+        ficha.textCodigoKeyReleased(evt);
     }//GEN-LAST:event_textCodigoKeyReleased
 
     private void textCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textCodigoMouseClicked
@@ -293,124 +273,8 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_textCodigoMouseClicked
 
     private void textCodigoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textCodigoMousePressed
-
-        popUp.setVisible(true);
-        popUp.show(evt.getComponent(), evt.getX(), evt.getY());
-        System.out.println("click");
+        ficha.textCodigoMousePressed(evt);
     }//GEN-LAST:event_textCodigoMousePressed
-    MouseAdapter myMouseAdapter = new MouseAdapter() {
-    };
-
-    private void cargarDatos() {
-        JLabel label = new JLabel("Esta es una ayuda de nosotros para ti");
-        label.setForeground(Color.blue);
-        label.setBackground(Color.GREEN);
-        Font font = new Font("Comic Sans Ms", Font.BOLD, 14);
-        label.setFont(font);
-        popUp.add(label);
-    }
-
-    private void cargarPalabras() {
-
-        palabrasClave.add("abstract");
-        palabrasClave.add("class");
-        palabrasClave.add("const");
-        palabrasClave.add("continue");
-        palabrasClave.add("default");
-        palabrasClave.add("do");
-        palabrasClave.add("double");
-        palabrasClave.add("else");
-        palabrasClave.add("enum");
-        palabrasClave.add("extends");
-        palabrasClave.add("final");
-        palabrasClave.add("finally");
-        palabrasClave.add("float");
-        palabrasClave.add("for");
-        palabrasClave.add("goto");
-        palabrasClave.add("if");
-        palabrasClave.add("implements");
-        palabrasClave.add("import");
-        palabrasClave.add("instanceof");
-        palabrasClave.add("int");
-        palabrasClave.add("interface");
-        palabrasClave.add("long");
-        palabrasClave.add("native");
-        palabrasClave.add("new");
-        palabrasClave.add("package");
-        palabrasClave.add("private");
-        palabrasClave.add("protected");
-        palabrasClave.add("public");
-        palabrasClave.add("return");
-        palabrasClave.add("short");
-        palabrasClave.add("static");
-        palabrasClave.add("strictfp");
-        palabrasClave.add("super");
-        palabrasClave.add("switch");
-        palabrasClave.add("synchronized");
-        palabrasClave.add("this");
-        palabrasClave.add("throw");
-        palabrasClave.add("throws");
-        palabrasClave.add("transient");
-        palabrasClave.add("try");
-        palabrasClave.add("void");
-        palabrasClave.add("volatile");
-        palabrasClave.add("while");
-    }
-
-    private void separador(String codigo) {
-        StringTokenizer st = new StringTokenizer(codigo, " \t\n", true);
-        codigoDesarmado = new String[st.countTokens()];
-        int i = 0;
-        while (st.hasMoreTokens()) {
-            codigoDesarmado[i] = st.nextToken();
-            i++;
-        }
-
-    }
-
-    private void setText() {
-
-        textCodigo.setText("");
-        for (String cadena : codigoDesarmado) {
-            SimpleAttributeSet simp = formato(cadena);
-            try {
-
-                textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), cadena, simp);
-
-            } catch (BadLocationException ex) {
-                Logger.getLogger(Ficha.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    private SimpleAttributeSet formato(String palabraReservada) {
-
-        SimpleAttributeSet simp = new SimpleAttributeSet();
-        if (palabrasClave.contains(palabraReservada)) {
-            StyleConstants.setBold(simp, true);
-            StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.blue);
-
-        } else {
-            StyleConstants.setBold(simp, false);
-            StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.black);
-        }
-
-        return simp;
-    }
-
-    private void setListaIngredientes() {
-        model = new DefaultListModel();
-        for (String cadena : codigoDesarmado) {
-            if (palabrasClave.contains(cadena) && !model.contains(cadena)) {
-                model.addElement(cadena);
-            }
-        }
-        listaIngredientes.setModel(model);
-
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -436,4 +300,5 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JPopupMenu popUp;
     private javax.swing.JTextPane textCodigo;
     // End of variables declaration//GEN-END:variables
+
 }

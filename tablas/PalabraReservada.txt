@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS TPalabraReservada (
+
+    iD varchar(20) NOT NULL AUTO_INCREMENT,
+    idLenguaje int NOT NULL,
+    PRIMARY KEY (iD),
+    FOREIGN KEY (idLenguaje) REFERENCES TLenguaje(iD) ON DELETE CASCADE
+
+)

@@ -1,10 +1,11 @@
-CREATE TABLE IF NOT EXISTS comentarios (
+CREATE TABLE IF NOT EXISTS TComentarios (
 
-    iD INT PRIMARY KEY NOT NULL,
-    iDUsuario TEXT NOT NULL,
+    iD INT NOT NULL AUTO_INCREMENT,
+    iDUsuario varchar(50) NOT NULL,
     iDFicha INT NOT NULL,
     mensaje TEXT NOT NULL,
-    FOREIGN KEY(iDUsuario) REFERENCES Usuarios(correo),
-    FOREIGN KEY(iDFicha) REFERENCES Fichas(iD)
+    PRIMARY KEY (iD),
+    FOREIGN KEY (iDUsuario) REFERENCES TUsuarios(iD) ON DELETE CASCADE,
+    FOREIGN KEY (iDFicha) REFERENCES TFichas(iD) ON DELETE CASCADE
 
 )

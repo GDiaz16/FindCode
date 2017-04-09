@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS TLenguaje (
+
+    iD varchar(30) PRIMARY KEY  NOT NULL
+
+)

@@ -9,17 +9,22 @@ package findcode.GUI;
  *
  * @author cesar
  */
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Ficha extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Ficha
-     */
+    HashSet<String> palabrasClave = new HashSet<>();
+    String[] codigoDesarmado;
+    int caret;
     public Ficha() {
         initComponents();
     }
@@ -64,6 +69,11 @@ public class Ficha extends javax.swing.JPanel {
 
         textCodigo.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         textCodigo.setText("Codigo");
+        textCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textCodigoKeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(textCodigo);
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
@@ -251,26 +261,70 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void inputTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextKeyReleased
-         setText();
+
     }//GEN-LAST:event_inputTextKeyReleased
+
+    private void textCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCodigoKeyReleased
+        caret = textCodigo.getCaretPosition();
+        if (evt.getKeyCode() != KeyEvent.VK_LEFT&&evt.getKeyCode() != KeyEvent.VK_RIGHT
+                &&evt.getKeyCode() != KeyEvent.VK_UP&&evt.getKeyCode() != KeyEvent.VK_DOWN) {
+            separador(textCodigo.getText());
+            setText();
+        }
+        textCodigo.setCaretPosition(caret);
+    }//GEN-LAST:event_textCodigoKeyReleased
     private SimpleAttributeSet colores(String palabraReservada) {
+        cargarPalabras();
         SimpleAttributeSet simp = new SimpleAttributeSet();
-        StyleConstants.setBold(simp, true);
-        StyleConstants.setItalic(simp, true);
-        StyleConstants.setFontSize(simp, 24);
+        if (palabrasClave.contains(palabraReservada)) {
+
+            StyleConstants.setBold(simp, true);
+            StyleConstants.setFontSize(simp, 12);
+            StyleConstants.setForeground(simp, Color.blue);
+        } else {
+            StyleConstants.setBold(simp, false);
+            StyleConstants.setFontSize(simp, 12);
+            StyleConstants.setForeground(simp, Color.black);
+        }
+
         return simp;
     }
 
-   
+    private void separador(String codigo) {
+        StringTokenizer st = new StringTokenizer(codigo, " \t\n", true);
+        codigoDesarmado = new String[st.countTokens()];
+        int i = 0;
+        while (st.hasMoreTokens()) {
+            codigoDesarmado[i] = st.nextToken();
+            i++;
+        }
+
+    }
+
+    private void cargarPalabras() {
+        palabrasClave.add("public");
+        palabrasClave.add("void");
+        palabrasClave.add("if");
+        palabrasClave.add("while");
+        palabrasClave.add("for");
+        palabrasClave.add("int");
+        palabrasClave.add("double");
+        palabrasClave.add("String");
+    }
 
     private void setText() {
-        SimpleAttributeSet simp = colores(inputText.getText());
-        try {
-            textCodigo.getStyledDocument().insertString(textCodigo.getStyledDocument().getLength(), inputText.getText(), simp);
-
-        } catch (BadLocationException ex) {
-            Logger.getLogger(Ficha.class
-                    .getName()).log(Level.SEVERE, null, ex);
+       
+        textCodigo.setText("");
+        for (String cadena : codigoDesarmado) {
+            SimpleAttributeSet simp = colores(cadena);
+            try {
+                
+                textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), cadena, simp);
+                 
+            } catch (BadLocationException ex) {
+                Logger.getLogger(Ficha.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

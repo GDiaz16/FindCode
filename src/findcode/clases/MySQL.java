@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MySQL {
 
@@ -70,6 +72,21 @@ public class MySQL {
             ex.printStackTrace();
         }
 
+    }
+    
+    public int numeroColumnas() {
+
+        int cont = 0;
+        try {
+            while (resultados.next()) {
+                cont++;
+            }
+            resultados.beforeFirst();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return cont;
     }
 
     public String leerArchivo(String nombre) {

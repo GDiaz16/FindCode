@@ -24,9 +24,8 @@ public class Ficha {
     private Sintaxis sintaxis;
     private String descripcion;
     private Sintaxis ejemplo;
-    private HashMap<String, Ficha> fichasAsociadas;
-    private double calificacion;
     private String lenguajeProgramacion;
+    private HashMap<Integer, Calificacion> calificacion;
     HashSet<String> palabrasClave = new HashSet<>();
     String[] codigoDesarmado;
     DefaultListModel model;
@@ -179,4 +178,23 @@ public class Ficha {
         listaIngredientes.setModel(model);
 
     }
+
+  
+    public void crear() {
+    
+    }
+    
+    public static Ficha cargar() {
+        return null;
+    }
+    
+    public void editar() {
+    
+    }
+    
+    public void borrar() {
+    
+    }
+    
 }
+

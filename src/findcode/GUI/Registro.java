@@ -5,6 +5,10 @@
  */
 package findcode.GUI;
 
+import findcode.clases.Usuario;
+import findcode.clases.Utilidades;
+import java.awt.Color;
+
 /**
  *
  * @author cesar
@@ -16,6 +20,11 @@ public class Registro extends javax.swing.JPanel {
      */
     public Registro() {
         initComponents();
+        Utilidades.personalizarCampo(jTextField1, "Nombre");
+        Utilidades.personalizarCampo(jTextField5, "Correo electronico");
+        Utilidades.personalizarCampo(jTextField6, "nickName");
+        Utilidades.personalizarCampo(jPasswordField1, "Contraseña");
+        Utilidades.personalizarCampo(jPasswordField3, "Contraseña");
     }
 
     /**
@@ -65,9 +74,27 @@ public class Registro extends javax.swing.JPanel {
         jTextField1.setForeground(new java.awt.Color(153, 153, 153));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Tu nombre");
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
             }
         });
 
@@ -232,10 +259,29 @@ public class Registro extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        Inicio inicio = new Inicio();
-        this.getParent().add(inicio);
-        inicio.getParent().remove(this);
-        inicio.getParent().validate();
+        // Obtener texto de los campos
+        String correo = jTextField5.getText();
+        String nickname = jTextField6.getText();
+        String nombre = jTextField1.getText();
+        String password = String.valueOf(jPasswordField1.getPassword());
+
+        // Validar campos
+        if (Utilidades.validarCampo(jTextField1) &&
+                Utilidades.validarCampo(jTextField5) &&
+                Utilidades.validarCampo(jTextField6) &&
+                Utilidades.validarCampo(jPasswordField1) &&
+                Utilidades.validarCampo(jPasswordField3) &&
+                Utilidades.compararCampos(jPasswordField1, jPasswordField3)) {
+            
+            Usuario usuario = new Usuario(correo, nickname, nombre, password);
+            usuario.crear();
+
+            Inicio inicio = new Inicio(usuario);
+            this.getParent().add(inicio);
+            inicio.getParent().remove(this);
+            inicio.getParent().validate();
+            
+        }
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -259,6 +305,22 @@ public class Registro extends javax.swing.JPanel {
         inicio.getParent().validate();
 
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1MouseClicked
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1FocusLost
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1FocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

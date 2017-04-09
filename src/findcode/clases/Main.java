@@ -20,11 +20,15 @@ public class Main {
         // Crear ventana
         JFrame frame = new JFrame();
         frame.add(new Inicio());
-        frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(3);
+        frame.setSize(600, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         
+        // Crear tablas si no existen
+        MySQL db = new MySQL();
+        db.crearTablas();
         
     }
+    
 }

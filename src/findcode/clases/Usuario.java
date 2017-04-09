@@ -9,15 +9,26 @@ public class Usuario {
     private String nombre;
     private String password;
 
+    public Usuario(String correo, String password) {
+
+        this.correo = correo;
+        this.password = password;
+
+    }
+    
     public Usuario(String correo, String nickname, String nombre, String password) {
-        
+
         this.correo = correo;
         this.nickname = nickname;
         this.nombre = nombre;
         this.password = password;
-        
+
     }
-    
+
+    public String getNickname() {
+        return nickname;
+    }
+
     public void crear() {
 
         try {
@@ -42,8 +53,48 @@ public class Usuario {
 
     }
 
-    public static Usuario cargar() {
-        return null;
+    public boolean cargar() {
+
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = " select * from TUsuarios where"
+                    + " (iD = ? OR nickName = ?) AND password = ?";
+
+            db.setSentencia(query);
+            db.getSentencia().setString(1, correo);
+            db.getSentencia().setString(2, correo);
+            db.getSentencia().setString(3, password);
+
+            db.setResultados(db.getSentencia().executeQuery());
+
+            int cont = 0;
+            while (db.getResultados().next()) {
+                cont++;
+            }
+            if(cont == 0){
+                return false;
+            }
+            
+            db.getResultados().beforeFirst();
+            while (db.getResultados().next()) {
+                System.out.println("sdfsdf");
+                correo = db.getResultados().getString("iD");
+                nickname = db.getResultados().getString("nickName");
+                nombre = db.getResultados().getString("nombre");
+                password= db.getResultados().getString("password");
+
+            }
+
+            db.conexion().close();
+            return true;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
     }
 
     public void editar() {

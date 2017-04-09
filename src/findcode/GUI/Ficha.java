@@ -9,13 +9,32 @@ package findcode.GUI;
  *
  * @author cesar
  */
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.DefaultListModel;
+import javax.swing.text.StyleConstants;
+import java.util.HashSet;
+import java.util.StringTokenizer;
+import java.awt.event.MouseAdapter;
+import javax.swing.JLabel;
+import java.awt.Font;
+
 public class Ficha extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Ficha
-     */
+    HashSet<String> palabrasClave = new HashSet<>();
+    String[] codigoDesarmado;
+    DefaultListModel model;
+
+    int caret;
+
     public Ficha() {
         initComponents();
+        cargarPalabras();
+        cargarDatos();
     }
 
     /**
@@ -27,26 +46,27 @@ public class Ficha extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popUp = new javax.swing.JPopupMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        textCodigo = new javax.swing.JTextPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        inputText = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        listaIngredientes = new javax.swing.JList<>();
 
         setLayout(new java.awt.CardLayout());
 
@@ -56,9 +76,22 @@ public class Ficha extends javax.swing.JPanel {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Titulo");
 
-        jTextPane1.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        jTextPane1.setText("Codigo");
-        jScrollPane2.setViewportView(jTextPane1);
+        textCodigo.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        textCodigo.setText("Codigo");
+        textCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textCodigoMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                textCodigoMousePressed(evt);
+            }
+        });
+        textCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textCodigoKeyReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(textCodigo);
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -70,7 +103,7 @@ public class Ficha extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -81,11 +114,6 @@ public class Ficha extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
-
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel2.setText("Sintaxis");
 
@@ -93,20 +121,25 @@ public class Ficha extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 251, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 52, Short.MAX_VALUE)
         );
 
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel5.setText("Codigos relacionados");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jTextArea2.setRows(1);
-        jScrollPane4.setViewportView(jTextArea2);
+        inputText.setColumns(20);
+        inputText.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        inputText.setRows(1);
+        inputText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputTextKeyReleased(evt);
+            }
+        });
+        jScrollPane4.setViewportView(inputText);
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel4.setText("Lista de ingredientes");
@@ -145,7 +178,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addComponent(jButton12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 482, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -168,6 +201,11 @@ public class Ficha extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        listaIngredientes.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        listaIngredientes.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        listaIngredientes.setSelectionBackground(new java.awt.Color(51, 204, 0));
+        jScrollPane5.setViewportView(listaIngredientes);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -179,18 +217,14 @@ public class Ficha extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane5)))
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -211,9 +245,9 @@ public class Ficha extends javax.swing.JPanel {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(1, 1, 1)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -232,49 +266,174 @@ public class Ficha extends javax.swing.JPanel {
         this.getParent().add(resultado);
         resultado.getParent().remove(this);
         resultado.getParent().validate();
-        
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton13ActionPerformed
 
+    private void inputTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextKeyReleased
+
+    }//GEN-LAST:event_inputTextKeyReleased
+
+    private void textCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCodigoKeyReleased
+        caret = textCodigo.getCaretPosition();
+        if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
+                && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN) {
+            separador(textCodigo.getText());
+            setText();
+        }
+        textCodigo.setCaretPosition(caret);
+        setListaIngredientes();
+    }//GEN-LAST:event_textCodigoKeyReleased
+
+    private void textCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textCodigoMouseClicked
+
+    }//GEN-LAST:event_textCodigoMouseClicked
+
+    private void textCodigoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textCodigoMousePressed
+
+        popUp.setVisible(true);
+        popUp.show(evt.getComponent(), evt.getX(), evt.getY());
+        System.out.println("click");
+    }//GEN-LAST:event_textCodigoMousePressed
+    MouseAdapter myMouseAdapter = new MouseAdapter() {
+    };
+
+    private void cargarDatos() {
+        JLabel label = new JLabel("Esta es una ayuda de nosotros para ti");
+        label.setForeground(Color.blue);
+        label.setBackground(Color.GREEN);
+        Font font = new Font("Comic Sans Ms", Font.BOLD, 14);
+        label.setFont(font);
+        popUp.add(label);
+    }
+
+    private void cargarPalabras() {
+
+        palabrasClave.add("abstract");
+        palabrasClave.add("class");
+        palabrasClave.add("const");
+        palabrasClave.add("continue");
+        palabrasClave.add("default");
+        palabrasClave.add("do");
+        palabrasClave.add("double");
+        palabrasClave.add("else");
+        palabrasClave.add("enum");
+        palabrasClave.add("extends");
+        palabrasClave.add("final");
+        palabrasClave.add("finally");
+        palabrasClave.add("float");
+        palabrasClave.add("for");
+        palabrasClave.add("goto");
+        palabrasClave.add("if");
+        palabrasClave.add("implements");
+        palabrasClave.add("import");
+        palabrasClave.add("instanceof");
+        palabrasClave.add("int");
+        palabrasClave.add("interface");
+        palabrasClave.add("long");
+        palabrasClave.add("native");
+        palabrasClave.add("new");
+        palabrasClave.add("package");
+        palabrasClave.add("private");
+        palabrasClave.add("protected");
+        palabrasClave.add("public");
+        palabrasClave.add("return");
+        palabrasClave.add("short");
+        palabrasClave.add("static");
+        palabrasClave.add("strictfp");
+        palabrasClave.add("super");
+        palabrasClave.add("switch");
+        palabrasClave.add("synchronized");
+        palabrasClave.add("this");
+        palabrasClave.add("throw");
+        palabrasClave.add("throws");
+        palabrasClave.add("transient");
+        palabrasClave.add("try");
+        palabrasClave.add("void");
+        palabrasClave.add("volatile");
+        palabrasClave.add("while");
+    }
+
+    private void separador(String codigo) {
+        StringTokenizer st = new StringTokenizer(codigo, " \t\n", true);
+        codigoDesarmado = new String[st.countTokens()];
+        int i = 0;
+        while (st.hasMoreTokens()) {
+            codigoDesarmado[i] = st.nextToken();
+            i++;
+        }
+
+    }
+
+    private void setText() {
+
+        textCodigo.setText("");
+        for (String cadena : codigoDesarmado) {
+            SimpleAttributeSet simp = formato(cadena);
+            try {
+
+                textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), cadena, simp);
+
+            } catch (BadLocationException ex) {
+                Logger.getLogger(Ficha.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private SimpleAttributeSet formato(String palabraReservada) {
+
+        SimpleAttributeSet simp = new SimpleAttributeSet();
+        if (palabrasClave.contains(palabraReservada)) {
+            StyleConstants.setBold(simp, true);
+            StyleConstants.setFontSize(simp, 12);
+            StyleConstants.setForeground(simp, Color.blue);
+
+        } else {
+            StyleConstants.setBold(simp, false);
+            StyleConstants.setFontSize(simp, 12);
+            StyleConstants.setForeground(simp, Color.black);
+        }
+
+        return simp;
+    }
+
+    private void setListaIngredientes() {
+        model = new DefaultListModel();
+        for (String cadena : codigoDesarmado) {
+            if (palabrasClave.contains(cadena) && !model.contains(cadena)) {
+                model.addElement(cadena);
+            }
+        }
+        listaIngredientes.setModel(model);
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea inputText;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JList<String> listaIngredientes;
+    private javax.swing.JPopupMenu popUp;
+    private javax.swing.JTextPane textCodigo;
     // End of variables declaration//GEN-END:variables
 }

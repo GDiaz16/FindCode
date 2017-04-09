@@ -69,17 +69,11 @@ public class Usuario {
 
             db.setResultados(db.getSentencia().executeQuery());
 
-            int cont = 0;
-            while (db.getResultados().next()) {
-                cont++;
-            }
-            if(cont == 0){
+            if(db.numeroColumnas() == 0){
                 return false;
             }
             
-            db.getResultados().beforeFirst();
             while (db.getResultados().next()) {
-                System.out.println("sdfsdf");
                 correo = db.getResultados().getString("iD");
                 nickname = db.getResultados().getString("nickName");
                 nombre = db.getResultados().getString("nombre");
@@ -87,7 +81,6 @@ public class Usuario {
 
             }
 
-            db.conexion().close();
             return true;
 
         } catch (SQLException ex) {
@@ -95,6 +88,7 @@ public class Usuario {
         }
 
         return false;
+        
     }
 
     public void editar() {
@@ -102,7 +96,7 @@ public class Usuario {
     }
 
     public void borrar() {
-
+        
     }
 
 }

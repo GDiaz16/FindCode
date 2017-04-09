@@ -25,6 +25,7 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         
+        // Crear tablas si no existen
         MySQL db = new MySQL();
         db.crearTablas();
         

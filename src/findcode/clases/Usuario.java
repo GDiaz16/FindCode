@@ -7,8 +7,10 @@ public class Usuario {
     private String nombre;
     private String password;
 
-    public void crear() {
-    
+    public void crear(String correo, String nickname, String nombre, String password) {
+        
+        
+        
     }
     
     public static Usuario cargar() {

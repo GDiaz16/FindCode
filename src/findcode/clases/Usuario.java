@@ -7,8 +7,20 @@ public class Usuario {
     private String nombre;
     private String password;
 
-    public Usuario() {
-      
+    public void crear() {
+    
+    }
+    
+    public static Usuario cargar() {
+        return null;
+    }
+    
+    public void editar() {
+    
+    }
+    
+    public void borrar() {
+    
     }
     
 }

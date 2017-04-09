@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS TUsuarios (
+
+    iD varchar(50) PRIMARY KEY NOT NULL,
+    nickname varchar(30) NOT NULL,
+    nombre varchar(30) NOT NULL,
+    password varchar(50) NOT NULL
+
+)

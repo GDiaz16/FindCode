@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS TCalificacion (
+
+    iD int NOT NULL AUTO_INCREMENT,
+    calificacion int NOT NULL,
+    iDFicha int NOT NULL,
+    iDUsuario varchar(50) NOT NULL,
+    PRIMARY KEY (iD),
+    FOREIGN KEY (iDFicha) REFERENCES TFichas(iD) ON DELETE CASCADE,
+    FOREIGN KEY (iDUsuario) REFERENCES TUsuarios(iD) ON DELETE CASCADE
+
+)

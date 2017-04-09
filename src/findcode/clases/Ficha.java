@@ -9,11 +9,24 @@ public class Ficha {
     private Sintaxis sintaxis;
     private String descripcion;
     private Sintaxis ejemplo;
-    private HashMap<String, Ficha> fichasAsociadas;
-    private double calificacion;
     private String lenguajeProgramacion;
+    private HashMap<Integer, Ficha> fichasAsociadas;
+    private HashMap<Integer, Calificacion> calificacion;
 
-    public Ficha() {
-
+    public void crear() {
+    
     }
+    
+    public static Ficha cargar() {
+        return null;
+    }
+    
+    public void editar() {
+    
+    }
+    
+    public void borrar() {
+    
+    }
+    
 }

@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS TFichas (
+
+    iD int NOT NULL AUTO_INCREMENT, 
+    titulo varchar(100) NOT NULL,
+    sintaxis varchar(255) NOT NULL,
+    descripcion text NOT NULL,
+    ejemplo text NOT NULL,
+    iDUsuario varchar(50) NOT NULL,
+    iDLenguaje varchar(30) NOT NULL,
+    PRIMARY KEY (iD),
+    FOREIGN KEY (iDLenguaje) REFERENCES TLenguaje(iD) ON DELETE CASCADE,
+    FOREIGN KEY (iDUsuario) REFERENCES TUsuarios(iD) ON DELETE CASCADE
+
+)

@@ -21,7 +21,7 @@ public class Main {
         JFrame frame = new JFrame();
         frame.add(new Inicio());
         frame.setSize(600, 600);
-        frame.setDefaultCloseOperation(3);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         

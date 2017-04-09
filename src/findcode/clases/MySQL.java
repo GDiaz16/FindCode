@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 public class MySQL {
 
-    Connection conexion;
+    private Connection conexion;
 
     public MySQL() {
         
@@ -22,6 +22,10 @@ public class MySQL {
             ex.printStackTrace();
         }
         
+    }
+    
+    public Connection getConnection(){
+        return conexion;
     }
     
     public void crearTablas() {

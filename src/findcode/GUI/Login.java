@@ -5,6 +5,9 @@
  */
 package findcode.GUI;
 
+import findcode.clases.Usuario;
+import findcode.controladores.Utilidades;
+
 /**
  *
  * @author cesar
@@ -16,6 +19,8 @@ public class Login extends javax.swing.JPanel {
      */
     public Login() {
         initComponents();
+        Utilidades.personalizarCampo(jTextField1, "Correo o NickName");
+        Utilidades.personalizarCampo(jPasswordField1, "Contraseña");
     }
 
     /**
@@ -190,10 +195,26 @@ public class Login extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         
-        Inicio inicio = new Inicio();
-        this.getParent().add(inicio);
-        inicio.getParent().remove(this);
-        inicio.getParent().validate();
+        // Obtener texto de los campos
+        String correo = jTextField1.getText();
+        String password = String.valueOf(jPasswordField1.getPassword());
+
+        // Validar campos
+        if (Utilidades.validarCampo(jTextField1) &&
+                Utilidades.validarCampo(jPasswordField1)) {
+            
+            Usuario usuario = new Usuario(correo, password);
+            
+            if(usuario.cargar()){
+                
+                Inicio inicio = new Inicio(usuario);
+                this.getParent().add(inicio);
+                inicio.getParent().remove(this);
+                inicio.getParent().validate();
+                
+            }
+
+        }
         
     }//GEN-LAST:event_jButton4ActionPerformed
 

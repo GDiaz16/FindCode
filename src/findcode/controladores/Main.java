@@ -1,4 +1,4 @@
-package findcode.clases;
+package findcode.controladores;
 
 import findcode.GUI.Inicio;
 import java.util.logging.Level;

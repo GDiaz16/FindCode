@@ -1,5 +1,6 @@
 package findcode.clases;
 
+
 import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
@@ -20,12 +21,14 @@ import javax.swing.JList;
 import javax.swing.JPopupMenu;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import findcode.controladores.MySQL;
+import java.sql.SQLException;
+
 
 public class Ficha {
 
     private int iD;
     private String titulo;
-    private Sintaxis sintaxis;
     private String descripcion;
     private Sintaxis ejemplo;
     private String lenguajeProgramacion;
@@ -169,41 +172,99 @@ public class Ficha {
             i++;
         }
 
+    private String ejemplo;
+    private String iDUsuario;
+    private String iDLenguaje;
+
+    public Ficha(int iD, String titulo, String descripcion, String ejemplo, String iDUsuario, String iDLenguaje) {
+        this.iD = iD;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.ejemplo = ejemplo;
+        this.iDUsuario = iDUsuario;
+        this.iDLenguaje = iDLenguaje;
     }
+
+    public int getiD() {
+        return iD;
+    }
+
+    public void setiD(int iD) {
+        this.iD = iD;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
 
     //reposiciona el texto en el textpane
     private void setText() {
-
-        textCodigo.setText("");
-        for (String cadena : codigoDesarmado) {
-            SimpleAttributeSet simp = formato(cadena);
-            try {
-
-                textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), cadena, simp);
-
-            } catch (BadLocationException ex) {
-                Logger.getLogger(findcode.GUI.Ficha.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getEjemplo() {
+        return ejemplo;
+    }
+
+    public void setEjemplo(String ejemplo) {
+        this.ejemplo = ejemplo;
+    }
+
+    public String getiDUsuario() {
+        return iDUsuario;
+    }
+
+    public void setiDUsuario(String iDUsuario) {
+        this.iDUsuario = iDUsuario;
+    }
+
 
     //selecciona el formato de la fuente que tendra la palabra
     private SimpleAttributeSet formato(String palabraReservada) {
+    }
+    public String getiDLenguaje() {
+        return iDLenguaje;
+    }
 
-        SimpleAttributeSet simp = new SimpleAttributeSet();
-        if (palabrasClave.contains(palabraReservada)) {
-            StyleConstants.setBold(simp, true);
-            StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.blue);
 
-        } else {
-            StyleConstants.setBold(simp, false);
-            StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.black);
+    public void setiDLenguaje(String iDLenguaje) {
+        this.iDLenguaje = iDLenguaje;
+    }
+
+    public void crear() {
+
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = " insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)"
+                    + " values (?, ?, ?)";
+
+            db.setSentencia(query);
+            db.getSentencia().setString(1, titulo);
+            db.getSentencia().setString(2, descripcion);
+            db.getSentencia().setString(3, ejemplo);
+            db.getSentencia().setString(4, iDUsuario);
+            db.getSentencia().setString(5, iDLenguaje);
+
+            db.getSentencia().execute();
+            db.conexion().close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
 
-        return simp;
     }
 
     //Colocar los elementos en la lista de ingredientes
@@ -212,17 +273,50 @@ public class Ficha {
         for (String cadena : codigoDesarmado) {
             if (palabrasClave.contains(cadena) && !model.contains(cadena)) {
                 model.addElement(cadena);
-            }
-        }
         for (int i = 0; i < codigoDesarmado.length; i++) {
             if (!model.contains(codigoDesarmado[i])) {
                 model.removeElement(codigoDesarmado[i]);
             }
+           listaIngredientes.setModel(model);
         }
 
-        listaIngredientes.setModel(model);
+       
+    public boolean cargar() {
 
-    }
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = " select * from TFichas where"
+                    + " iD = ?";
+
+            db.setSentencia(query);
+            db.getSentencia().setInt(1, iD);
+
+            db.setResultados(db.getSentencia().executeQuery());
+
+            if (db.numeroColumnas() == 0) {
+                return false;
+
+            }
+
+            while (db.getResultados().next()) {
+                
+                iD = db.getResultados().getInt("iD");
+                titulo = db.getResultados().getString("titulo");
+                descripcion = db.getResultados().getString("descripcion");
+                iDUsuario = db.getResultados().getString("iDUsuario");
+                iDLenguaje = db.getResultados().getString("iDLenguaje");
+
+            }
+
+            return true;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+       // return false;
 
     public void mostrarTextoPopUp() {
         JLabel label = new JLabel("Esta es una ayuda de nosotros para ti");
@@ -240,13 +334,58 @@ public class Ficha {
 
     public static Ficha cargar() {
         return null;
+
     }
 
     public void editar() {
 
+
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = "UPDATE TFichas "
+                    + "SET titulo = ?, "
+                    + " descripcion = ?, "
+                    + " ejemplo = ?, "
+                    + "WHERE iD = ? ";
+
+            db.setSentencia(query);
+            db.getSentencia().setString(1, titulo);
+            db.getSentencia().setString(2, descripcion);
+            db.getSentencia().setString(3, ejemplo);
+            db.getSentencia().setInt(3, iD);
+
+            db.getSentencia().execute();
+            db.conexion().close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+
     }
 
     public void borrar() {
+
+
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = "DELETE FROM TFichas "
+                    + "WHERE iD = ? ";
+
+            db.setSentencia(query);
+            db.getSentencia().setInt(1, iD);
+
+            db.getSentencia().execute();
+            db.conexion().close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
 
     }
 

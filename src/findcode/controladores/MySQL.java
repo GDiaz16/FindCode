@@ -1,4 +1,4 @@
-package findcode.clases;
+package findcode.controladores;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,15 +7,15 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MySQL {
 
     private Connection conexion;
     private PreparedStatement sentencia;
+    ResultSet resultados;
 
     public MySQL() {
         
@@ -34,6 +34,14 @@ public class MySQL {
     
     public PreparedStatement getSentencia(){
         return sentencia;
+    }
+    
+    public ResultSet getResultados(){
+        return resultados;
+    }
+    
+    public void setResultados(ResultSet resultados){
+        this.resultados = resultados;
     }
     
     public void setSentencia(String sentencia){
@@ -62,6 +70,21 @@ public class MySQL {
             ex.printStackTrace();
         }
 
+    }
+    
+    public int numeroColumnas() {
+
+        int cont = 0;
+        try {
+            while (resultados.next()) {
+                cont++;
+            }
+            resultados.beforeFirst();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return cont;
     }
 
     public String leerArchivo(String nombre) {

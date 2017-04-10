@@ -1,12 +1,17 @@
 package findcode.GUI;
 
+import findcode.clases.Ficha;
+import javax.swing.JPanel;
+
 public class Resultado extends javax.swing.JPanel {
 
-    Resultados resultados;
+    Ficha ficha;
+    JPanel contendor;
     
-    public Resultado(Resultados resultados) {
+    public Resultado(JPanel contendor, Ficha ficha) {
         initComponents();
-        this.resultados = resultados;
+        this.contendor = contendor;
+        this.ficha = ficha;
     }
 
     /**
@@ -100,9 +105,9 @@ public class Resultado extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         
-        Ficha ficha = new Ficha();
-        resultados.getParent().add(ficha);
-        ficha.getParent().remove(resultados);
+        findcode.GUI.Ficha ficha = new findcode.GUI.Ficha();
+        contendor.getParent().add(ficha);
+        ficha.getParent().remove(contendor);
         ficha.getParent().validate();
         
     }//GEN-LAST:event_formMouseClicked

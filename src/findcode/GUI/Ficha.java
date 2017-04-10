@@ -9,17 +9,13 @@ package findcode.GUI;
  *
  * @author cesar
  */
-
 public class Ficha extends javax.swing.JPanel {
 
     private findcode.clases.Ficha ficha;
 
     public Ficha() {
         initComponents();
-        ficha = new findcode.clases.Ficha();
-        ficha.setListaIngredientes(listaIngredientes);
-        ficha.setPopUp(popUp);
-        ficha.setTextCodigo(textCodigo);
+        ficha = new findcode.clases.Ficha(popUp, listaIngredientes, textCodigo, listaPopUp);
 
     }
 
@@ -33,6 +29,8 @@ public class Ficha extends javax.swing.JPanel {
     private void initComponents() {
 
         popUp = new javax.swing.JPopupMenu();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listaPopUp = new javax.swing.JList<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -54,6 +52,15 @@ public class Ficha extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         listaIngredientes = new javax.swing.JList<>();
 
+        jScrollPane3.setMinimumSize(new java.awt.Dimension(50, 50));
+
+        listaPopUp.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(listaPopUp);
+
         setLayout(new java.awt.CardLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -65,11 +72,11 @@ public class Ficha extends javax.swing.JPanel {
         textCodigo.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         textCodigo.setText("Codigo");
         textCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                textCodigoMouseClicked(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 textCodigoMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                textCodigoMouseReleased(evt);
             }
         });
         textCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -201,7 +208,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(2, 2, 2)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -268,12 +275,14 @@ public class Ficha extends javax.swing.JPanel {
         ficha.textCodigoKeyReleased(evt);
     }//GEN-LAST:event_textCodigoKeyReleased
 
-    private void textCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textCodigoMouseClicked
-
-    }//GEN-LAST:event_textCodigoMouseClicked
+    private void textCodigoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textCodigoMouseReleased
+      
+           ficha.textCodigoMouseReleased(evt);
+       
+    }//GEN-LAST:event_textCodigoMouseReleased
 
     private void textCodigoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textCodigoMousePressed
-        ficha.textCodigoMousePressed(evt);
+        // TODO add your handling code here:
     }//GEN-LAST:event_textCodigoMousePressed
 
 
@@ -294,9 +303,11 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JList<String> listaIngredientes;
+    private javax.swing.JList<String> listaPopUp;
     private javax.swing.JPopupMenu popUp;
     private javax.swing.JTextPane textCodigo;
     // End of variables declaration//GEN-END:variables

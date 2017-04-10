@@ -2,7 +2,6 @@ package findcode.clases;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -18,14 +17,7 @@ import javax.swing.JList;
 import javax.swing.JPopupMenu;
 
 public class Ficha {
-
-    private int iD;
-    private String titulo;
-    private Sintaxis sintaxis;
-    private String descripcion;
-    private Sintaxis ejemplo;
-    private String lenguajeProgramacion;
-    private HashMap<Integer, Calificacion> calificacion;
+    
     HashSet<String> palabrasClave = new HashSet<>();
     String[] codigoDesarmado;
     DefaultListModel model;
@@ -177,23 +169,6 @@ public class Ficha {
         }
         listaIngredientes.setModel(model);
 
-    }
-
-  
-    public void crear() {
-    
-    }
-    
-    public static Ficha cargar() {
-        return null;
-    }
-    
-    public void editar() {
-    
-    }
-    
-    public void borrar() {
-    
     }
     
 }

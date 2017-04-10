@@ -1,18 +1,23 @@
 package findcode.GUI;
 
-import findcode.clases.Usuario;
+import findcode.clases.Utilidades;
 
 public class Inicio extends javax.swing.JPanel {
 
+    private findcode.clases.Usuario usuario;
+    
     public Inicio() {
         initComponents();
         jPanel5.setVisible(false);
+        Utilidades.personalizarCampo(jTextField1, "Buscar");
     }
     
-    public Inicio(Usuario usuario) {
+    public Inicio(findcode.clases.Usuario usuario) {
         initComponents();
+        this.usuario = usuario;
         jPanel6.setVisible(false);
-        jLabel6.setText(usuario.getNickname());
+        jButton8.setText(usuario.getNickname());
+        Utilidades.personalizarCampo(jTextField1, "Buscar");
     }
 
     @SuppressWarnings("unchecked")
@@ -29,7 +34,7 @@ public class Inicio extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -40,6 +45,7 @@ public class Inicio extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jTextField1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setMinimumSize(new java.awt.Dimension(0, 0));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -86,19 +92,23 @@ public class Inicio extends javax.swing.JPanel {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Usuario");
+        jButton8.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jButton8.setText("Usuario");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -106,9 +116,9 @@ public class Inicio extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addComponent(jButton5)
-                .addGap(8, 8, 8)
-                .addComponent(jLabel6)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGap(2, 2, 2)
+                .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -232,10 +242,19 @@ public class Inicio extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        Resultados resultado = new Resultados();
-        this.getParent().add(resultado);
-        resultado.getParent().remove(this);
-        resultado.getParent().validate();
+        String busqueda = jTextField1.getText();
+        String lenguaje = jComboBox1.getSelectedItem().toString();
+        
+        // Validar campos
+        if (Utilidades.validarCampo(jTextField1)) {
+            
+            Resultados resultado = new Resultados(busqueda, lenguaje);
+            this.getParent().add(resultado);
+            resultado.getParent().remove(this);
+            resultado.getParent().validate();
+
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -246,16 +265,25 @@ public class Inicio extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        
+        Usuario usuario = new Usuario(this.usuario);
+        this.getParent().add(usuario);
+        usuario.getParent().remove(this);
+        usuario.getParent().validate();
+        
+    }//GEN-LAST:event_jButton8ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

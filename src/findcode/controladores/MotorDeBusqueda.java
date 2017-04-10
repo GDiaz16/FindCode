@@ -1,5 +1,7 @@
-package findcode.clases;
+package findcode.controladores;
 
+import findcode.clases.Ficha;
+import findcode.clases.Usuario;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -18,9 +20,9 @@ public class MotorDeBusqueda {
         this.usuario = usuario;
     }
 
-    public HashMap<Integer, Ficha2> buscarPorTitulo() {
+    public HashMap<Integer, Ficha> buscarPorTitulo() {
 
-        HashMap<Integer, Ficha2> fichas = new HashMap<>();
+        HashMap<Integer, Ficha> fichas = new HashMap<>();
 
         try {
 
@@ -37,7 +39,7 @@ public class MotorDeBusqueda {
 
             while (db.getResultados().next()) {
 
-                Ficha2 ficha = new Ficha2(db.getResultados().getInt("iD"),
+                Ficha ficha = new Ficha(db.getResultados().getInt("iD"),
                         db.getResultados().getString("titulo"),
                         db.getResultados().getString("descripcion"),
                         db.getResultados().getString("ejemplo"),
@@ -56,9 +58,9 @@ public class MotorDeBusqueda {
         
     }
     
-    public HashMap<Integer, Ficha2> buscarPorUsuario() {
+    public HashMap<Integer, Ficha> buscarPorUsuario() {
 
-        HashMap<Integer, Ficha2> fichas = new HashMap<>();
+        HashMap<Integer, Ficha> fichas = new HashMap<>();
 
         try {
 
@@ -74,7 +76,7 @@ public class MotorDeBusqueda {
 
             while (db.getResultados().next()) {
 
-                Ficha2 ficha = new Ficha2(db.getResultados().getInt("iD"),
+                Ficha ficha = new Ficha(db.getResultados().getInt("iD"),
                         db.getResultados().getString("titulo"),
                         db.getResultados().getString("descripcion"),
                         db.getResultados().getString("ejemplo"),

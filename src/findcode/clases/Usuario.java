@@ -1,5 +1,6 @@
 package findcode.clases;
 
+import findcode.controladores.MySQL;
 import java.sql.SQLException;
 
 public class Usuario {

@@ -1,4 +1,4 @@
-package findcode.clases;
+package findcode.controladores;
 
 import java.io.BufferedReader;
 import java.io.File;

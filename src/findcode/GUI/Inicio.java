@@ -1,6 +1,6 @@
 package findcode.GUI;
 
-import findcode.clases.Utilidades;
+import findcode.controladores.Utilidades;
 
 public class Inicio extends javax.swing.JPanel {
 

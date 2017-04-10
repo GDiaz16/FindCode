@@ -12,11 +12,11 @@ package findcode.GUI;
 
 public class Ficha extends javax.swing.JPanel {
 
-    private findcode.clases.Ficha ficha;
+    private findcode.controladores.GestorFicha ficha;
     
     public Ficha() {
         initComponents();
-        ficha = new findcode.clases.Ficha();
+        ficha = new findcode.controladores.GestorFicha();
         ficha.setListaIngredientes(listaIngredientes);
         ficha.setPopUp(popUp);
         ficha.setTextCodigo(textCodigo);

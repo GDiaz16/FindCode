@@ -6,7 +6,7 @@
 package findcode.GUI;
 
 import findcode.clases.Usuario;
-import findcode.clases.Utilidades;
+import findcode.controladores.Utilidades;
 
 /**
  *

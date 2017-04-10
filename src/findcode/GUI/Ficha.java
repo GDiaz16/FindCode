@@ -9,32 +9,18 @@ package findcode.GUI;
  *
  * @author cesar
  */
-import java.awt.Color;
-import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.DefaultListModel;
-import javax.swing.text.StyleConstants;
-import java.util.HashSet;
-import java.util.StringTokenizer;
-import java.awt.event.MouseAdapter;
-import javax.swing.JLabel;
-import java.awt.Font;
 
 public class Ficha extends javax.swing.JPanel {
 
-    HashSet<String> palabrasClave = new HashSet<>();
-    String[] codigoDesarmado;
-    DefaultListModel model;
-
-    int caret;
-
+    private findcode.controladores.GestorFicha ficha;
+    
     public Ficha() {
         initComponents();
-        cargarPalabras();
-        cargarDatos();
+        ficha = new findcode.controladores.GestorFicha();
+        ficha.setListaIngredientes(listaIngredientes);
+        ficha.setPopUp(popUp);
+        ficha.setTextCodigo(textCodigo);
+
     }
 
     /**
@@ -54,19 +40,16 @@ public class Ficha extends javax.swing.JPanel {
         textCodigo = new javax.swing.JTextPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        inputText = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        listaIngredientes = new javax.swing.JList<>();
+        listaIngredientes = new javax.swing.JList<String>();
 
         setLayout(new java.awt.CardLayout());
 
@@ -114,9 +97,6 @@ public class Ficha extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel2.setText("Sintaxis");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -130,16 +110,6 @@ public class Ficha extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel5.setText("Codigos relacionados");
-
-        inputText.setColumns(20);
-        inputText.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        inputText.setRows(1);
-        inputText.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                inputTextKeyReleased(evt);
-            }
-        });
-        jScrollPane4.setViewportView(inputText);
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel4.setText("Lista de ingredientes");
@@ -165,23 +135,30 @@ public class Ficha extends javax.swing.JPanel {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("FindCode");
 
-        jLabel15.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Usuario");
+        jButton8.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jButton8.setText("Usuario");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+            .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 482, Short.MAX_VALUE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(jButton12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 482, Short.MAX_VALUE)
+                        .addComponent(jButton13))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton8)))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -196,9 +173,8 @@ public class Ficha extends javax.swing.JPanel {
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(9, 9, 9)
+                .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         listaIngredientes.setBorder(javax.swing.BorderFactory.createCompoundBorder());
@@ -215,13 +191,12 @@ public class Ficha extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane5)))
@@ -239,11 +214,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addGap(1, 1, 1)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,10 +233,6 @@ public class Ficha extends javax.swing.JPanel {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
 
-        Resultados resultado = new Resultados();
-        this.getParent().add(resultado);
-        resultado.getParent().remove(this);
-        resultado.getParent().validate();
 
     }//GEN-LAST:event_jButton12ActionPerformed
 
@@ -273,19 +240,8 @@ public class Ficha extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton13ActionPerformed
 
-    private void inputTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextKeyReleased
-
-    }//GEN-LAST:event_inputTextKeyReleased
-
     private void textCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCodigoKeyReleased
-        caret = textCodigo.getCaretPosition();
-        if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
-                && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN) {
-            separador(textCodigo.getText());
-            setText();
-        }
-        textCodigo.setCaretPosition(caret);
-        setListaIngredientes();
+        ficha.textCodigoKeyReleased(evt);
     }//GEN-LAST:event_textCodigoKeyReleased
 
     private void textCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textCodigoMouseClicked
@@ -293,134 +249,20 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_textCodigoMouseClicked
 
     private void textCodigoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textCodigoMousePressed
-
-        popUp.setVisible(true);
-        popUp.show(evt.getComponent(), evt.getX(), evt.getY());
-        System.out.println("click");
+        ficha.textCodigoMousePressed(evt);
     }//GEN-LAST:event_textCodigoMousePressed
-    MouseAdapter myMouseAdapter = new MouseAdapter() {
-    };
 
-    private void cargarDatos() {
-        JLabel label = new JLabel("Esta es una ayuda de nosotros para ti");
-        label.setForeground(Color.blue);
-        label.setBackground(Color.GREEN);
-        Font font = new Font("Comic Sans Ms", Font.BOLD, 14);
-        label.setFont(font);
-        popUp.add(label);
-    }
-
-    private void cargarPalabras() {
-
-        palabrasClave.add("abstract");
-        palabrasClave.add("class");
-        palabrasClave.add("const");
-        palabrasClave.add("continue");
-        palabrasClave.add("default");
-        palabrasClave.add("do");
-        palabrasClave.add("double");
-        palabrasClave.add("else");
-        palabrasClave.add("enum");
-        palabrasClave.add("extends");
-        palabrasClave.add("final");
-        palabrasClave.add("finally");
-        palabrasClave.add("float");
-        palabrasClave.add("for");
-        palabrasClave.add("goto");
-        palabrasClave.add("if");
-        palabrasClave.add("implements");
-        palabrasClave.add("import");
-        palabrasClave.add("instanceof");
-        palabrasClave.add("int");
-        palabrasClave.add("interface");
-        palabrasClave.add("long");
-        palabrasClave.add("native");
-        palabrasClave.add("new");
-        palabrasClave.add("package");
-        palabrasClave.add("private");
-        palabrasClave.add("protected");
-        palabrasClave.add("public");
-        palabrasClave.add("return");
-        palabrasClave.add("short");
-        palabrasClave.add("static");
-        palabrasClave.add("strictfp");
-        palabrasClave.add("super");
-        palabrasClave.add("switch");
-        palabrasClave.add("synchronized");
-        palabrasClave.add("this");
-        palabrasClave.add("throw");
-        palabrasClave.add("throws");
-        palabrasClave.add("transient");
-        palabrasClave.add("try");
-        palabrasClave.add("void");
-        palabrasClave.add("volatile");
-        palabrasClave.add("while");
-    }
-
-    private void separador(String codigo) {
-        StringTokenizer st = new StringTokenizer(codigo, " \t\n", true);
-        codigoDesarmado = new String[st.countTokens()];
-        int i = 0;
-        while (st.hasMoreTokens()) {
-            codigoDesarmado[i] = st.nextToken();
-            i++;
-        }
-
-    }
-
-    private void setText() {
-
-        textCodigo.setText("");
-        for (String cadena : codigoDesarmado) {
-            SimpleAttributeSet simp = formato(cadena);
-            try {
-
-                textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), cadena, simp);
-
-            } catch (BadLocationException ex) {
-                Logger.getLogger(Ficha.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    private SimpleAttributeSet formato(String palabraReservada) {
-
-        SimpleAttributeSet simp = new SimpleAttributeSet();
-        if (palabrasClave.contains(palabraReservada)) {
-            StyleConstants.setBold(simp, true);
-            StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.blue);
-
-        } else {
-            StyleConstants.setBold(simp, false);
-            StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.black);
-        }
-
-        return simp;
-    }
-
-    private void setListaIngredientes() {
-        model = new DefaultListModel();
-        for (String cadena : codigoDesarmado) {
-            if (palabrasClave.contains(cadena) && !model.contains(cadena)) {
-                model.addElement(cadena);
-            }
-        }
-        listaIngredientes.setModel(model);
-
-    }
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea inputText;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -430,10 +272,10 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JList<String> listaIngredientes;
     private javax.swing.JPopupMenu popUp;
     private javax.swing.JTextPane textCodigo;
     // End of variables declaration//GEN-END:variables
+
 }

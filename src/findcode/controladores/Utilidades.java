@@ -1,4 +1,4 @@
-package findcode.clases;
+package findcode.controladores;
 
 import java.awt.Color;
 import javax.swing.JTextField;

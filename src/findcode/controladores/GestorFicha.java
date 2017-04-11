@@ -14,45 +14,69 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.JDialog;
+import javax.swing.JInternalFrame;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.PopupMenuListener;
 
 public class GestorFicha {
 
     HashSet<String> palabrasClave = new HashSet<>();
+    HashSet<String> ingredientes = new HashSet<>();
     String[] codigoDesarmado;
     DefaultListModel model = new DefaultListModel();
+    ;
     DefaultListModel modelPopUp;
     private JTextPane textCodigo = new JTextPane();
     private JList<String> listaIngredientes = new JList<>();
     private JList<String> listaPopUp;
     private JPopupMenu popUp = new JPopupMenu();
+    private JDialog ventanaGuardar;
+    private JTextArea textComentario;
+    private JTextField textTitulo;
+    JMenuItem cargar;
+    JMenuItem guardar;
     int caret;
     String seleccion;
 
-    public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo, JList listaPopUp) {
+    public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
+            JList listaPopUp, JMenuItem cargar, JMenuItem guardar, JDialog ventanaGuadar,JTextArea textComentario,
+            JTextField textTitulo) {
         this.textCodigo = textCodigo;
         this.listaIngredientes = listaIngredientes;
         this.popUp = popUp;
         this.listaPopUp = listaPopUp;
+        this.cargar = cargar;
+        this.guardar = guardar;
+        this.ventanaGuardar = ventanaGuadar;
+        this.textComentario = textComentario;
+        this.textTitulo = textTitulo;
         cargarPalabras();
-        listEvent();
+        cargarListaPopUp();
         //setListaIngredientes();
-        
+
     }
 
     //capturar el evento de escribir en el panel y dejar el cursor en el lugar al que se mueva
     public void textCodigoKeyReleased(java.awt.event.KeyEvent evt) {
         caret = textCodigo.getCaretPosition();
         if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
-                && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN&&evt.getKeyCode() != KeyEvent.SHIFT_DOWN_MASK) {
+                && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_SHIFT) {
             separador(textCodigo.getText());
             setText();
+            //setListaIngredientes(1);
         }
+
         textCodigo.setCaretPosition(caret);
-        setListaIngredientes();
+
     }
 
     //mostrar pop UP con el click 
@@ -78,33 +102,13 @@ public class GestorFicha {
     //cargar datos que se van a mostrar en el popUP
     public void cargarListaPopUp() {
         seleccion = textCodigo.getSelectedText();
-        modelPopUp = new DefaultListModel();
-        modelPopUp.addElement("Guardar");
-        modelPopUp.addElement("Crear");
-        listaPopUp.setModel(modelPopUp);
-        popUp.add(listaPopUp);
+        System.out.println(seleccion);
+        popUp.add(cargar);
+        popUp.add(guardar);
 
     }
 
-    public void listEvent() {
-        listaPopUp.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent evt) {
-                if (evt.getValueIsAdjusting()) {
-                    if (listaPopUp.getSelectedIndex() == 0) {
-                        System.out.println("se selecciono el primer elemento");
-                        model.addElement(seleccion);
-                    }
-                    if (listaPopUp.getSelectedIndex() == 1) {
-                        System.out.println("se selecciono el segundo elemento");
-                    }
-                }
-
-            }
-        });
-
-    }
-
-    private void cargarPalabras() {
+    public void cargarPalabras() {
 
         palabrasClave.add("abstract");
         palabrasClave.add("class");
@@ -151,7 +155,7 @@ public class GestorFicha {
         palabrasClave.add("while");
     }
 
-    private void separador(String codigo) {
+    public void separador(String codigo) {
         StringTokenizer st = new StringTokenizer(codigo, " \t\n", true);
         codigoDesarmado = new String[st.countTokens()];
         int i = 0;
@@ -162,7 +166,7 @@ public class GestorFicha {
 
     }
 
-    private void setText() {
+    public void setText() {
 
         textCodigo.setText("");
         for (String cadena : codigoDesarmado) {
@@ -178,7 +182,7 @@ public class GestorFicha {
         }
     }
 
-    private SimpleAttributeSet formato(String palabraReservada) {
+    public SimpleAttributeSet formato(String palabraReservada) {
 
         SimpleAttributeSet simp = new SimpleAttributeSet();
         if (palabrasClave.contains(palabraReservada)) {
@@ -195,6 +199,7 @@ public class GestorFicha {
         return simp;
     }
 
+    //Texto a mostrar cuando se le de clic izquierdo
     public void mostrarTextoPopUp() {
         JLabel label = new JLabel("Esta es una ayuda de nosotros para ti");
         label.setForeground(Color.blue);
@@ -205,18 +210,56 @@ public class GestorFicha {
 
     }
 
-    private void setListaIngredientes() {
-        for (String cadena : codigoDesarmado) {
-            if (palabrasClave.contains(cadena) && !model.contains(cadena)) {
+    public void setListaPalabrasClave() {
+
+//        for (String cadena : codigoDesarmado) {
+//
+//            if (palabrasClave.contains(cadena) && !palabrasClaveTemporal.contains(cadena)) {
+//                palabrasClaveTemporal.add(cadena);
+//            }
+//        }
+    }
+
+    public void setListaSeleccion(String titulo) {
+        if (!ingredientes.contains(titulo) && seleccion != null) {
+            ingredientes.add(titulo);
+        }
+
+    }
+
+    public void setListaIngredientes() {
+        
+        for (String cadena : ingredientes) {
+            if (!model.contains(cadena)) {
                 model.addElement(cadena);
             }
         }
-        for (int i = 0; i < codigoDesarmado.length; i++) {
-            if (!model.contains(codigoDesarmado[i])) {
-                model.removeElement(codigoDesarmado[i]);
-            }
-            listaIngredientes.setModel(model);
-        }
+
+        listaIngredientes.setModel(model);
+    }
+
+    public void confirmarLista() {
+//        for (String cadena : ingredientes) {
+//            if (!palabrasClaveTemporal.contains(cadena)&&!ingredientes.isEmpty()) {
+//                ingredientes.remove(cadena);
+//            }
+//
+//        }
+
+    }
+
+    public void itemGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        System.out.println("Guardar presionado...");
+        //String titulo = JOptionPane.showInputDialog("Ingrese titulo del comentario");
+        
+        ventanaGuardar.add(textTitulo);
+        ventanaGuardar.add(textComentario);
+        ventanaGuardar.setLocationRelativeTo(textCodigo);
+        ventanaGuardar.setSize(300, 200);
+        ventanaGuardar.setVisible(true);
+       
+        //setListaSeleccion(titulo);
+        setListaIngredientes();
     }
 
 }

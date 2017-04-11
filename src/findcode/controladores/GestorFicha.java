@@ -39,7 +39,7 @@ public class GestorFicha {
         this.listaPopUp = listaPopUp;
         cargarPalabras();
         listEvent();
-        setListaIngredientes();
+        //setListaIngredientes();
         
     }
 

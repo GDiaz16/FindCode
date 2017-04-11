@@ -40,6 +40,7 @@ public class GestorFicha {
         cargarPalabras();
         listEvent();
         setListaIngredientes();
+        
     }
 
     //capturar el evento de escribir en el panel y dejar el cursor en el lugar al que se mueva

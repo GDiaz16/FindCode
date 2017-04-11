@@ -29,6 +29,7 @@ public class Ficha {
     
     public Ficha() {
 
+        
     }
 
     public Ficha(int iD, String titulo, String descripcion, String ejemplo, String iDUsuario, String iDLenguaje) {

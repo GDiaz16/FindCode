@@ -1,5 +1,12 @@
 package findcode.clases;
 
+
+import java.util.HashMap;
+import java.util.HashSet;
+import javax.swing.DefaultListModel;
+import javax.swing.JTextPane;
+import javax.swing.JList;
+import javax.swing.JPopupMenu;
 import findcode.controladores.MySQL;
 import java.sql.SQLException;
 
@@ -8,9 +15,22 @@ public class Ficha {
     private int iD;
     private String titulo;
     private String descripcion;
+    private String lenguajeProgramacion;
+    private HashMap<Integer, Calificacion> calificacion;
     private String ejemplo;
     private String iDUsuario;
     private String iDLenguaje;
+    HashSet<String> palabrasClave = new HashSet<>();
+    String[] codigoDesarmado;
+    DefaultListModel model = new DefaultListModel();
+    DefaultListModel modelPopUp;
+    int caret;
+    String seleccion;
+    
+    public Ficha() {
+
+        
+    }
 
     public Ficha(int iD, String titulo, String descripcion, String ejemplo, String iDUsuario, String iDLenguaje) {
         this.iD = iD;
@@ -110,10 +130,11 @@ public class Ficha {
 
             if (db.numeroColumnas() == 0) {
                 return false;
+
             }
 
             while (db.getResultados().next()) {
-                
+
                 iD = db.getResultados().getInt("iD");
                 titulo = db.getResultados().getString("titulo");
                 descripcion = db.getResultados().getString("descripcion");
@@ -129,7 +150,6 @@ public class Ficha {
         }
 
         return false;
-
     }
 
     public void editar() {

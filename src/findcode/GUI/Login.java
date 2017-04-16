@@ -71,6 +71,7 @@ public class Login extends javax.swing.JPanel {
         jTextField1.setForeground(new java.awt.Color(153, 153, 153));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Correo o Nickname");
+        jTextField1.setFocusCycleRoot(true);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -195,17 +196,16 @@ public class Login extends javax.swing.JPanel {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
-        // Obtener texto de los campos
-        String correo = jTextField1.getText();
-        String password = String.valueOf(jPasswordField1.getPassword());
 
+        // Obtener texto de los campos
+        String password = String.valueOf(jPasswordField1.getPassword());
+        String correo = jTextField1.getText();
         // Validar campos
-        if (Utilidades.validarCampo(jTextField1) &&
-                Utilidades.validarCampo(jPasswordField1)) {
-            
+        if (Utilidades.validarCampo(jTextField1)
+                && Utilidades.validarCampo(jPasswordField1)) {
+
             Usuario usuario = new Usuario(correo, password);
-            
+
             if(usuario.cargar()){
                 
                 findcode.controladores.Utilidades.cambiarPantalla(this, new Inicio(this, usuario));
@@ -213,7 +213,7 @@ public class Login extends javax.swing.JPanel {
             }
 
         }
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

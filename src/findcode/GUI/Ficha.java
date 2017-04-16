@@ -5,16 +5,21 @@
  */
 package findcode.GUI;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author cesar
  */
 public class Ficha extends javax.swing.JPanel {
 
+    private JPanel contenedor;
+    private findcode.clases.Usuario usuario;
     private findcode.controladores.GestorFicha ficha;
     
-    public Ficha() {
+    public Ficha(JPanel contenedor) {
         initComponents();
+        this.contenedor = contenedor;
 
         //ficha = new findcode.clases.Ficha(popUp, listaIngredientes, textCodigo, listaPopUp);
 
@@ -245,11 +250,14 @@ public class Ficha extends javax.swing.JPanel {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
 
+        findcode.controladores.Utilidades.cambiarPantalla(this,contenedor);
 
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
+        
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Inicio());
+        
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void textCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCodigoKeyReleased
@@ -267,7 +275,9 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_textCodigoMousePressed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, this.usuario));
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
 

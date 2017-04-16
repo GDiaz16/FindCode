@@ -1,18 +1,20 @@
 package findcode.GUI;
 
-import findcode.clases.Ficha;
 import findcode.controladores.MotorDeBusqueda;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JPanel;
 
 public class Usuario extends javax.swing.JPanel {
 
-    private HashMap<Integer, Ficha> fichas;
+    private JPanel contenedor;
+    private findcode.clases.Usuario usuario;
+    private HashMap<Integer, findcode.clases.Ficha> fichas;
     private ArrayList<Resultado> resultados;
-    findcode.clases.Usuario usuario;
     
-    public Usuario(findcode.clases.Usuario usuario) {
+    public Usuario(JPanel contenedor, findcode.clases.Usuario usuario) {
         initComponents();
+        this.contenedor = contenedor;
         this.usuario = usuario;
         busqueda();
     }
@@ -22,7 +24,7 @@ public class Usuario extends javax.swing.JPanel {
         resultados = new ArrayList<>();
         fichas = new MotorDeBusqueda(usuario).buscarPorUsuario();
         
-        for (Ficha ficha : fichas.values()) {
+        for (findcode.clases.Ficha ficha : fichas.values()) {
             resultados.add(new Resultado(this, ficha));
         }
         
@@ -175,15 +177,14 @@ public class Usuario extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
-        Inicio inicio = new Inicio();
-        this.getParent().add(inicio);
-        inicio.getParent().remove(this);
-        inicio.getParent().validate();
+        findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+       
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Inicio());
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -192,10 +193,7 @@ public class Usuario extends javax.swing.JPanel {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         
-        findcode.GUI.Ficha ficha = new findcode.GUI.Ficha();
-        this.getParent().add(ficha);
-        ficha.getParent().remove(this);
-        ficha.getParent().validate();
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Ficha(this));
         
     }//GEN-LAST:event_jButton9ActionPerformed
 

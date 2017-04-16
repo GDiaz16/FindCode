@@ -4,16 +4,20 @@ import findcode.clases.Ficha;
 import findcode.controladores.MotorDeBusqueda;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JPanel;
 
 public class Resultados extends javax.swing.JPanel {
 
+    private JPanel contenedor;
+    private findcode.clases.Usuario usuario;
     private HashMap<Integer, Ficha> fichas;
     private ArrayList<Resultado> resultados;
     private String busqueda;
     private String lenguaje;
     
-    public Resultados(String busqueda, String lenguaje) {
+    public Resultados(JPanel contenedor, String busqueda, String lenguaje) {
         initComponents();
+        this.contenedor = contenedor;
         this.busqueda = busqueda;
         this.lenguaje = lenguaje;
         busqueda();
@@ -25,7 +29,7 @@ public class Resultados extends javax.swing.JPanel {
         fichas = new MotorDeBusqueda(busqueda, lenguaje).buscarPorTitulo();
         
         for (Ficha ficha : fichas.values()) {
-            resultados.add(new Resultado(this, ficha));
+            resultados.add(new Resultado(contenedor, ficha));
         }
         
         for (Resultado resultado : resultados) {
@@ -150,18 +154,20 @@ public class Resultados extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
-        Inicio inicio = new Inicio();
-        this.getParent().add(inicio);
-        inicio.getParent().remove(this);
-        inicio.getParent().validate();
+        findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Inicio());
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, this.usuario));
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
 

@@ -7,6 +7,7 @@ package findcode.GUI;
 
 import findcode.clases.Usuario;
 import findcode.controladores.Utilidades;
+import javax.swing.JPanel;
 
 /**
  *
@@ -14,11 +15,11 @@ import findcode.controladores.Utilidades;
  */
 public class Login extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Login
-     */
-    public Login() {
+    private JPanel contenedor;
+    
+    public Login(JPanel contenedor) {
         initComponents();
+        this.contenedor = contenedor;
         Utilidades.personalizarCampo(jTextField1, "Correo o NickName");
         Utilidades.personalizarCampo(jPasswordField1, "Contraseña");
     }
@@ -207,10 +208,7 @@ public class Login extends javax.swing.JPanel {
             
             if(usuario.cargar()){
                 
-                Inicio inicio = new Inicio(usuario);
-                this.getParent().add(inicio);
-                inicio.getParent().remove(this);
-                inicio.getParent().validate();
+                findcode.controladores.Utilidades.cambiarPantalla(this, new Inicio(this, usuario));
                 
             }
 
@@ -224,10 +222,7 @@ public class Login extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-        Inicio inicio = new Inicio();
-        this.getParent().add(inicio);
-        inicio.getParent().remove(this);
-        inicio.getParent().validate();
+        findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
         
     }//GEN-LAST:event_jButton5ActionPerformed
 

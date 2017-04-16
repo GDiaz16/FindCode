@@ -105,10 +105,7 @@ public class Resultado extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         
-        findcode.GUI.Ficha ficha = new findcode.GUI.Ficha();
-        contendor.getParent().add(ficha);
-        ficha.getParent().remove(contendor);
-        ficha.getParent().validate();
+        findcode.controladores.Utilidades.cambiarPantalla(contendor, new findcode.GUI.Ficha(contendor));
         
     }//GEN-LAST:event_formMouseClicked
 

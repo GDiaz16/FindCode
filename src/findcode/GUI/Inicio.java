@@ -1,9 +1,11 @@
 package findcode.GUI;
 
 import findcode.controladores.Utilidades;
+import javax.swing.JPanel;
 
 public class Inicio extends javax.swing.JPanel {
 
+    private JPanel contenedor;
     private findcode.clases.Usuario usuario;
     
     public Inicio() {
@@ -12,8 +14,9 @@ public class Inicio extends javax.swing.JPanel {
         Utilidades.personalizarCampo(jTextField1, "Buscar");
     }
     
-    public Inicio(findcode.clases.Usuario usuario) {
+    public Inicio(JPanel contenedor, findcode.clases.Usuario usuario) {
         initComponents();
+        this.contenedor = contenedor;
         this.usuario = usuario;
         jPanel6.setVisible(false);
         jButton8.setText(usuario.getNickname());
@@ -41,6 +44,11 @@ public class Inicio extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
 
+        addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                formHierarchyChanged(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -128,6 +136,11 @@ public class Inicio extends javax.swing.JPanel {
 
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton2.setText("Iniciar sesion");
+        jButton2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                srdfg(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -214,29 +227,21 @@ public class Inicio extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        Registro registro = new Registro();
-        this.getParent().add(registro);
-        registro.getParent().remove(this);
-        registro.getParent().validate();
+        
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Registro(this));
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        Login login = new Login();
-        this.getParent().add(login);
-        login.getParent().remove(this);
-        login.getParent().validate();
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Login(this));
+        
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         
-        Inicio inicio = new Inicio();
-        this.getParent().add(inicio);
-        inicio.getParent().remove(this);
-        inicio.getParent().validate();
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Inicio());
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -247,12 +252,9 @@ public class Inicio extends javax.swing.JPanel {
         
         // Validar campos
         if (Utilidades.validarCampo(jTextField1)) {
-            
-            Resultados resultado = new Resultados(busqueda, lenguaje);
-            this.getParent().add(resultado);
-            resultado.getParent().remove(this);
-            resultado.getParent().validate();
 
+            findcode.controladores.Utilidades.cambiarPantalla(this, new Resultados(this, busqueda, lenguaje));
+            
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -267,12 +269,17 @@ public class Inicio extends javax.swing.JPanel {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         
-        Usuario usuario = new Usuario(this.usuario);
-        this.getParent().add(usuario);
-        usuario.getParent().remove(this);
-        usuario.getParent().validate();
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, this.usuario));
         
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void srdfg(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_srdfg
+        // TODO add your handling code here:
+    }//GEN-LAST:event_srdfg
+
+    private void formHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formHierarchyChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formHierarchyChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

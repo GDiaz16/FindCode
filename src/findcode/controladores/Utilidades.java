@@ -1,6 +1,7 @@
 package findcode.controladores;
 
 import java.awt.Color;
+import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 public class Utilidades {
@@ -78,6 +79,15 @@ public class Utilidades {
             return false;
         }
         return true;
+    }
+    
+    public static void cambiarPantalla(JComponent anterior, JComponent nuevo){
+        
+        anterior.getParent().add(nuevo);
+        nuevo.getParent().remove(anterior);
+        nuevo.getParent().validate();
+        nuevo.updateUI();
+        
     }
     
 }

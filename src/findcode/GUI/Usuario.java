@@ -193,7 +193,7 @@ public class Usuario extends javax.swing.JPanel {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         
-        findcode.controladores.Utilidades.cambiarPantalla(this, new Ficha(this));
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Ficha(this, new findcode.clases.Ficha()));
         
     }//GEN-LAST:event_jButton9ActionPerformed
 

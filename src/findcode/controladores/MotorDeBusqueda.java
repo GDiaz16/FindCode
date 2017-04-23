@@ -29,10 +29,10 @@ public class MotorDeBusqueda {
             MySQL db = new MySQL();
 
             String query = " select * from TFichas where"
-                    + " titulo = ? AND iDLenguaje = ? ";
+                    + " titulo LIKE ? AND iDLenguaje = ? ";
 
             db.setSentencia(query);
-            db.getSentencia().setString(1, busqueda);
+            db.getSentencia().setString(1, "%"+busqueda+"%");
             db.getSentencia().setString(2, lenguaje);
 
             db.setResultados(db.getSentencia().executeQuery());

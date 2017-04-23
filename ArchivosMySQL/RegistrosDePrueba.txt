@@ -14,23 +14,23 @@ insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
             "ceatorresar@unal.edu.co", "Java")
 
 insert into TComentarios (mensaje, iDUsuario, iDFicha) 
-    values ("Esta ficha es muy buena", "ceatorresar@unal.edu.co", 4)
+    values ("Esta ficha es muy buena", "ceatorresar@unal.edu.co", 1)
 
 insert into TCalificacion (calificacion, iDFicha, iDUsuario) 
-    values (5, 4, "ceatorresar@unal.edu.co")
+    values (5, 1, "ceatorresar@unal.edu.co")
 
 
 insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
     values ("Mostrar mensaje emergente", 
             "Permite mostrar una ventanita emergente con un mensaje dentro", 
-            "JOptionPane.ShowMessageDialog(this, "Hola mundo")", 
+            "JOptionPane.ShowMessageDialog(this, \"Hola mundo\")",
             "engdiazmu@unal.edu.co", "Java")
 
 
 insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
     values ("Mostrar entrada de texto emergente", 
             "Permite mostrar una ventanita emergente con un mensaje dentro y una opcion para ingresar texto", 
-            "JOptionPane.ShowInputDialog(this, "Hola mundo")", 
+            "JOptionPane.ShowInputDialog(this, \"Hola mundo\")",
             "engdiazmu@unal.edu.co", "Java")
 
 insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
@@ -45,8 +45,8 @@ insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
             "public void laFormula(){
 		boolean dignidad = true;
 		if(dignidad){
-			System.out.println("caigale");	
-		}else{System.out.println("no lo haga compa");
+			System.out.println(\"caigale\");	
+		}else{System.out.println(\"no lo haga compa\");
 		}
 		}", 
             "engdiazmu@unal.edu.co", "Java")
@@ -100,16 +100,16 @@ insert into TPalabraReservada (iD, iDLenguaje)
     values ("body", "HTML")
 
 insert into TComentarios (mensaje, iDUsuario, iDFicha) 
-    values ("Este programa es la polla en vinagre", "engdiazmu@unal.edu.co", 5)
+    values ("Este programa es la polla en vinagre", "engdiazmu@unal.edu.co", 3)
 
 insert into TComentarios (mensaje, iDUsuario, iDFicha) 
-    values ("La ostia tio, te la has flipado con esta ficha", "jlarandam@unal.edu.co", 6)
+    values ("La ostia tio, te la has flipado con esta ficha", "jlarandam@unal.edu.co", 4)
 
 insert into TComentarios (mensaje, iDUsuario, iDFicha) 
-    values ("Que bien programas cesar, cuando me das una oportunidad :v", "sofiapatacon@unal.edu.co", 7)
+    values ("Que bien programas cesar, cuando me das una oportunidad :v", "sofiapatacon@unal.edu.co", 5)
 
 insert into TComentarios (mensaje, iDUsuario, iDFicha) 
-    values ("Gonzalo, capullo, quiero un hijo tuyo, que buen codigo", "alejandra@unal.edu.co", 7)
+    values ("Gonzalo, capullo, quiero un hijo tuyo, que buen codigo", "alejandra@unal.edu.co", 3)
 
 
 

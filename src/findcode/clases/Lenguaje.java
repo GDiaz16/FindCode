@@ -2,6 +2,7 @@ package findcode.clases;
 
 import findcode.controladores.MySQL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Lenguaje {
 
@@ -69,6 +70,31 @@ public class Lenguaje {
         }
 
         return false;
+
+    }
+    
+    public static ArrayList<String> cargarTodos() {
+
+        ArrayList<String> resultados = new ArrayList<>();
+        
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = " select * from TLenguaje";
+
+            db.setSentencia(query);
+            db.setResultados(db.getSentencia().executeQuery());
+
+            while (db.getResultados().next()) {
+                resultados.add(db.getResultados().getString("iD"));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return resultados;
 
     }
     

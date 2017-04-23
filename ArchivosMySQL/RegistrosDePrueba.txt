@@ -1,0 +1,20 @@
+insert into TUsuarios (iD, nickName, nombre, password) 
+    values ("ceatorresar@unal.edu.co", "cerciber", "cesar torres", "123456789")
+
+insert into TLenguaje (iD)
+    values ("Java")
+
+insert into TPalabraReservada (iD, iDLenguaje)
+    values ("public", "Java")
+
+insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
+    values ("Imprimir en consola", 
+            "Permite escribir una cadena de caracteres en la consola", 
+            "System.out.println(\"Holaa mundoooooo :D\");", 
+            "ceatorresar@unal.edu.co", "Java")
+
+insert into TComentarios (mensaje, iDUsuario, iDFicha) 
+    values ("Esta ficha es muy buena", "ceatorresar@unal.edu.co", 4)
+
+insert into TCalificacion (calificacion, iDFicha, iDUsuario) 
+    values (5, 4, "ceatorresar@unal.edu.co")

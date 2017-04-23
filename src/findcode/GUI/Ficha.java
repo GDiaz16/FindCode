@@ -6,12 +6,14 @@ public class Ficha extends javax.swing.JPanel {
 
     private JPanel contenedor;
     private findcode.clases.Usuario usuario;
+    findcode.clases.Ficha ficha;
     private findcode.controladores.GestorFicha gestorFicha;
 
-    public Ficha(JPanel contenedor) {
+    public Ficha(JPanel contenedor, findcode.clases.Ficha ficha) {
 
         initComponents();
         this.contenedor = contenedor;
+        this.ficha = ficha;
         jButton8.setVisible(false);
         jButton13.setVisible(false);
 
@@ -21,9 +23,9 @@ public class Ficha extends javax.swing.JPanel {
 
     }
     
-    public Ficha(JPanel contenedor, findcode.clases.Usuario usuario) {
+    public Ficha(JPanel contenedor, findcode.clases.Usuario usuario, findcode.clases.Ficha ficha) {
 
-        this(contenedor);
+        this(contenedor, ficha);
         this.usuario = usuario;
         jButton8.setVisible(true);
         jButton13.setVisible(true);

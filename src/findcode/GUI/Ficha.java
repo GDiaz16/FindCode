@@ -12,11 +12,22 @@ public class Ficha extends javax.swing.JPanel {
 
         initComponents();
         this.contenedor = contenedor;
+        jButton8.setVisible(false);
+        jButton13.setVisible(false);
 
         //ficha = new findcode.clases.Ficha(popUp, listaIngredientes, textCodigo, listaPopUp);
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, ventanaGuardar, textComentario, textTitulo);
 
+    }
+    
+    public Ficha(JPanel contenedor, findcode.clases.Usuario usuario) {
+
+        this(contenedor);
+        this.usuario = usuario;
+        jButton8.setVisible(true);
+        jButton13.setVisible(true);
+        
     }
 
     @SuppressWarnings("unchecked")

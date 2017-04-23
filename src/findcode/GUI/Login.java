@@ -10,10 +10,12 @@ public class Login extends javax.swing.JPanel {
     private JPanel contenedor;
     
     public Login(JPanel contenedor) {
+        
         initComponents();
         this.contenedor = contenedor;
         Utilidades.personalizarCampo(jTextField1, "Correo o NickName");
         Utilidades.personalizarCampo(jPasswordField1, "Contraseña");
+        
     }
 
     @SuppressWarnings("unchecked")

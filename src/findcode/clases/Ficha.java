@@ -96,7 +96,7 @@ public class Ficha {
             MySQL db = new MySQL();
 
             String query = " insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)"
-                    + " values (?, ?, ?)";
+                    + " values (?, ?, ?, ?, ?)";
 
             db.setSentencia(query);
             db.getSentencia().setString(1, titulo);

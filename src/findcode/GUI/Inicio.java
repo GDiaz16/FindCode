@@ -284,7 +284,11 @@ public class Inicio extends javax.swing.JPanel {
         // Validar campos
         if (Utilidades.validarCampo(jTextField1)) {
 
-            findcode.controladores.Utilidades.cambiarPantalla(this, new Resultados(this, busqueda, lenguaje));
+            if (usuario == null) {
+                findcode.controladores.Utilidades.cambiarPantalla(this, new Resultados(this, busqueda, lenguaje));
+            } else {
+                findcode.controladores.Utilidades.cambiarPantalla(this, new Resultados(this, usuario, busqueda, lenguaje));
+            }
 
         }
 

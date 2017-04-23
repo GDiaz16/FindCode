@@ -41,8 +41,14 @@ public class Resultados extends javax.swing.JPanel {
         resultados = new ArrayList<>();
         fichas = new MotorDeBusqueda(busqueda, lenguaje).buscarPorTitulo();
         
-        for (Ficha ficha : fichas.values()) {
-            resultados.add(new Resultado(contenedor, ficha));
+        if (usuario == null) {
+            for (Ficha ficha : fichas.values()) {
+                resultados.add(new Resultado(this, ficha));
+            }
+        } else {
+            for (Ficha ficha : fichas.values()) {
+                resultados.add(new Resultado(this, usuario, ficha));
+            }
         }
         
         for (Resultado resultado : resultados) {

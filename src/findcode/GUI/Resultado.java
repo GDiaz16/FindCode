@@ -33,6 +33,7 @@ public class Resultado extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(32767, 135));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -110,7 +111,11 @@ public class Resultado extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         
-        findcode.controladores.Utilidades.cambiarPantalla(contendor, new findcode.GUI.Ficha(contendor));
+        if (usuario == null) {
+            findcode.controladores.Utilidades.cambiarPantalla(contendor, new findcode.GUI.Ficha(contendor));
+        } else {
+            findcode.controladores.Utilidades.cambiarPantalla(contendor, new findcode.GUI.Ficha(contendor, usuario));
+        }
         
     }//GEN-LAST:event_formMouseClicked
 

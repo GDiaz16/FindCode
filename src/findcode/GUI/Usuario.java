@@ -19,7 +19,7 @@ public class Usuario extends javax.swing.JPanel {
         busqueda();
     }
     
-    public void busqueda(){
+    public final void busqueda(){
         
         resultados = new ArrayList<>();
         fichas = new MotorDeBusqueda(usuario).buscarPorUsuario();

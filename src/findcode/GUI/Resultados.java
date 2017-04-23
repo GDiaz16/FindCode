@@ -16,14 +16,27 @@ public class Resultados extends javax.swing.JPanel {
     private String lenguaje;
     
     public Resultados(JPanel contenedor, String busqueda, String lenguaje) {
+        
         initComponents();
+        jButton7.setVisible(false);
+        jButton8.setVisible(false);
         this.contenedor = contenedor;
         this.busqueda = busqueda;
         this.lenguaje = lenguaje;
         busqueda();
+        
     }
     
-    public void busqueda(){
+    public Resultados(JPanel contenedor, findcode.clases.Usuario usuario, String busqueda, String lenguaje) {
+        
+        this(contenedor, busqueda, lenguaje);
+        jButton7.setVisible(true);
+        jButton8.setVisible(true);
+        this.usuario = usuario;
+
+    }
+    
+    public final void busqueda(){
         
         resultados = new ArrayList<>();
         fichas = new MotorDeBusqueda(busqueda, lenguaje).buscarPorTitulo();

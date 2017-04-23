@@ -9,18 +9,22 @@ public class Inicio extends javax.swing.JPanel {
     private findcode.clases.Usuario usuario;
 
     public Inicio() {
+        
         initComponents();
         jPanel5.setVisible(false);
         Utilidades.personalizarCampo(jTextField1, "Buscar");
+        
     }
 
     public Inicio(JPanel contenedor, findcode.clases.Usuario usuario) {
-        initComponents();
+        
+        this();
         this.contenedor = contenedor;
         this.usuario = usuario;
+        jPanel5.setVisible(true);
         jPanel6.setVisible(false);
         jButton8.setText(usuario.getNickname());
-        Utilidades.personalizarCampo(jTextField1, "Buscar");
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -263,7 +267,6 @@ public class Inicio extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         findcode.controladores.Utilidades.cambiarPantalla(this, new Login(this));
-
 
     }//GEN-LAST:event_jButton2ActionPerformed
 

@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
 import javax.swing.JPanel;
 
@@ -13,6 +14,7 @@ public class Inicio extends javax.swing.JPanel {
         initComponents();
         jPanel5.setVisible(false);
         Utilidades.personalizarCampo(jTextField1, "Buscar");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Lenguaje.cargarTodos().toArray()));
         
     }
 
@@ -69,7 +71,6 @@ public class Inicio extends javax.swing.JPanel {
         });
 
         jComboBox1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Java", "C++", "HTML", "JavaScript" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);

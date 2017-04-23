@@ -10,6 +10,7 @@ public class Registro extends javax.swing.JPanel {
     private JPanel contenedor;
     
     public Registro(JPanel contenedor) {
+        
         initComponents();
         this.contenedor = contenedor;
         Utilidades.personalizarCampo(jTextField1, "Nombre");
@@ -17,6 +18,7 @@ public class Registro extends javax.swing.JPanel {
         Utilidades.personalizarCampo(jTextField6, "nickName");
         Utilidades.personalizarCampo(jPasswordField1, "Contraseña");
         Utilidades.personalizarCampo(jPasswordField3, "Contraseña");
+        
     }
 
     @SuppressWarnings("unchecked")

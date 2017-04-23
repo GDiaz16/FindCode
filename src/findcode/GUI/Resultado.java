@@ -7,11 +7,21 @@ public class Resultado extends javax.swing.JPanel {
 
     Ficha ficha;
     JPanel contendor;
+    private findcode.clases.Usuario usuario;
     
     public Resultado(JPanel contendor, Ficha ficha) {
+        
         initComponents();
         this.contendor = contendor;
         this.ficha = ficha;
+        
+    }
+    
+    public Resultado(JPanel contendor, findcode.clases.Usuario usuario, Ficha ficha) {
+        
+        this(contendor, ficha);
+        this.usuario = usuario;
+        
     }
 
     @SuppressWarnings("unchecked")

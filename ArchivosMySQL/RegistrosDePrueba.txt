@@ -1,80 +1,21 @@
-insert into TUsuarios (iD, nickName, nombre, password) 
-    values ("ceatorresar@unal.edu.co", "cerciber", "cesar torres", "123456789");
-
-insert into TUsuarios (iD, nickName, nombre, password) 
-    values ("engdiazmu@unal.edu.co", "GDiaz16", "Gonzalo Diaz", "159786324");
-
-insert into TUsuarios (iD, nickName, nombre, password) 
-    values ("gonzalodiazmm@unal.edu.co", "GonzaloDiaz1998", "Enderson Diaz", "123456789");
-
-insert into TUsuarios (iD, nickName, nombre, password) 
-    values ("jlarandam@unal.edu.co", "josesito", "Jose Leonardo", "582963");
-
-insert into TUsuarios (iD, nickName, nombre, password) 
-    values ("alejandra@unal.edu.co", "AlejandritaHermosaMamasota", "Aleja Sierra", "TeAmoGonzaloXDXD");
-
-insert into TUsuarios (iD, nickName, nombre, password) 
-    values ("sofiapatacon@unal.edu.co", "sofi", "Sofia Patacon", "TeAmoCesitarx100pre");
-
-insert into TLenguaje (iD)
-    values ("Java");
-
-insert into TLenguaje (iD)
-    values ("HTML");
-
-insert into TLenguaje (iD)
-    values ("C++");
-
-insert into TLenguaje (iD)
-    values ("PHP");
-
-insert into TLenguaje (iD)
-    values ("Lisp");
-
-insert into TPalabraReservada (iD, iDLenguaje)
-    values ("public", "Java");
-
-insert into TPalabraReservada (iD, iDLenguaje)
-    values ("int", "Java");
-
-insert into TPalabraReservada (iD, iDLenguaje)
-    values ("void", "Java");
-
-insert into TPalabraReservada (iD, iDLenguaje)
-    values ("boolean", "Java");
-
-insert into TPalabraReservada (iD, iDLenguaje)
-    values ("static", "Java");
-
-insert into TPalabraReservada (iD, iDLenguaje)
-    values ("setq", "Lisp");
-
-insert into TPalabraReservada (iD, iDLenguaje)
-    values ("defun", "Lisp");
-
-insert into TPalabraReservada (iD, iDLenguaje)
-    values ("body", "HTML");
-
-insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
-    values ("Imprimir en consola", 
+insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje) values 
+("Imprimir en consola", 
             "Permite escribir una cadena de caracteres en la consola", 
             "System.out.println(\"Holaa mundoooooo :D\");", 
-            "ceatorresar@unal.edu.co", "Java");
-
-insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
-    values ("Mostrar entrada de texto emergente", 
+            "ceatorresar@unal.edu.co", "Java"),
+("Mostrar mensaje emergente", 
+            "Permite mostrar una ventanita emergente con un mensaje dentro", 
+            "JOptionPane.ShowMessageDialog(this, \"Hola mundo\")",
+            "engdiazmu@unal.edu.co", "Java"),
+("Mostrar entrada de texto emergente", 
             "Permite mostrar una ventanita emergente con un mensaje dentro y una opcion para ingresar texto", 
-            "JOptionPane.ShowInputDialog(this, \"Hola mundo\")", 
-            "engdiazmu@unal.edu.co", "Java");
-
-insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
-    values ("Crear diccionario de objetos", 
+            "JOptionPane.ShowInputDialog(this, \"Hola mundo\")",
+            "engdiazmu@unal.edu.co", "Java"),
+("Crear diccionario de objetos", 
             "Crear un hashmap para guardar objetos y buscarlos con un identificador unico", 
             "HashMap <String, Object> miDiccionario = new HashMap<>();", 
-            "ceatorresar@unal.edu.co", "Java");
-
-insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
-    values ("Lograr que las Alejandras me pongan cuidado", 
+            "ceatorresar@unal.edu.co", "Java"),
+("Lograr que las Alejandras me pongan cuidado", 
             "Crear un metodo que permita que dejen de ignorarme :v", 
             "public void laFormula(){
 		boolean dignidad = true;
@@ -83,51 +24,83 @@ insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
 		}else{System.out.println(\"no lo haga compa\");
 		}
 		}", 
-            "engdiazmu@unal.edu.co", "Java");
+            "engdiazmu@unal.edu.co", "Java")
 
-
-insert into TFichas (titulo, descripcion, ejemplo, iDUsuario, iDLenguaje)
-    values ("Mostrar mensaje emergente", 
-            "Permite mostrar una ventanita emergente con un mensaje dentro", 
-            "JOptionPane.ShowMessageDialog(this, \"Hola mundo\")", 
-            "engdiazmu@unal.edu.co", "Java");
-
-insert into TComentarios (mensaje, iDUsuario, iDFicha) 
-    values ("Esta ficha es muy buena", "ceatorresar@unal.edu.co", 1);
-
-insert into TComentarios (mensaje, iDUsuario, iDFicha) 
-    values ("Este programa es la polla en vinagre", "engdiazmu@unal.edu.co", 2);
-
-insert into TComentarios (mensaje, iDUsuario, iDFicha) 
-    values ("La ostia tio, te la has flipado con esta ficha", "jlarandam@unal.edu.co", 3);
-
-insert into TComentarios (mensaje, iDUsuario, iDFicha) 
-    values ("Que bien programas cesar, cuando me das una oportunidad :v", "sofiapatacon@unal.edu.co", 4);
-
-insert into TComentarios (mensaje, iDUsuario, iDFicha) 
-    values ("Gonzalo, capullo, quiero un hijo tuyo, que buen codigo", "alejandra@unal.edu.co", 5);
 
 insert into TCalificacion (calificacion, iDFicha, iDUsuario) 
-    values (5, 1, "ceatorresar@unal.edu.co");
-
-insert into TCalificacion (calificacion, iDFicha, iDUsuario) 
-    values (3, 2, "engdiazmu@unal.edu.co");
-
-insert into TCalificacion (calificacion, iDFicha, iDUsuario) 
-    values (2, 3, "jlarandam@unal.edu.co");
-
-insert into TCalificacion (calificacion, iDFicha, iDUsuario) 
-    values (4, 4, "sofiapatacon@unal.edu.co");
-
-insert into TCalificacion (calificacion, iDFicha, iDUsuario) 
-    values (1, 5, "alejandra@unal.edu.co");
+    values (5, 1, "ceatorresar@unal.edu.co")
 
 
+insert into TUsuarios (iD, nickName, nombre, password) values 
+("engdiazmu@unal.edu.co", "GDiaz16", "Gonzalo Diaz", "159786324"),
+("gonzalodiazmm@unal.edu.co", "GonzaloDiaz1998", "Enderson Diaz", "123456789"),
+("jlarandam@unal.edu.co", "josesito", "Jose Leonardo", "582963"),
+("alejandra@unal.edu.co", "AlejandritaHermosaMamasota", "Aleja Sierra", "TeAmoGonzaloXDXD"),
+("sofiapatacon@unal.edu.co", "sofi", "Sofia Patacon", "TeAmoCesitarx100pre"),
+("ceatorresar@unal.edu.co", "cerciber", "cesar torres", "123456789")
 
+insert into TLenguaje (iD) values 
+("HTML"),
+("C++"),
+("PHP"),
+("Lisp"),
+("Java")
 
+insert into TPalabraReservada (iD, iDLenguaje) values 
+("void", "Java"),
+("boolean", "Java"), 
+("static", "Java"),
+("setq", "Lisp"), 
+("defun", "Lisp"),
+("body", "HTML"),
+("int", "Java"),
+("public", "Java")
+("abstract", "Java"),
+("class", "Java"),
+("const", "Java"),
+("continue", "Java"),
+("default", "Java"),
+("do", "Java"),
+("double", "Java"),
+("else", "Java"),
+("enum", "Java"),
+("extends", "Java"),
+("final", "Java"),
+("finally", "Java"),
+("float", "Java"),
+("for", "Java"),
+("goto", "Java"),
+("if", "Java"),
+("implements", "Java"),
+("import", "Java"),
+("instanceof", "Java"),
+("interface", "Java"),
+("long", "Java"),
+("native", "Java"),
+("new", "Java"),
+("package", "Java"),
+("private", "Java"),
+("protected", "Java"),
+("return", "Java"),
+("short", "Java"),
+("strictfp", "Java"),
+("super", "Java"),
+("switch", "Java"),
+("synchronized", "Java"),
+("this", "Java"),
+("throw", "Java"),
+("throws", "Java"),
+("transient", "Java"),
+("try", "Java"),
+("volatile", "Java"),
+("while", "Java")
 
-
-
+insert into TComentarios (mensaje, iDUsuario, iDFicha) values 
+("Este programa es la polla en vinagre", "engdiazmu@unal.edu.co", 3),
+("La ostia tio, te la has flipado con esta ficha", "jlarandam@unal.edu.co", 4),
+("Que bien programas cesar, cuando me das una oportunidad :v", "sofiapatacon@unal.edu.co", 5),
+("Gonzalo, capullo, quiero un hijo tuyo, que buen codigo", "alejandra@unal.edu.co", 3),
+("Esta ficha es muy buena", "ceatorresar@unal.edu.co", 1)
 
 
 

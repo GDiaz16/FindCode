@@ -60,7 +60,7 @@ public class Login extends javax.swing.JPanel {
         jTextField1.setForeground(new java.awt.Color(153, 153, 153));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Correo o Nickname");
-        jTextField1.setFocusCycleRoot(true);
+        jTextField1.setFocusCycleRoot(false);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);

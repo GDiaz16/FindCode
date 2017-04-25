@@ -20,7 +20,7 @@ public class Ficha extends javax.swing.JPanel {
 
         //ficha = new findcode.clases.Ficha(popUp, listaIngredientes, textCodigo, listaPopUp);
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
-                listaPopUp, itemCargar, itemGuardar, ventanaGuardar, textComentario, textTitulo);
+                listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo);
 
     }
     
@@ -48,6 +48,7 @@ public class Ficha extends javax.swing.JPanel {
 
         popUp = new javax.swing.JPopupMenu();
         itemGuardar = new javax.swing.JMenuItem();
+        itemBorrar = new javax.swing.JMenuItem();
         itemCargar = new javax.swing.JMenuItem();
         jScrollPane3 = new javax.swing.JScrollPane();
         listaPopUp = new javax.swing.JList<>();
@@ -55,7 +56,9 @@ public class Ficha extends javax.swing.JPanel {
         labelTitulo = new javax.swing.JLabel();
         textTitulo = new javax.swing.JTextField();
         labelComentario = new javax.swing.JLabel();
-        JScrollPane = new javax.swing.JScrollPane();
+        botonGuardar = new javax.swing.JButton();
+        botonCancelar = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
         textComentario = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
@@ -83,6 +86,14 @@ public class Ficha extends javax.swing.JPanel {
         });
         popUp.add(itemGuardar);
 
+        itemBorrar.setText("Borrar elemento");
+        itemBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemBorrarActionPerformed(evt);
+            }
+        });
+        popUp.add(itemBorrar);
+
         itemCargar.setText("Cargar");
         popUp.add(itemCargar);
 
@@ -100,15 +111,18 @@ public class Ficha extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(listaPopUp);
 
+        ventanaGuardar.setTitle("Añadir ingrediente");
+        ventanaGuardar.setBackground(new java.awt.Color(193, 247, 160));
         ventanaGuardar.setLocation(new java.awt.Point(0, 0));
         ventanaGuardar.setMinimumSize(new java.awt.Dimension(20, 10));
         ventanaGuardar.setModal(true);
-        ventanaGuardar.setPreferredSize(new java.awt.Dimension(500, 300));
+        ventanaGuardar.setPreferredSize(new java.awt.Dimension(330, 260));
 
         labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         labelTitulo.setText("Titulo:");
 
         textTitulo.setToolTipText("Ingrese un titulo para la lista de ingredientes");
+        textTitulo.setName(""); // NOI18N
         textTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textTituloActionPerformed(evt);
@@ -118,12 +132,32 @@ public class Ficha extends javax.swing.JPanel {
         labelComentario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         labelComentario.setText("Comentario:");
 
+        botonGuardar.setText("Guardar");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarActionPerformed(evt);
+            }
+        });
+
+        botonCancelar.setText("Cancelar");
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarActionPerformed(evt);
+            }
+        });
+
+        jScrollPane4.setBackground(new java.awt.Color(102, 255, 51));
+
         textComentario.setColumns(20);
         textComentario.setLineWrap(true);
         textComentario.setRows(5);
-        textComentario.setToolTipText("Ingrese la descripcion del trozo de codigo");
+        textComentario.setToolTipText("mostrar algo");
+        textComentario.setWrapStyleWord(true);
+        textComentario.setBorder(null);
+        textComentario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         textComentario.setDragEnabled(true);
-        JScrollPane.setViewportView(textComentario);
+        jScrollPane4.setViewportView(textComentario);
+        textComentario.getAccessibleContext().setAccessibleDescription("Descripcion del codigo seleccionado");
 
         javax.swing.GroupLayout ventanaGuardarLayout = new javax.swing.GroupLayout(ventanaGuardar.getContentPane());
         ventanaGuardar.getContentPane().setLayout(ventanaGuardarLayout);
@@ -132,24 +166,42 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(ventanaGuardarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ventanaGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JScrollPane)
                     .addGroup(ventanaGuardarLayout.createSequentialGroup()
-                        .addGroup(ventanaGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelComentario)
-                            .addComponent(labelTitulo))
-                        .addGap(0, 43, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane4)
+                        .addContainerGap())
+                    .addGroup(ventanaGuardarLayout.createSequentialGroup()
+                        .addGroup(ventanaGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ventanaGuardarLayout.createSequentialGroup()
+                                .addGap(0, 122, Short.MAX_VALUE)
+                                .addComponent(botonGuardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonCancelar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ventanaGuardarLayout.createSequentialGroup()
+                                .addComponent(labelTitulo)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ventanaGuardarLayout.createSequentialGroup()
+                        .addComponent(textTitulo)
+                        .addContainerGap())
+                    .addGroup(ventanaGuardarLayout.createSequentialGroup()
+                        .addComponent(labelComentario)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         ventanaGuardarLayout.setVerticalGroup(
             ventanaGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ventanaGuardarLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(labelTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(textTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelComentario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(ventanaGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonGuardar)
+                    .addComponent(botonCancelar))
                 .addContainerGap())
         );
 
@@ -162,7 +214,6 @@ public class Ficha extends javax.swing.JPanel {
         jLabel3.setText("Titulo");
 
         textCodigo.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        textCodigo.setText("Codigo");
         textCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 textCodigoMousePressed(evt);
@@ -282,6 +333,11 @@ public class Ficha extends javax.swing.JPanel {
         listaIngredientes.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         listaIngredientes.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         listaIngredientes.setSelectionBackground(new java.awt.Color(51, 204, 0));
+        listaIngredientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                listaIngredientesMouseReleased(evt);
+            }
+        });
         jScrollPane5.setViewportView(listaIngredientes);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -380,9 +436,27 @@ public class Ficha extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_textTituloActionPerformed
 
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+        gestorFicha.botonGuardarActionPerformed(evt);
+    }//GEN-LAST:event_botonGuardarActionPerformed
+
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+        gestorFicha.botonCancelarActionPerformed(evt);
+    }//GEN-LAST:event_botonCancelarActionPerformed
+
+    private void listaIngredientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaIngredientesMouseReleased
+        gestorFicha.listaIngredientesMouseReleased(evt);
+    }//GEN-LAST:event_listaIngredientesMouseReleased
+
+    private void itemBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBorrarActionPerformed
+        gestorFicha.itemBorrarActionPerformed(evt);
+    }//GEN-LAST:event_itemBorrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane JScrollPane;
+    private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonGuardar;
+    private javax.swing.JMenuItem itemBorrar;
     private javax.swing.JMenuItem itemCargar;
     private javax.swing.JMenuItem itemGuardar;
     private javax.swing.JButton jButton12;
@@ -400,6 +474,7 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel labelComentario;
     private javax.swing.JLabel labelTitulo;

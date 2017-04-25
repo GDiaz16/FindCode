@@ -129,7 +129,7 @@ public class Usuario {
             String query = "UPDATE TUsuarios "
                     + "SET nickname = ?, "
                     + "nombre = ?, "
-                    + "password = ?, "
+                    + "password = ? "
                     + "WHERE iD = ? ";
 
             db.setSentencia(query);

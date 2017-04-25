@@ -8,18 +8,41 @@ import javax.swing.JPanel;
 public class Registro extends javax.swing.JPanel {
 
     private JPanel contenedor;
+    private findcode.clases.Usuario usuario;
     
+    // Registrar usuario
     public Registro(JPanel contenedor) {
         
         initComponents();
         this.contenedor = contenedor;
-        Utilidades.personalizarCampo(jTextField1, "Nombre");
-        Utilidades.personalizarCampo(jTextField5, "Correo electronico");
-        Utilidades.personalizarCampo(jTextField6, "nickName");
-        Utilidades.personalizarCampo(jPasswordField1, "Contraseña");
-        Utilidades.personalizarCampo(jPasswordField3, "Contraseña");
+        jPanel5.setVisible(true);
+        jPanel7.setVisible(false);
+        Utilidades.personalizarCampo(jTextField1, "Nombre", "");
+        Utilidades.personalizarCampo(jTextField5, "Correo electronico", "");
+        Utilidades.personalizarCampo(jTextField6, "nickName", "");
+        Utilidades.personalizarCampo(jPasswordField1, "Contraseña", "");
+        Utilidades.personalizarCampo(jPasswordField3, "Contraseña", "");
         
     }
+    
+    // Editar datos usuario
+    public Registro(JPanel contenedor, findcode.clases.Usuario usuario) {
+        
+        initComponents();
+        this.contenedor = contenedor;
+        this.usuario = usuario;
+        jPanel5.setVisible(false);
+        jPanel7.setVisible(true);
+        jLabel5.setText("Edita tus datos personales");
+        Utilidades.personalizarCampo(jTextField1, "Nombre", usuario.getNombre());
+        Utilidades.personalizarCampo(jTextField5, "Correo electronico", usuario.getCorreo());
+        jTextField5.setEditable(false);
+        Utilidades.personalizarCampo(jTextField6, "nickName", usuario.getNickname());
+        Utilidades.personalizarCampo(jPasswordField1, "Contraseña", usuario.getPassword());
+        Utilidades.personalizarCampo(jPasswordField3, "Contraseña", usuario.getPassword());
+        
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -41,6 +64,8 @@ public class Registro extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jButton6 = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -203,6 +228,18 @@ public class Registro extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setLayout(new java.awt.GridBagLayout());
+
+        jButton6.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jButton6.setText("Guardar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton6, new java.awt.GridBagConstraints());
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -214,7 +251,8 @@ public class Registro extends javax.swing.JPanel {
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -230,6 +268,8 @@ public class Registro extends javax.swing.JPanel {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -262,7 +302,7 @@ public class Registro extends javax.swing.JPanel {
                 Utilidades.validarCampo(jPasswordField3) &&
                 Utilidades.compararCampos(jPasswordField1, jPasswordField3)) {
             
-            Usuario usuario = new Usuario(correo, nickname, nombre, password);
+            usuario = new Usuario(correo, nickname, nombre, password);
             usuario.crear();
             
             findcode.controladores.Utilidades.cambiarPantalla(this, new Inicio(this, usuario));
@@ -305,10 +345,39 @@ public class Registro extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1FocusGained
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        
+        // Obtener texto de los campos
+        String correo = jTextField5.getText();
+        String nickname = jTextField6.getText();
+        String nombre = jTextField1.getText();
+        String password = String.valueOf(jPasswordField1.getPassword());
+
+        // Validar campos
+        if (Utilidades.validarCampo(jTextField1) &&
+                Utilidades.validarCampo(jTextField5) &&
+                Utilidades.validarCampo(jTextField6) &&
+                Utilidades.validarCampo(jPasswordField1) &&
+                Utilidades.validarCampo(jPasswordField3) &&
+                Utilidades.compararCampos(jPasswordField1, jPasswordField3)) {
+            
+            usuario.setCorreo(correo);
+            usuario.setNickname(nickname);
+            usuario.setNombre(nombre);
+            usuario.setPassword(password);
+            
+            usuario.editar();
+            findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
+            
+        }
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -317,6 +386,7 @@ public class Registro extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField3;
     private javax.swing.JScrollPane jScrollPane1;

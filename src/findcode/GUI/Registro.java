@@ -17,6 +17,7 @@ public class Registro extends javax.swing.JPanel {
         this.contenedor = contenedor;
         jPanel5.setVisible(true);
         jPanel7.setVisible(false);
+        jPanel8.setVisible(false);
         Utilidades.personalizarCampo(jTextField1, "Nombre", "");
         Utilidades.personalizarCampo(jTextField5, "Correo electronico", "");
         Utilidades.personalizarCampo(jTextField6, "nickName", "");
@@ -33,6 +34,7 @@ public class Registro extends javax.swing.JPanel {
         this.usuario = usuario;
         jPanel5.setVisible(false);
         jPanel7.setVisible(true);
+        jPanel8.setVisible(true);
         jLabel5.setText("Edita tus datos personales");
         Utilidades.personalizarCampo(jTextField1, "Nombre", usuario.getNombre());
         Utilidades.personalizarCampo(jTextField5, "Correo electronico", usuario.getCorreo());
@@ -66,6 +68,8 @@ public class Registro extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jButton7 = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -240,6 +244,18 @@ public class Registro extends javax.swing.JPanel {
         });
         jPanel7.add(jButton6, new java.awt.GridBagConstraints());
 
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setLayout(new java.awt.GridBagLayout());
+
+        jButton7.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jButton7.setText("Borrar cuenta");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton7, new java.awt.GridBagConstraints());
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -252,7 +268,8 @@ public class Registro extends javax.swing.JPanel {
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -270,6 +287,8 @@ public class Registro extends javax.swing.JPanel {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -373,11 +392,19 @@ public class Registro extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        
+        usuario.borrar();
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Inicio());
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -387,6 +414,7 @@ public class Registro extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField3;
     private javax.swing.JScrollPane jScrollPane1;

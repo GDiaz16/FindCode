@@ -17,6 +17,7 @@ public class Registro extends javax.swing.JPanel {
         this.contenedor = contenedor;
         jPanel5.setVisible(true);
         jPanel7.setVisible(false);
+        jPanel8.setVisible(false);
         Utilidades.personalizarCampo(jTextField1, "Nombre", "");
         Utilidades.personalizarCampo(jTextField5, "Correo electronico", "");
         Utilidades.personalizarCampo(jTextField6, "nickName", "");
@@ -33,6 +34,7 @@ public class Registro extends javax.swing.JPanel {
         this.usuario = usuario;
         jPanel5.setVisible(false);
         jPanel7.setVisible(true);
+        jPanel8.setVisible(true);
         jLabel5.setText("Edita tus datos personales");
         Utilidades.personalizarCampo(jTextField1, "Nombre", usuario.getNombre());
         Utilidades.personalizarCampo(jTextField5, "Correo electronico", usuario.getCorreo());

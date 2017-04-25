@@ -2,6 +2,7 @@ package findcode.clases;
 
 import findcode.controladores.MySQL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Calificacion {
     
@@ -72,7 +73,7 @@ public class Calificacion {
             MySQL db = new MySQL();
 
             String query = " select * from TCalificacion where"
-                    + " iD = ?";
+                    + " iDFicha = ?";
 
             db.setSentencia(query);
             db.getSentencia().setInt(1, iD);
@@ -98,6 +99,42 @@ public class Calificacion {
         }
 
         return false;
+
+    }
+    
+    public ArrayList<Calificacion> cargarPorFicha(int iDFicha) {
+
+        ArrayList<Calificacion> calificaciones = new ArrayList<>();
+        
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = " select * from TCalificacion where"
+                    + " iDFicha = ?";
+
+            db.setSentencia(query);
+            db.getSentencia().setInt(1, iDFicha);
+
+            db.setResultados(db.getSentencia().executeQuery());
+
+            while (db.getResultados().next()) {
+                
+                Calificacion calificacion1 = new Calificacion();
+                calificacion1.setiD(db.getResultados().getInt("iD"));
+                calificacion1.setCalificacion(db.getResultados().getInt("calificacion"));
+                calificacion1.setiDFicha(db.getResultados().getInt("iDFicha"));
+                calificacion1.setiDUsuario(db.getResultados().getString("iDUsuario"));
+                
+                calificaciones.add(calificacion1);
+
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return calificaciones;
 
     }
 

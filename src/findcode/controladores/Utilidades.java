@@ -6,22 +6,32 @@ import javax.swing.JTextField;
 
 public class Utilidades {
     
-    public static void personalizarCampo(JTextField jTextField, String textoDefault){
+    public static void personalizarCampo(JTextField jTextField, String textoDefault, String texto){
         
         // Dar color gris
         jTextField.setForeground(Color.decode("#D8D8D8"));
         jTextField.setText(textoDefault);
         
-        // Borrar texto al hacer click una vez
-        jTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField.setBackground(Color.white);
-                jTextField.setForeground(Color.decode("#000000"));
-                jTextField.setText("");
-                jTextField.removeFocusListener(this);
-            }
-        });
+        if(texto.equals("")){
+            
+            // Borrar texto al hacer click una vez
+            jTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+                @Override
+                public void focusGained(java.awt.event.FocusEvent evt) {
+                    jTextField.setBackground(Color.white);
+                    jTextField.setForeground(Color.decode("#000000"));
+                    jTextField.setText("");
+                    jTextField.removeFocusListener(this);
+                }
+            });
+            
+        } else {
+            
+            jTextField.setBackground(Color.white);
+            jTextField.setForeground(Color.decode("#000000"));
+            jTextField.setText(texto);
+            
+        }
         
         // Mostrar texto por defecto si el campo esta vacio
         jTextField.addFocusListener(new java.awt.event.FocusAdapter() {

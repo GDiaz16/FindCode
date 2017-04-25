@@ -9,6 +9,7 @@ public class Ficha extends javax.swing.JPanel {
     findcode.clases.Ficha ficha;
     private findcode.controladores.GestorFicha gestorFicha;
 
+    // Consultar ficha sin usuario
     public Ficha(JPanel contenedor, findcode.clases.Ficha ficha) {
 
         initComponents();
@@ -23,6 +24,7 @@ public class Ficha extends javax.swing.JPanel {
 
     }
     
+    // Consultar ficha con usuario
     public Ficha(JPanel contenedor, findcode.clases.Usuario usuario, findcode.clases.Ficha ficha) {
 
         this(contenedor, ficha);
@@ -31,6 +33,14 @@ public class Ficha extends javax.swing.JPanel {
         jButton13.setVisible(true);
         
     }
+    
+    // Crear ficha
+    public Ficha(JPanel contenedor, findcode.clases.Usuario usuario) {
+
+        this(contenedor, usuario, new findcode.clases.Ficha());
+
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

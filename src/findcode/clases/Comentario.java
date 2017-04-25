@@ -2,6 +2,7 @@ package findcode.clases;
 
 import findcode.controladores.MySQL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Comentario {
     
@@ -98,6 +99,43 @@ public class Comentario {
         }
 
         return false;
+
+    }
+    
+    public ArrayList<Comentario> cargarPorFicha(int iDFicha) {
+
+        ArrayList<Comentario> comentarios = new ArrayList<>();
+        
+        try {
+
+            MySQL db = new MySQL();
+
+             String query = " select * from TComentarios where"
+                    + " iDFicha = ?";
+
+            db.setSentencia(query);
+            db.getSentencia().setInt(1, iDFicha);
+
+            db.setResultados(db.getSentencia().executeQuery());
+
+            while (db.getResultados().next()) {
+                
+                Comentario comentario1 = new Comentario();
+
+                comentario1.setiD(db.getResultados().getInt("iD"));
+                comentario1.setMensaje(db.getResultados().getString("mensaje"));
+                comentario1.setiDUsuario(db.getResultados().getString("iDUsuario"));
+                comentario1.setiDFicha(db.getResultados().getInt("iDFicha"));
+                
+                comentarios.add(comentario1);
+
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return comentarios;
 
     }
 

@@ -13,8 +13,8 @@ public class Login extends javax.swing.JPanel {
         
         initComponents();
         this.contenedor = contenedor;
-        Utilidades.personalizarCampo(jTextField1, "Correo o NickName");
-        Utilidades.personalizarCampo(jPasswordField1, "Contraseña");
+        Utilidades.personalizarCampo(jTextField1, "Correo o NickName", "");
+        Utilidades.personalizarCampo(jPasswordField1, "Contraseña", "");
         
     }
 

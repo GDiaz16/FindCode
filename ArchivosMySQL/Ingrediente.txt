@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS TIngrediente (
+
+    iD int NOT NULL AUTO_INCREMENT,
+    titulo varchar(100) NOT NULL,
+    descripcion varchar(255) NOT NULL,
+    posInicial INT NOT NULL,
+    posFinal INT NOT NULL,
+    iDFicha INT NOT NULL,
+    PRIMARY KEY (iD),
+    FOREIGN KEY (iDFicha) REFERENCES TFichas(iD) ON DELETE CASCADE
+
+)

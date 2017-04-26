@@ -3,6 +3,8 @@ package findcode.GUI;
 
 import findcode.clases.Usuario;
 import findcode.controladores.Utilidades;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 public class Login extends javax.swing.JPanel {
@@ -13,7 +15,7 @@ public class Login extends javax.swing.JPanel {
         
         initComponents();
         this.contenedor = contenedor;
-        Utilidades.personalizarCampo(jTextField1, "Correo o NickName", "");
+        Utilidades.personalizarCampo(jTextField1, "Correo ó NickName", "");
         Utilidades.personalizarCampo(jPasswordField1, "Contraseña", "");
         
     }

@@ -301,4 +301,17 @@ public class GestorFicha {
     public void itemBorrarActionPerformed(java.awt.event.ActionEvent evt){
         eliminarElemento(listaIngredientes.getSelectedIndex());
     }
+    
+    public void asfsdf(){
+        
+        findcode.clases.Ficha ficha = new findcode.clases.Ficha();
+        ficha.setDescripcion("sfdgsdf");
+        ficha.setiDUsuario("dvdf");
+        ficha.crear();
+        ficha.editar();
+        ficha.borrar();
+        ficha.cargar();
+        
+    }
+    
 }

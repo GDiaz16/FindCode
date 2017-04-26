@@ -305,7 +305,7 @@ public class Inicio extends javax.swing.JPanel {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 
-        findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, this.usuario));
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, usuario));
 
     }//GEN-LAST:event_jButton8ActionPerformed
 

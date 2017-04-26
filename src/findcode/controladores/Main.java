@@ -26,8 +26,16 @@ public class Main {
         frame.setVisible(true);
         
         // Crear tablas si no existen
-        MySQL db = new MySQL();
-        db.crearTablas();
+        // MySQL db = new MySQL();
+        // db.crearTablas();
+        
+        //findcode.clases.Ingrediente i = new findcode.clases.Ingrediente();
+        //i.setTitulo("Instanciar");
+        //i.setDescripcion("Instancia de la primera clase de tipo tal");
+        //i.setPosInicial(1);
+        //i.setPosFinal(5);
+        //i.setiDFicha(1);
+        //i.crear();
         
     }
     

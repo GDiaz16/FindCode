@@ -146,7 +146,7 @@ public class Ficha {
             String query = "UPDATE TFichas "
                     + "SET titulo = ?, "
                     + " descripcion = ?, "
-                    + " ejemplo = ?, "
+                    + " ejemplo = ? "
                     + "WHERE iD = ? ";
 
             db.setSentencia(query);

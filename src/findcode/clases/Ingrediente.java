@@ -68,7 +68,7 @@ public class Ingrediente {
             MySQL db = new MySQL();
 
             String query = " insert into TIngrediente (titulo, descripcion, posInicial, posFinal, iDFicha)"
-                    + " values (?, ?, ?, ?, ? ,?)";
+                    + " values (?, ?, ?, ?, ?)";
 
             db.setSentencia(query);
             db.getSentencia().setString(1, titulo);
@@ -179,6 +179,7 @@ public class Ingrediente {
             db.getSentencia().setString(2, descripcion);
             db.getSentencia().setInt(3, posInicial);
             db.getSentencia().setInt(4, posFinal);
+            db.getSentencia().setInt(5, iD);
 
             db.getSentencia().execute();
             db.conexion().close();

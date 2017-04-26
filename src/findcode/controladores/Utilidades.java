@@ -97,6 +97,7 @@ public class Utilidades {
         nuevo.getParent().remove(anterior);
         nuevo.getParent().validate();
         nuevo.updateUI();
+        nuevo.requestFocusInWindow();
         
     }
     

@@ -2,11 +2,11 @@ package findcode.controladores;
 
 import java.awt.Color;
 import javax.swing.JComponent;
-import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
 public class Utilidades {
     
-    public static void personalizarCampo(JTextField jTextField, String textoDefault, String texto){
+    public static void personalizarCampo(JTextComponent jTextField, String textoDefault, String texto){
         
         // Dar color gris
         jTextField.setForeground(Color.decode("#D8D8D8"));
@@ -58,7 +58,7 @@ public class Utilidades {
         
     }
     
-    public static boolean validarCampo(JTextField jTextField){
+    public static boolean validarCampo(JTextComponent jTextField){
         if(jTextField.getText().equals("") || 
                 jTextField.getForeground().equals(Color.decode("#D8D8D8"))) {
             jTextField.setBackground(Color.red);
@@ -67,7 +67,7 @@ public class Utilidades {
         return true;
     }
     
-    public static boolean compararCampos(JTextField jTextField1, JTextField jTextField2){
+    public static boolean compararCampos(JTextComponent jTextField1, JTextComponent jTextField2){
         if(!jTextField1.getText().equals(jTextField2.getText())) {
             jTextField1.setBackground(Color.red);
             jTextField2.setBackground(Color.red);

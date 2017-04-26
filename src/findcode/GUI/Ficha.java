@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import findcode.controladores.Utilidades;
 import javax.swing.JPanel;
 
 public class Ficha extends javax.swing.JPanel {
@@ -17,9 +18,9 @@ public class Ficha extends javax.swing.JPanel {
         this.ficha = ficha;
         jButton8.setVisible(false);
         jButton13.setVisible(false);
-        jTextField1.setText(ficha.getTitulo());
-        jTextArea1.setText(ficha.getDescripcion());
-        textCodigo.setText(ficha.getEjemplo());
+        Utilidades.personalizarCampo(jTextField1, "Titulo", ficha.getTitulo());
+        Utilidades.personalizarCampo(jTextArea1, "Descripcion del codigo", ficha.getDescripcion());
+        Utilidades.personalizarCampo(textCodigo, "Sintaxis", ficha.getDescripcion());
 
         //ficha = new findcode.clases.Ficha(popUp, listaIngredientes, textCodigo, listaPopUp);
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
@@ -34,14 +35,21 @@ public class Ficha extends javax.swing.JPanel {
         this.usuario = usuario;
         jButton8.setVisible(true);
         jButton13.setVisible(true);
+        jButton8.setText(usuario.getNickname());
         
     }
     
     // Crear ficha
     public Ficha(JPanel contenedor, findcode.clases.Usuario usuario) {
 
-        this(contenedor, usuario, new findcode.clases.Ficha());
-
+        initComponents();
+        this.contenedor = contenedor;
+        this.usuario = usuario;
+        this.ficha = new findcode.clases.Ficha();
+        Utilidades.personalizarCampo(jTextField1, "Titulo", "");
+        Utilidades.personalizarCampo(jTextArea1, "Descripcion del codigo", "");
+        Utilidades.personalizarCampo(textCodigo, "Sintaxis", "");
+        
     }
     
 

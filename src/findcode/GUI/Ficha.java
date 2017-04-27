@@ -12,6 +12,7 @@ public class Ficha extends javax.swing.JPanel {
     findcode.clases.Ficha ficha;
     private findcode.controladores.GestorFicha gestorFicha;
     private ArrayList<findcode.clases.Comentario> comentarios;
+    private ArrayList<findcode.clases.Ficha> relacionados;
 
     // Consultar ficha sin usuario
     public Ficha(JPanel contenedor, findcode.clases.Ficha ficha) {
@@ -32,6 +33,7 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.personalizarCampo(textCodigo, "Sintaxis", ficha.getEjemplo());
         Utilidades.personalizarCampo(jTextField1, "Nuevo lenguaje", "");
         busquedaComentarios();
+        busquedaFichasRelacionadas();
 
         //ficha = new findcode.clases.Ficha(popUp, listaIngredientes, textCodigo, listaPopUp);
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
@@ -70,6 +72,8 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.personalizarCampo(textDescripcion, "Descripcion del codigo", "");
         Utilidades.personalizarCampo(textCodigo, "Sintaxis", "");
         Utilidades.personalizarCampo(jTextField1, "Nuevo lenguaje", "");
+        busquedaComentarios();
+        busquedaFichasRelacionadas();
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Lenguaje.cargarTodos().toArray()));
         textTituloFicha.setEditable(true);
         textDescripcion.setEditable(true);
@@ -97,6 +101,21 @@ public class Ficha extends javax.swing.JPanel {
             jPanel5.add(comentario);
         }
 
+    }
+    
+    public final void busquedaFichasRelacionadas(){
+        
+        ArrayList<Resultado> panelesResultado = new ArrayList<>();
+        relacionados = ficha.buscarFichasRelacionadas();
+        
+        for (findcode.clases.Ficha ficha1 : relacionados) {
+            panelesResultado.add(new Resultado(contenedor, usuario, ficha1));
+        }
+        
+        for (Resultado resultado : panelesResultado) {
+            jPanel3.add(resultado);
+        }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -146,8 +165,9 @@ public class Ficha extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         listaIngredientes = new javax.swing.JList<String>();
         jPanel6 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jPanel3 = new javax.swing.JPanel();
 
         itemGuardar.setText("Guardar");
         itemGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -343,7 +363,7 @@ public class Ficha extends javax.swing.JPanel {
                         .addComponent(jButton12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 465, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 482, Short.MAX_VALUE)
                         .addComponent(jButton13))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(botonGuardarFicha)
@@ -442,7 +462,7 @@ public class Ficha extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
         );
 
         jSplitPane1.setRightComponent(jPanel4);
@@ -483,7 +503,7 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -505,42 +525,33 @@ public class Ficha extends javax.swing.JPanel {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
-        );
-
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Codigos relacionados");
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
+        jScrollPane8.setViewportView(jPanel3);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -712,6 +723,7 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;

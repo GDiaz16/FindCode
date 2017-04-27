@@ -36,6 +36,9 @@ public class GestorFicha {
     private JDialog ventanaGuardar;
     private JTextArea textComentario;
     private JTextField textTitulo;
+    private JTextArea textDescripcion; 
+    private JTextField textTituloFicha;
+    private findcode.clases.Usuario usuario;
     JMenuItem cargar;
     JMenuItem guardar;
     JMenuItem borrar;
@@ -44,7 +47,7 @@ public class GestorFicha {
 
     public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
             JList listaPopUp, JMenuItem cargar, JMenuItem guardar, JMenuItem borrar, JDialog ventanaGuadar, JTextArea textComentario,
-            JTextField textTitulo) {
+            JTextField textTitulo, JTextArea textDescripcion, JTextField textTituloFicha, findcode.clases.Usuario usuario) {
         this.textCodigo = textCodigo;
         this.listaIngredientes = listaIngredientes;
         this.popUp = popUp;
@@ -55,6 +58,9 @@ public class GestorFicha {
         this.ventanaGuardar = ventanaGuadar;
         this.textComentario = textComentario;
         this.textTitulo = textTitulo;
+        this.textDescripcion = textDescripcion;
+        this.textTituloFicha = textTituloFicha;
+        this.usuario = usuario;
         cargarPalabras();
         //cargarListaPopUp(1);
 //        ventanaGuardar.add(textTitulo);
@@ -68,7 +74,7 @@ public class GestorFicha {
         caret = textCodigo.getCaretPosition();
         if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
                 && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_SHIFT) {
-            separador(textCodigo.getText());
+            
             setText();
             //setListaIngredientes(1);
         }
@@ -182,7 +188,7 @@ public class GestorFicha {
     }
 
     public void setText() {
-
+        separador(textCodigo.getText());
         textCodigo.setText("");
         for (String cadena : codigoDesarmado) {
             SimpleAttributeSet simp = formato(cadena);
@@ -302,16 +308,20 @@ public class GestorFicha {
         eliminarElemento(listaIngredientes.getSelectedIndex());
     }
     
-    public void asfsdf(){
+    public void botonGuardarFichaActionPerformed(java.awt.event.ActionEvent evt){
         
-        findcode.clases.Ficha ficha = new findcode.clases.Ficha();
-        ficha.setDescripcion("sfdgsdf");
-        ficha.setiDUsuario("dvdf");
+       findcode.clases.Ficha ficha = new findcode.clases.Ficha();
+        ficha.setTitulo(textTituloFicha.getText());
+        ficha.setDescripcion(textDescripcion.getText());
+        ficha.setEjemplo(textCodigo.getText());
+        ficha.setiDLenguaje("Java");
+        ficha.setiDUsuario("Gonzalo");
         ficha.crear();
-        ficha.editar();
-        ficha.borrar();
-        ficha.cargar();
-        
+        //ficha.editar();
+        //ficha.borrar();
+        //ficha.cargar();
+        System.out.println("se ha guardado la ficha");
+        //System.out.println(usuario.getCorreo());
     }
     
 }

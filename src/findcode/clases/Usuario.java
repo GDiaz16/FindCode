@@ -2,6 +2,7 @@ package findcode.clases;
 
 import findcode.controladores.MySQL;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class Usuario {
 
@@ -165,6 +166,43 @@ public class Usuario {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        
+    }
+    
+    public HashMap<Integer, Ficha> buscarFichas() {
+
+        HashMap<Integer, Ficha> fichas = new HashMap<>();
+
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = " select * from TFichas where"
+                    + " iDUsuario = ? ";
+
+            db.setSentencia(query);
+            db.getSentencia().setString(1, correo);
+
+            db.setResultados(db.getSentencia().executeQuery());
+
+            while (db.getResultados().next()) {
+
+                Ficha ficha = new Ficha(db.getResultados().getInt("iD"),
+                        db.getResultados().getString("titulo"),
+                        db.getResultados().getString("descripcion"),
+                        db.getResultados().getString("ejemplo"),
+                        db.getResultados().getString("iDUsuario"),
+                        db.getResultados().getString("iDLenguaje"));
+                
+                fichas.put(db.getResultados().getInt("iD"), ficha);
+
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return fichas;
         
     }
 

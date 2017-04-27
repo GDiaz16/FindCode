@@ -1,9 +1,7 @@
 package findcode.GUI;
 
-import findcode.controladores.MotorDeBusqueda;
 import findcode.controladores.Utilidades;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.JPanel;
 
 public class Ficha extends javax.swing.JPanel {
@@ -24,7 +22,7 @@ public class Ficha extends javax.swing.JPanel {
         jButton13.setVisible(false);
         Utilidades.personalizarCampo(jTextField1, "Titulo", ficha.getTitulo());
         Utilidades.personalizarCampo(jTextArea1, "Descripcion del codigo", ficha.getDescripcion());
-        Utilidades.personalizarCampo(textCodigo, "Sintaxis", ficha.getDescripcion());
+        Utilidades.personalizarCampo(textCodigo, "Sintaxis", ficha.getEjemplo());
         busquedaComentarios();
 
         //ficha = new findcode.clases.Ficha(popUp, listaIngredientes, textCodigo, listaPopUp);
@@ -41,6 +39,12 @@ public class Ficha extends javax.swing.JPanel {
         jButton8.setVisible(true);
         jButton13.setVisible(true);
         jButton8.setText(usuario.getNickname());
+        
+        if(usuario.getCorreo().equals(ficha.getiDUsuario())){
+            jTextField1.setEditable(true);
+            jTextArea1.setEditable(true);
+            textCodigo.setEditable(true);
+        }
 
     }
 
@@ -54,6 +58,9 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.personalizarCampo(jTextField1, "Titulo", "");
         Utilidades.personalizarCampo(jTextArea1, "Descripcion del codigo", "");
         Utilidades.personalizarCampo(textCodigo, "Sintaxis", "");
+        jTextField1.setEditable(true);
+        jTextArea1.setEditable(true);
+        textCodigo.setEditable(true);
 
     }
 
@@ -243,6 +250,7 @@ public class Ficha extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        textCodigo.setEditable(false);
         textCodigo.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         textCodigo.setText("Sintaxis");
         textCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -371,6 +379,8 @@ public class Ficha extends javax.swing.JPanel {
         });
         jScrollPane5.setViewportView(listaIngredientes);
 
+        jTextField1.setEditable(false);
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Titulo");
@@ -382,6 +392,7 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jTextArea1.setRows(2);

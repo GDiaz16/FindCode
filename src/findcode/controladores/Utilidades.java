@@ -12,7 +12,7 @@ public class Utilidades {
         jTextField.setForeground(Color.decode("#D8D8D8"));
         jTextField.setText(textoDefault);
         
-        if(texto.equals("")){
+        if(texto.trim().equals("")){
             
             // Borrar texto al hacer click una vez
             jTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -38,7 +38,7 @@ public class Utilidades {
             @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
                 
-                if (jTextField.getText().equals("")) {
+                if (jTextField.getText().trim().equals("")) {
                     jTextField.setBackground(Color.white);
                     jTextField.setForeground(Color.decode("#D8D8D8"));
                     jTextField.setText(textoDefault);
@@ -59,7 +59,7 @@ public class Utilidades {
     }
     
     public static boolean validarCampo(JTextComponent jTextField){
-        if(jTextField.getText().equals("") || 
+        if(jTextField.getText().trim().equals("") || 
                 jTextField.getForeground().equals(Color.decode("#D8D8D8"))) {
             jTextField.setBackground(Color.red);
             return false;

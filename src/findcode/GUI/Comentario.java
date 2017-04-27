@@ -1,9 +1,18 @@
 package findcode.GUI;
 
+import javax.swing.JPanel;
+
 public class Comentario extends javax.swing.JPanel {
 
-    public Comentario() {
+    JPanel contenedor;
+    findcode.clases.Comentario comentario;
+    
+    public Comentario(JPanel contenedor, findcode.clases.Comentario comentario) {
         initComponents();
+        this.contenedor = contenedor;
+        this.comentario = comentario;
+        jLabel7.setText(comentario.getiDUsuario());
+        jTextArea1.setText(comentario.getMensaje());
     }
 
     @SuppressWarnings("unchecked")
@@ -51,7 +60,7 @@ public class Comentario extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

@@ -102,7 +102,7 @@ public class Comentario {
 
     }
     
-    public ArrayList<Comentario> cargarPorFicha(int iDFicha) {
+    public static ArrayList<Comentario> cargarPorFicha(int iDFicha) {
 
         ArrayList<Comentario> comentarios = new ArrayList<>();
         

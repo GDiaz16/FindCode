@@ -13,7 +13,7 @@ public class Inicio extends javax.swing.JPanel {
         
         initComponents();
         jPanel5.setVisible(false);
-        Utilidades.personalizarCampo(jTextField1, "Buscar", "");
+        Utilidades.personalizarCampo(jTextField1, "¿Que desea buscar?", "");
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Lenguaje.cargarTodos().toArray()));
         
     }
@@ -305,7 +305,7 @@ public class Inicio extends javax.swing.JPanel {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 
-        findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, this.usuario));
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, usuario));
 
     }//GEN-LAST:event_jButton8ActionPerformed
 

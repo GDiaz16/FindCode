@@ -2,17 +2,17 @@ package findcode.controladores;
 
 import java.awt.Color;
 import javax.swing.JComponent;
-import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
 public class Utilidades {
     
-    public static void personalizarCampo(JTextField jTextField, String textoDefault, String texto){
+    public static void personalizarCampo(JTextComponent jTextField, String textoDefault, String texto){
         
         // Dar color gris
         jTextField.setForeground(Color.decode("#D8D8D8"));
         jTextField.setText(textoDefault);
         
-        if(texto.equals("")){
+        if(texto.trim().equals("")){
             
             // Borrar texto al hacer click una vez
             jTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -38,7 +38,7 @@ public class Utilidades {
             @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
                 
-                if (jTextField.getText().equals("")) {
+                if (jTextField.getText().trim().equals("")) {
                     jTextField.setBackground(Color.white);
                     jTextField.setForeground(Color.decode("#D8D8D8"));
                     jTextField.setText(textoDefault);
@@ -58,19 +58,19 @@ public class Utilidades {
         
     }
     
-    public static boolean validarCampo(JTextField jTextField){
-        if(jTextField.getText().equals("") || 
+    public static boolean validarCampo(JTextComponent jTextField){
+        if(jTextField.getText().trim().equals("") || 
                 jTextField.getForeground().equals(Color.decode("#D8D8D8"))) {
-            jTextField.setBackground(Color.red);
+            jTextField.setBackground(Color.decode("#FFBF00"));
             return false;
         }
         return true;
     }
     
-    public static boolean compararCampos(JTextField jTextField1, JTextField jTextField2){
+    public static boolean compararCampos(JTextComponent jTextField1, JTextComponent jTextField2){
         if(!jTextField1.getText().equals(jTextField2.getText())) {
-            jTextField1.setBackground(Color.red);
-            jTextField2.setBackground(Color.red);
+            jTextField1.setBackground(Color.decode("#FFBF00"));
+            jTextField2.setBackground(Color.decode("#FFBF00"));
             
             jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
                 @Override

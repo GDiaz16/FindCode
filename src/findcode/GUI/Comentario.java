@@ -44,6 +44,7 @@ public class Comentario extends javax.swing.JPanel {
             .addGap(0, 78, Short.MAX_VALUE)
         );
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jTextArea1.setRows(2);

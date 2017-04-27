@@ -19,6 +19,7 @@ public class Resultados extends javax.swing.JPanel {
         initComponents();
         jButton7.setVisible(false);
         jButton8.setVisible(false);
+        jLabel8.setVisible(false);
         this.contenedor = contenedor;
         this.busqueda = busqueda;
         this.lenguaje = lenguaje;
@@ -39,6 +40,11 @@ public class Resultados extends javax.swing.JPanel {
         
         resultados = new ArrayList<>();
         fichas = new MotorDeBusqueda(busqueda, lenguaje).buscarPorTitulo();
+        
+        if (fichas.isEmpty()) {
+            jPanel2.setLayout(new java.awt.GridLayout());
+            jLabel8.setVisible(true);
+        }
         
         if (usuario == null) {
             for (findcode.clases.Ficha ficha : fichas.values()) {
@@ -64,6 +70,7 @@ public class Resultados extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -76,6 +83,12 @@ public class Resultados extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("No hay resultados");
+        jPanel2.add(jLabel8);
+
         jScrollPane2.setViewportView(jPanel2);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -189,6 +202,7 @@ public class Resultados extends javax.swing.JPanel {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;

@@ -1,6 +1,5 @@
 package findcode.GUI;
 
-import findcode.controladores.MotorDeBusqueda;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JPanel;
@@ -24,7 +23,7 @@ public class Usuario extends javax.swing.JPanel {
         
         jPanel2.removeAll();
         resultados = new ArrayList<>();
-        fichas = new MotorDeBusqueda(usuario).buscarPorUsuario();
+        fichas = usuario.buscarFichas();
         
         if (fichas.isEmpty()) {
             jPanel2.setLayout(new java.awt.GridLayout());

@@ -28,10 +28,16 @@ public class Resultados extends javax.swing.JPanel {
     
     public Resultados(JPanel contenedor, findcode.clases.Usuario usuario, String busqueda, String lenguaje) {
         
-        this(contenedor, busqueda, lenguaje);
+        initComponents();
         jButton7.setVisible(true);
         jButton8.setVisible(true);
+        jLabel8.setVisible(false);
+        this.contenedor = contenedor;
+        this.busqueda = busqueda;
+        this.lenguaje = lenguaje;
+        jButton8.setText(usuario.getNickname());
         this.usuario = usuario;
+        busqueda();
 
     }
     

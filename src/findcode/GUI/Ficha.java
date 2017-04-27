@@ -25,6 +25,8 @@ public class Ficha extends javax.swing.JPanel {
         botonGuardarFicha.setVisible(false);
         botonGuardarFicha1.setVisible(false);
         jTextField1.setVisible(false);
+        jTextField3.setVisible(false);
+        botonGuardarFicha2.setVisible(false);
         String[] s = {ficha.getiDLenguaje()};
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(s));
         jComboBox1.setSelectedItem(ficha.getiDLenguaje());
@@ -32,6 +34,7 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.personalizarCampo(textDescripcion, "Descripcion del codigo", ficha.getDescripcion());
         Utilidades.personalizarCampo(textCodigo, "Sintaxis", ficha.getEjemplo());
         Utilidades.personalizarCampo(jTextField1, "Nuevo lenguaje", "");
+        Utilidades.personalizarCampo(jTextField3, "Nuevo comentario", "");
         busquedaComentarios();
         busquedaFichasRelacionadas();
 
@@ -49,6 +52,8 @@ public class Ficha extends javax.swing.JPanel {
         this.usuario = usuario;
         jButton8.setVisible(true);
         jButton13.setVisible(true);
+        jTextField3.setVisible(true);
+        botonGuardarFicha2.setVisible(true);
         jButton8.setText(usuario.getNickname());
         
         if(usuario.getCorreo().equals(ficha.getiDUsuario())){
@@ -68,10 +73,15 @@ public class Ficha extends javax.swing.JPanel {
         this.contenedor = contenedor;
         this.usuario = usuario;
         this.ficha = new findcode.clases.Ficha();
+        jButton8.setVisible(true);
+        jButton13.setVisible(true);
+        jTextField3.setVisible(true);
+        jButton8.setText(usuario.getNickname());
         Utilidades.personalizarCampo(textTituloFicha, "Titulo", "");
         Utilidades.personalizarCampo(textDescripcion, "Descripcion del codigo", "");
         Utilidades.personalizarCampo(textCodigo, "Sintaxis", "");
         Utilidades.personalizarCampo(jTextField1, "Nuevo lenguaje", "");
+        Utilidades.personalizarCampo(jTextField3, "Nuevo comentario", "");
         busquedaComentarios();
         busquedaFichasRelacionadas();
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Lenguaje.cargarTodos().toArray()));
@@ -90,6 +100,7 @@ public class Ficha extends javax.swing.JPanel {
 
     public final void busquedaComentarios() {
 
+        jPanel7.removeAll();
         ArrayList<Comentario> panelesComentario = new ArrayList<>();
         comentarios = findcode.clases.Comentario.cargarPorFicha(ficha.getiD());
 
@@ -98,13 +109,14 @@ public class Ficha extends javax.swing.JPanel {
         }
 
         for (Comentario comentario : panelesComentario) {
-            jPanel5.add(comentario);
+            jPanel7.add(comentario);
         }
 
     }
     
     public final void busquedaFichasRelacionadas(){
         
+        jPanel3.removeAll();
         ArrayList<Resultado> panelesResultado = new ArrayList<>();
         relacionados = ficha.buscarFichasRelacionadas();
         
@@ -158,6 +170,9 @@ public class Ficha extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jTextField3 = new javax.swing.JTextField();
+        botonGuardarFicha2 = new javax.swing.JButton();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -330,6 +345,7 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
+        botonGuardarFicha.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         botonGuardarFicha.setText("Crear ficha");
         botonGuardarFicha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,6 +361,10 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
+        jTextField1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        botonGuardarFicha1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         botonGuardarFicha1.setText("Guardar ficha");
         botonGuardarFicha1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -363,7 +383,7 @@ public class Ficha extends javax.swing.JPanel {
                         .addComponent(jButton12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 482, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton13))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(botonGuardarFicha)
@@ -408,7 +428,7 @@ public class Ficha extends javax.swing.JPanel {
         textTituloFicha.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         textTituloFicha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textTituloFicha.setText("Titulo");
-        textTituloFicha.setBorder(null);
+        textTituloFicha.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textTituloFicha.setMinimumSize(new java.awt.Dimension(0, 0));
         textTituloFicha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -427,7 +447,7 @@ public class Ficha extends javax.swing.JPanel {
         jSplitPane3.setDividerLocation(500);
 
         jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jSplitPane1.setDividerLocation(200);
+        jSplitPane1.setDividerLocation(100);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         textCodigo.setEditable(false);
@@ -451,7 +471,44 @@ public class Ficha extends javax.swing.JPanel {
         jSplitPane1.setTopComponent(jScrollPane2);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jTextField3.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        botonGuardarFicha2.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        botonGuardarFicha2.setText("Comentar");
+        botonGuardarFicha2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarFicha2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonGuardarFicha2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonGuardarFicha2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+        );
+
         jScrollPane7.setViewportView(jPanel5);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -462,7 +519,7 @@ public class Ficha extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
         );
 
         jSplitPane1.setRightComponent(jPanel4);
@@ -503,7 +560,7 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -516,7 +573,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -541,7 +598,7 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane8))
                 .addContainerGap())
         );
@@ -551,7 +608,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -566,7 +623,7 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSplitPane3)
+                    .addComponent(jSplitPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textTituloFicha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -686,10 +743,38 @@ public class Ficha extends javax.swing.JPanel {
         ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
         ficha.editar();
         
-        findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
-        ((Usuario) contenedor).busqueda();
+        try {
+            
+            ((Usuario) contenedor).busqueda();
+            findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
+            
+        }catch(ClassCastException ex){
+            
+            ((Resultados) contenedor).busqueda();
+            findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
+            
+        }
+            
         
     }//GEN-LAST:event_botonGuardarFicha1ActionPerformed
+
+    private void botonGuardarFicha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha2ActionPerformed
+        
+        if(Utilidades.validarCampo(jTextField3)){
+            
+            findcode.clases.Comentario comentario = new findcode.clases.Comentario();
+            comentario.setiDFicha(ficha.getiD());
+            comentario.setiDUsuario(usuario.getCorreo());
+            comentario.setMensaje(jTextField3.getText());
+            comentario.crear();
+            
+            jTextField3.setText("");
+            busquedaComentarios();
+            jPanel7.revalidate();
+            
+        }
+                   
+    }//GEN-LAST:event_botonGuardarFicha2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -697,6 +782,7 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JButton botonGuardar;
     private javax.swing.JButton botonGuardarFicha;
     private javax.swing.JButton botonGuardarFicha1;
+    private javax.swing.JButton botonGuardarFicha2;
     private javax.swing.JMenuItem itemBorrar;
     private javax.swing.JMenuItem itemCargar;
     private javax.swing.JMenuItem itemGuardar;
@@ -715,6 +801,7 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -728,6 +815,7 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel labelComentario;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JList<String> listaIngredientes;

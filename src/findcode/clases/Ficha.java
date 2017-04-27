@@ -2,7 +2,7 @@ package findcode.clases;
 
 import findcode.controladores.MySQL;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Ficha {
 
@@ -186,9 +186,9 @@ public class Ficha {
 
     }
     
-    public static HashMap<Integer, Ficha> buscarTextoPorLenguaje(String busqueda, String lenguaje) {
+    public static ArrayList<Ficha> buscarTextoPorLenguaje(String busqueda, String lenguaje) {
 
-        HashMap<Integer, Ficha> fichas = new HashMap<>();
+        ArrayList<Ficha> fichas = new ArrayList<>();
 
         try {
 
@@ -212,7 +212,7 @@ public class Ficha {
                         db.getResultados().getString("iDUsuario"),
                         db.getResultados().getString("iDLenguaje"));
                 
-                fichas.put(db.getResultados().getInt("iD"), ficha);
+                fichas.add( ficha);
 
             }
 
@@ -220,6 +220,16 @@ public class Ficha {
             ex.printStackTrace();
         }
 
+        return fichas;
+        
+    }
+    
+    public ArrayList<Ficha> buscarFichasRelacionadas() {
+
+        ArrayList<Ficha> fichas;
+        Usuario usuario = new Usuario();
+        usuario.setCorreo(iDUsuario);
+        fichas = usuario.buscarFichas();
         return fichas;
         
     }

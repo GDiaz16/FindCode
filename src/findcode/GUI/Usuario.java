@@ -8,7 +8,7 @@ public class Usuario extends javax.swing.JPanel {
 
     private JPanel contenedor;
     private findcode.clases.Usuario usuario;
-    private HashMap<Integer, findcode.clases.Ficha> fichas;
+    private ArrayList<findcode.clases.Ficha> fichas;
     private ArrayList<Resultado> resultados;
     
     public Usuario(JPanel contenedor, findcode.clases.Usuario usuario) {
@@ -32,11 +32,11 @@ public class Usuario extends javax.swing.JPanel {
         }
         
         if (usuario == null) {
-            for (findcode.clases.Ficha ficha : fichas.values()) {
+            for (findcode.clases.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, ficha));
             }
         } else {
-            for (findcode.clases.Ficha ficha : fichas.values()) {
+            for (findcode.clases.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, usuario, ficha));
             }
         }

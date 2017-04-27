@@ -2,6 +2,7 @@ package findcode.clases;
 
 import findcode.controladores.MySQL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Usuario {
@@ -11,6 +12,9 @@ public class Usuario {
     private String nombre;
     private String password;
 
+    public Usuario() {
+    }
+    
     public Usuario(String correo, String password) {
 
         this.correo = correo;
@@ -169,9 +173,9 @@ public class Usuario {
         
     }
     
-    public HashMap<Integer, Ficha> buscarFichas() {
+    public ArrayList<Ficha> buscarFichas() {
 
-        HashMap<Integer, Ficha> fichas = new HashMap<>();
+        ArrayList<Ficha> fichas = new ArrayList<>();
 
         try {
 
@@ -194,7 +198,7 @@ public class Usuario {
                         db.getResultados().getString("iDUsuario"),
                         db.getResultados().getString("iDLenguaje"));
                 
-                fichas.put(db.getResultados().getInt("iD"), ficha);
+                fichas.add(ficha);
 
             }
 

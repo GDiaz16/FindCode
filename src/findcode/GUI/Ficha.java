@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.util.ArrayList;
 import javax.swing.JPanel;
@@ -20,15 +21,22 @@ public class Ficha extends javax.swing.JPanel {
         this.ficha = ficha;
         jButton8.setVisible(false);
         jButton13.setVisible(false);
+        botonGuardarFicha.setVisible(false);
+        botonGuardarFicha1.setVisible(false);
+        jTextField1.setVisible(false);
+        String[] s = {ficha.getiDLenguaje()};
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(s));
+        jComboBox1.setSelectedItem(ficha.getiDLenguaje());
         Utilidades.personalizarCampo(textTituloFicha, "Titulo", ficha.getTitulo());
         Utilidades.personalizarCampo(textDescripcion, "Descripcion del codigo", ficha.getDescripcion());
         Utilidades.personalizarCampo(textCodigo, "Sintaxis", ficha.getEjemplo());
+        Utilidades.personalizarCampo(jTextField1, "Nuevo lenguaje", "");
         busquedaComentarios();
 
         //ficha = new findcode.clases.Ficha(popUp, listaIngredientes, textCodigo, listaPopUp);
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha, usuario);
+                textDescripcion, textTituloFicha);
 
     }
 
@@ -45,6 +53,8 @@ public class Ficha extends javax.swing.JPanel {
             textTituloFicha.setEditable(true);
             textDescripcion.setEditable(true);
             textCodigo.setEditable(true);
+            botonGuardarFicha1.setVisible(true);
+            jTextField1.setVisible(true);
         }
 
     }
@@ -59,12 +69,17 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.personalizarCampo(textTituloFicha, "Titulo", "");
         Utilidades.personalizarCampo(textDescripcion, "Descripcion del codigo", "");
         Utilidades.personalizarCampo(textCodigo, "Sintaxis", "");
+        Utilidades.personalizarCampo(jTextField1, "Nuevo lenguaje", "");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Lenguaje.cargarTodos().toArray()));
         textTituloFicha.setEditable(true);
         textDescripcion.setEditable(true);
         textCodigo.setEditable(true);
+        botonGuardarFicha.setVisible(true);
+        botonGuardarFicha.setVisible(false);
+        jTextField1.setVisible(true);
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha, usuario);
+                textDescripcion, textTituloFicha);
 
 
     }
@@ -93,7 +108,7 @@ public class Ficha extends javax.swing.JPanel {
         itemBorrar = new javax.swing.JMenuItem();
         itemCargar = new javax.swing.JMenuItem();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listaPopUp = new javax.swing.JList<>();
+        listaPopUp = new javax.swing.JList<String>();
         ventanaGuardar = new javax.swing.JDialog();
         labelTitulo = new javax.swing.JLabel();
         textTitulo = new javax.swing.JTextField();
@@ -111,6 +126,9 @@ public class Ficha extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         botonGuardarFicha = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
+        jTextField1 = new javax.swing.JTextField();
+        botonGuardarFicha1 = new javax.swing.JButton();
         textTituloFicha = new javax.swing.JTextField();
         jScrollPane6 = new javax.swing.JScrollPane();
         textDescripcion = new javax.swing.JTextArea();
@@ -126,7 +144,7 @@ public class Ficha extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        listaIngredientes = new javax.swing.JList<>();
+        listaIngredientes = new javax.swing.JList<String>();
         jPanel6 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -152,10 +170,10 @@ public class Ficha extends javax.swing.JPanel {
 
         jScrollPane3.setMinimumSize(new java.awt.Dimension(50, 50));
 
-        listaPopUp.setModel(new javax.swing.AbstractListModel<String>() {
+        listaPopUp.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         listaPopUp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -292,10 +310,25 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
-        botonGuardarFicha.setText("Guardar ficha");
+        botonGuardarFicha.setText("Crear ficha");
         botonGuardarFicha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGuardarFichaActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jComboBox1.setFocusable(false);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        botonGuardarFicha1.setText("Guardar ficha");
+        botonGuardarFicha1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarFicha1ActionPerformed(evt);
             }
         });
 
@@ -305,15 +338,21 @@ public class Ficha extends javax.swing.JPanel {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jButton12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 465, Short.MAX_VALUE)
                         .addComponent(jButton13))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                    .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(botonGuardarFicha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonGuardarFicha1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton8)))
                 .addContainerGap())
@@ -333,10 +372,14 @@ public class Ficha extends javax.swing.JPanel {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                        .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonGuardarFicha)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox1)
+                            .addComponent(botonGuardarFicha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField1)
+                            .addComponent(botonGuardarFicha1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -606,20 +649,50 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_textTituloFichaActionPerformed
 
     private void botonGuardarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFichaActionPerformed
-        gestorFicha.botonGuardarFichaActionPerformed(evt);
+
+        ficha.setTitulo(textTituloFicha.getText());
+        ficha.setDescripcion(textDescripcion.getText());
+        ficha.setEjemplo(textCodigo.getText());
+        ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
+        ficha.setiDUsuario(usuario.getCorreo());
+        ficha.crear();
+        
+        findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, usuario));
+        
     }//GEN-LAST:event_botonGuardarFichaActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void botonGuardarFicha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha1ActionPerformed
+        
+        ficha.setTitulo(textTituloFicha.getText());
+        ficha.setDescripcion(textDescripcion.getText());
+        ficha.setEjemplo(textCodigo.getText());
+        ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
+        ficha.editar();
+        
+        findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
+        ((Usuario) contenedor).busqueda();
+        
+    }//GEN-LAST:event_botonGuardarFicha1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonGuardar;
     private javax.swing.JButton botonGuardarFicha;
+    private javax.swing.JButton botonGuardarFicha1;
     private javax.swing.JMenuItem itemBorrar;
     private javax.swing.JMenuItem itemCargar;
     private javax.swing.JMenuItem itemGuardar;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton8;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel4;
@@ -642,6 +715,7 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelComentario;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JList<String> listaIngredientes;

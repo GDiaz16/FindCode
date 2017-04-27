@@ -22,11 +22,13 @@ public class Usuario extends javax.swing.JPanel {
     
     public final void busqueda(){
         
+        jPanel2.removeAll();
         resultados = new ArrayList<>();
         fichas = new MotorDeBusqueda(usuario).buscarPorUsuario();
         
         if (fichas.isEmpty()) {
             jPanel2.setLayout(new java.awt.GridLayout());
+            jPanel2.add(jLabel9);
             jLabel9.setVisible(true);
         }
         

@@ -153,7 +153,7 @@ public class Ficha {
             db.getSentencia().setString(1, titulo);
             db.getSentencia().setString(2, descripcion);
             db.getSentencia().setString(3, ejemplo);
-            db.getSentencia().setInt(3, iD);
+            db.getSentencia().setInt(4, iD);
 
             db.getSentencia().execute();
             db.conexion().close();

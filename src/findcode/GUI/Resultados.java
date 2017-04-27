@@ -38,11 +38,13 @@ public class Resultados extends javax.swing.JPanel {
     
     public final void busqueda(){
         
+        jPanel2.removeAll();
         resultados = new ArrayList<>();
         fichas = new MotorDeBusqueda(busqueda, lenguaje).buscarPorTitulo();
         
         if (fichas.isEmpty()) {
             jPanel2.setLayout(new java.awt.GridLayout());
+            jPanel2.add(jLabel8);
             jLabel8.setVisible(true);
         }
         

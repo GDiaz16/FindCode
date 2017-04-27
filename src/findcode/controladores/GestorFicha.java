@@ -47,7 +47,7 @@ public class GestorFicha {
 
     public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
             JList listaPopUp, JMenuItem cargar, JMenuItem guardar, JMenuItem borrar, JDialog ventanaGuadar, JTextArea textComentario,
-            JTextField textTitulo, JTextArea textDescripcion, JTextField textTituloFicha, findcode.clases.Usuario usuario) {
+            JTextField textTitulo, JTextArea textDescripcion, JTextField textTituloFicha) {
         this.textCodigo = textCodigo;
         this.listaIngredientes = listaIngredientes;
         this.popUp = popUp;
@@ -306,22 +306,6 @@ public class GestorFicha {
     
     public void itemBorrarActionPerformed(java.awt.event.ActionEvent evt){
         eliminarElemento(listaIngredientes.getSelectedIndex());
-    }
-    
-    public void botonGuardarFichaActionPerformed(java.awt.event.ActionEvent evt){
-        
-       findcode.clases.Ficha ficha = new findcode.clases.Ficha();
-        ficha.setTitulo(textTituloFicha.getText());
-        ficha.setDescripcion(textDescripcion.getText());
-        ficha.setEjemplo(textCodigo.getText());
-        ficha.setiDLenguaje("Java");
-        ficha.setiDUsuario("Gonzalo");
-        ficha.crear();
-        //ficha.editar();
-        //ficha.borrar();
-        //ficha.cargar();
-        System.out.println("se ha guardado la ficha");
-        //System.out.println(usuario.getCorreo());
     }
     
 }

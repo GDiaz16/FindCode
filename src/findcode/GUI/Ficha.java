@@ -35,6 +35,8 @@ public class Ficha extends javax.swing.JPanel {
         jTextField1.setVisible(false);
         jTextField3.setVisible(false);
         botonGuardarFicha2.setVisible(false);
+        jPanel11.setVisible(false);
+        botonGuardarFicha3.setVisible(false);
         String[] s = {ficha.getiDLenguaje()};
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(s));
         jComboBox1.setSelectedItem(ficha.getiDLenguaje());
@@ -109,6 +111,8 @@ public class Ficha extends javax.swing.JPanel {
         jButton8.setVisible(true);
         jButton13.setVisible(true);
         jTextField3.setVisible(true);
+        jPanel11.setVisible(false);
+        botonGuardarFicha3.setVisible(false);
         jButton8.setText(usuario.getNickname());
         Utilidades.personalizarCampo(textTituloFicha, "Titulo", "");
         Utilidades.personalizarCampo(textDescripcion, "Descripcion del codigo", "");
@@ -560,11 +564,16 @@ public class Ficha extends javax.swing.JPanel {
         jScrollPane6.setViewportView(textDescripcion);
 
         jSplitPane3.setBackground(new java.awt.Color(255, 255, 255));
-        jSplitPane3.setDividerLocation(500);
+        jSplitPane3.setDividerLocation(350);
+        jSplitPane3.setDividerSize(10);
+        jSplitPane3.setToolTipText("");
+        jSplitPane3.setContinuousLayout(true);
 
         jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jSplitPane1.setDividerLocation(100);
+        jSplitPane1.setDividerLocation(200);
+        jSplitPane1.setDividerSize(10);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setContinuousLayout(true);
 
         textCodigo.setEditable(false);
         textCodigo.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
@@ -695,7 +704,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonGuardarFicha3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonGuardarFicha3, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -711,11 +720,11 @@ public class Ficha extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
         );
 
         jSplitPane1.setRightComponent(jPanel4);
@@ -725,7 +734,9 @@ public class Ficha extends javax.swing.JPanel {
         jSplitPane2.setBackground(new java.awt.Color(255, 255, 255));
         jSplitPane2.setBorder(null);
         jSplitPane2.setDividerLocation(200);
+        jSplitPane2.setDividerSize(10);
         jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane2.setContinuousLayout(true);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -795,7 +806,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -832,7 +843,7 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jScrollPane8))
                 .addContainerGap())
         );
@@ -842,7 +853,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -857,11 +868,10 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSplitPane3)
+                    .addComponent(jSplitPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textTituloFicha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -873,8 +883,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSplitPane3)
-                .addContainerGap())
+                .addComponent(jSplitPane3))
         );
 
         jScrollPane1.setViewportView(jPanel1);

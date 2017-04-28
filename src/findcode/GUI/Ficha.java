@@ -3,7 +3,10 @@ package findcode.GUI;
 import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+import javax.swing.text.BadLocationException;
 
 public class Ficha extends javax.swing.JPanel {
 
@@ -727,7 +730,11 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void listaIngredientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaIngredientesMouseReleased
-        gestorFicha.listaIngredientesMouseReleased(evt);
+        try {
+            gestorFicha.listaIngredientesMouseReleased(evt);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_listaIngredientesMouseReleased
 
     private void itemBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBorrarActionPerformed

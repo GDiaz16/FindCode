@@ -102,6 +102,43 @@ public class Calificacion {
 
     }
     
+    public boolean cargarPorFichaYUsuario() {
+
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = " select * from TCalificacion where"
+                    + " iDFicha = ? AND iDUsuario = ? ";
+
+            db.setSentencia(query);
+            db.getSentencia().setInt(1, iDFicha);
+            db.getSentencia().setString(2, iDUsuario);
+
+            db.setResultados(db.getSentencia().executeQuery());
+
+            if (db.numeroColumnas() == 0) {
+                return false;
+            }
+
+            while (db.getResultados().next()) {
+                iD = db.getResultados().getInt("iD");
+                calificacion = db.getResultados().getInt("calificacion");
+                iDFicha = db.getResultados().getInt("iDFicha");
+                iDUsuario = db.getResultados().getString("iDUsuario");
+
+            }
+
+            return true;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
+
+    }
+    
     public ArrayList<Calificacion> cargarPorFicha(int iDFicha) {
 
         ArrayList<Calificacion> calificaciones = new ArrayList<>();

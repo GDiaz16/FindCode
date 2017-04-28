@@ -139,16 +139,17 @@ public class Calificacion {
 
     }
     
-    public ArrayList<Calificacion> cargarPorFicha(int iDFicha) {
+    public static int cargarPromedioFicha(int iDFicha) {
 
-        ArrayList<Calificacion> calificaciones = new ArrayList<>();
+        int suma = 0;
+        int cantidad = 0;
         
         try {
 
             MySQL db = new MySQL();
 
-            String query = " select * from TCalificacion where"
-                    + " iDFicha = ?";
+            String query = " select SUM(calificacion) as suma, count(calificacion) as cantidad from TCalificacion where"
+                    + " iDFicha = ? ";
 
             db.setSentencia(query);
             db.getSentencia().setInt(1, iDFicha);
@@ -157,21 +158,20 @@ public class Calificacion {
 
             while (db.getResultados().next()) {
                 
-                Calificacion calificacion1 = new Calificacion();
-                calificacion1.setiD(db.getResultados().getInt("iD"));
-                calificacion1.setCalificacion(db.getResultados().getInt("calificacion"));
-                calificacion1.setiDFicha(db.getResultados().getInt("iDFicha"));
-                calificacion1.setiDUsuario(db.getResultados().getString("iDUsuario"));
-                
-                calificaciones.add(calificacion1);
+                suma = db.getResultados().getInt("suma");
+                cantidad = db.getResultados().getInt("cantidad");
 
             }
             
-        } catch (SQLException ex) {
+            return suma / cantidad;
+            
+        } catch (SQLException ex ) {
             ex.printStackTrace();
+        } catch (ArithmeticException ex ) {
+            return 0;
         }
 
-        return calificaciones;
+        return 0;
 
     }
 

@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 public class GestorFicha {
 
     HashSet<String> palabrasClave = new HashSet<>();
+    HashSet<String> simbolos = new HashSet<>();
     HashSet<String> ingredientes = new HashSet<>();
     String[] codigoDesarmado;
     DefaultListModel model = new DefaultListModel();
@@ -174,6 +175,17 @@ public class GestorFicha {
         palabrasClave.add("void");
         palabrasClave.add("volatile");
         palabrasClave.add("while");
+        simbolos.add("(");
+        simbolos.add(")");
+        simbolos.add(";");
+        simbolos.add("=");
+        simbolos.add("!");
+        simbolos.add("+");
+        simbolos.add("-");
+        simbolos.add("/");
+        simbolos.add("*");
+        simbolos.add("%");
+        simbolos.add("\"");
     }
 
     public void separador(String codigo) {
@@ -211,7 +223,11 @@ public class GestorFicha {
             StyleConstants.setFontSize(simp, 12);
             StyleConstants.setForeground(simp, Color.blue);
 
-        } else {
+        } else if (simbolos.contains(palabraReservada)){
+            StyleConstants.setBold(simp, false);
+            StyleConstants.setFontSize(simp, 12);
+            StyleConstants.setForeground(simp, Color.orange);
+        }else {
             StyleConstants.setBold(simp, false);
             StyleConstants.setFontSize(simp, 12);
             StyleConstants.setForeground(simp, Color.black);
@@ -270,8 +286,9 @@ public class GestorFicha {
     }
     
     public void eliminarElemento(int index){
-        //listaIngredientes.remove(index);
+        String elemento = model.getElementAt(index).toString();
         model.remove(index);
+        ingredientes.remove(elemento);
         listaIngredientes.setModel(model);
     }
 

@@ -2,6 +2,7 @@ package findcode.GUI;
 
 import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -14,7 +15,9 @@ public class Ficha extends javax.swing.JPanel {
 
     private JPanel contenedor;
     private findcode.clases.Usuario usuario;
-    findcode.clases.Ficha ficha;
+    private findcode.clases.Ficha ficha;
+    private findcode.clases.Calificacion calificacion;
+    private int calificacionPromedio;
     private findcode.controladores.GestorFicha gestorFicha;
     private ArrayList<findcode.clases.Comentario> comentarios;
     private ArrayList<findcode.clases.Ficha> relacionados;
@@ -78,15 +81,16 @@ public class Ficha extends javax.swing.JPanel {
         busquedaComentarios();
         busquedaFichasRelacionadas();
         busquedaIngredientes();
+        busquedaCalificaciones();
 
-        if(usuario.getCorreo().equals(ficha.getiDUsuario())){
+        if (usuario.getCorreo().equals(ficha.getiDUsuario())) {
             textTituloFicha.setEditable(true);
             textDescripcion.setEditable(true);
             textCodigo.setEditable(true);
             botonGuardarFicha1.setVisible(true);
             jTextField1.setVisible(true);
         }
-        
+
         //ficha = new findcode.clases.Ficha(popUp, listaIngredientes, textCodigo, listaPopUp);
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
@@ -124,7 +128,6 @@ public class Ficha extends javax.swing.JPanel {
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
                 textDescripcion, textTituloFicha);
 
-
     }
 
     public final void busquedaIngredientes() {
@@ -133,15 +136,15 @@ public class Ficha extends javax.swing.JPanel {
         ingredientes = findcode.clases.Ingrediente.cargarPorFicha(ficha.getiD());
 
         DefaultListModel modelo = new DefaultListModel();
-        
+
         for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
             modelo.addElement(ingrediente.getTitulo());
         }
-        
+
         listaIngredientes.setModel(modelo);
 
     }
-    
+
     public final void busquedaComentarios() {
 
         jPanel7.removeAll();
@@ -157,22 +160,52 @@ public class Ficha extends javax.swing.JPanel {
         }
 
     }
-    
-    public final void busquedaFichasRelacionadas(){
-        
+
+    public final void busquedaFichasRelacionadas() {
+
         jPanel3.removeAll();
         ArrayList<Resultado> panelesResultado = new ArrayList<>();
         relacionados = ficha.buscarFichasRelacionadas();
-        
-        System.out.println("sdasda"+usuario);
+
+        System.out.println("sdasda" + usuario);
         for (findcode.clases.Ficha ficha1 : relacionados) {
             panelesResultado.add(new Resultado(this, usuario, ficha1));
         }
-        
+
         for (Resultado resultado : panelesResultado) {
             jPanel3.add(resultado);
         }
+
+    }
+    
+    public final void busquedaCalificaciones() {
+
+        calificacion = new findcode.clases.Calificacion();
+        calificacion.setiDFicha(ficha.getiD());
+        calificacion.setiDUsuario(usuario.getCorreo());
         
+        if (calificacion.cargarPorFichaYUsuario()) {
+        
+            switch (calificacion.getCalificacion()) {
+                case 1:
+                    jButton1ActionPerformed(null);
+                    break;
+                case 2:
+                    jButton2ActionPerformed(null);
+                    break;
+                case 3:
+                    jButton3ActionPerformed(null);
+                    break;
+                case 4:
+                    jButton4ActionPerformed(null);
+                    break;
+                case 5:
+                    jButton5ActionPerformed(null);
+                    break;
+            }
+        
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -218,12 +251,26 @@ public class Ficha extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         botonGuardarFicha2 = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        botonGuardarFicha3 = new javax.swing.JButton();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         listaIngredientes = new javax.swing.JList<String>();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -492,7 +539,7 @@ public class Ficha extends javax.swing.JPanel {
         jSplitPane3.setDividerLocation(500);
 
         jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jSplitPane1.setDividerLocation(200);
+        jSplitPane1.setDividerLocation(100);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         textCodigo.setEditable(false);
@@ -531,27 +578,107 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
+        jPanel10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel10.setLayout(new java.awt.GridLayout(1, 0));
+
+        jButton1.setText("1");
+        jButton1.setFocusable(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton1);
+
+        jButton2.setText("2");
+        jButton2.setFocusable(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton2);
+
+        jButton3.setText("3");
+        jButton3.setFocusable(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton3);
+
+        jButton4.setText("4");
+        jButton4.setFocusable(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton4);
+
+        jButton5.setText("5");
+        jButton5.setFocusable(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton5);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 29, Short.MAX_VALUE)
+            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+        );
+
+        botonGuardarFicha3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        botonGuardarFicha3.setText("Calificar");
+        botonGuardarFicha3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarFicha3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField3)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonGuardarFicha2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonGuardarFicha2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonGuardarFicha3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonGuardarFicha3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonGuardarFicha2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jScrollPane7.setViewportView(jPanel5);
@@ -560,11 +687,11 @@ public class Ficha extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+            .addComponent(jScrollPane7)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
         );
 
         jSplitPane1.setRightComponent(jPanel4);
@@ -578,12 +705,6 @@ public class Ficha extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Calificación");
-        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -599,27 +720,90 @@ public class Ficha extends javax.swing.JPanel {
         });
         jScrollPane5.setViewportView(listaIngredientes);
 
+        jPanel12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel12.setLayout(new java.awt.GridLayout());
+
+        jButton6.setText("1");
+        jButton6.setFocusable(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jButton6);
+
+        jButton7.setText("2");
+        jButton7.setFocusable(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jButton7);
+
+        jButton9.setText("3");
+        jButton9.setFocusable(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jButton9);
+
+        jButton10.setText("4");
+        jButton10.setFocusable(false);
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jButton10);
+
+        jButton11.setText("5");
+        jButton11.setFocusable(false);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jButton11);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 29, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -644,7 +828,7 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
                     .addComponent(jScrollPane8))
                 .addContainerGap())
         );
@@ -654,7 +838,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -669,7 +853,7 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSplitPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+                    .addComponent(jSplitPane3)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textTituloFicha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -685,7 +869,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSplitPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addComponent(jSplitPane3)
                 .addContainerGap())
         );
 
@@ -750,14 +934,6 @@ public class Ficha extends javax.swing.JPanel {
         gestorFicha.botonCancelarActionPerformed(evt);
     }//GEN-LAST:event_botonCancelarActionPerformed
 
-    private void listaIngredientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaIngredientesMouseReleased
-        try {
-            gestorFicha.listaIngredientesMouseReleased(evt);
-        } catch (BadLocationException ex) {
-            Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_listaIngredientesMouseReleased
-
     private void itemBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBorrarActionPerformed
         gestorFicha.itemBorrarActionPerformed(evt);
     }//GEN-LAST:event_itemBorrarActionPerformed
@@ -774,71 +950,185 @@ public class Ficha extends javax.swing.JPanel {
         ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
         ficha.setiDUsuario(usuario.getCorreo());
         ficha.crear();
-        
+
         for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
             ingrediente.crear();
         }
-        
+
         findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, usuario));
-        
+
     }//GEN-LAST:event_botonGuardarFichaActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        
-        
-        
+
+
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void botonGuardarFicha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha1ActionPerformed
-        
+
         ficha.setTitulo(textTituloFicha.getText());
         ficha.setDescripcion(textDescripcion.getText());
         ficha.setEjemplo(textCodigo.getText());
         ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
         ficha.editar();
-        
+
         for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
-            
+
             if (ingrediente.getiD() == 0) {
                 ingrediente.crear();
             } else {
                 ingrediente.editar();
             }
-            
+
         }
         
         try {
-            
+
             ((Usuario) contenedor).busqueda();
             findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
-            
-        }catch(ClassCastException ex){
-            
+
+        } catch (ClassCastException ex) {
+
             ((Resultados) contenedor).busqueda();
             findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
-            
+
         }
-            
-        
+
+
     }//GEN-LAST:event_botonGuardarFicha1ActionPerformed
 
     private void botonGuardarFicha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha2ActionPerformed
-        
-        if(Utilidades.validarCampo(jTextField3)){
-            
+
+        if (Utilidades.validarCampo(jTextField3)) {
+
             findcode.clases.Comentario comentario = new findcode.clases.Comentario();
             comentario.setiDFicha(ficha.getiD());
             comentario.setiDUsuario(usuario.getCorreo());
             comentario.setMensaje(jTextField3.getText());
             comentario.crear();
-            
+
             jTextField3.setText("");
             busquedaComentarios();
             jPanel7.revalidate();
+
+        }
+
+    }//GEN-LAST:event_botonGuardarFicha2ActionPerformed
+
+    private void listaIngredientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaIngredientesMouseReleased
+        try {
+            gestorFicha.listaIngredientesMouseReleased(evt);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_listaIngredientesMouseReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        if (usuario != null && ficha.getiD() != 0) {
+
+            calificacion = new findcode.clases.Calificacion();
+            calificacion.setiDFicha(ficha.getiD());
+            calificacion.setiDUsuario(usuario.getCorreo());
+            calificacion.setCalificacion(1);
+            jButton1.setForeground(Color.yellow);
+            jButton2.setForeground(Color.black);
+            jButton3.setForeground(Color.black);
+            jButton4.setForeground(Color.black);
+            jButton5.setForeground(Color.black);
+
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        if (usuario != null && ficha.getiD() != 0) {
+
+            jButton1ActionPerformed(evt);
+            calificacion.setCalificacion(2);
+            jButton2.setForeground(Color.yellow);
+            jButton3.setForeground(Color.black);
+            jButton4.setForeground(Color.black);
+            jButton5.setForeground(Color.black);
+
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        if (usuario != null && ficha.getiD() != 0) {
+
+            jButton2ActionPerformed(evt);
+            calificacion.setCalificacion(3);
+            jButton3.setForeground(Color.yellow);
+            jButton4.setForeground(Color.black);
+            jButton5.setForeground(Color.black);
+
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        if (usuario != null && ficha.getiD() != 0) {
+            
+            jButton3ActionPerformed(evt);
+            calificacion.setCalificacion(4);
+            jButton4.setForeground(Color.yellow);
+            jButton5.setForeground(Color.black);
             
         }
-                   
-    }//GEN-LAST:event_botonGuardarFicha2ActionPerformed
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        if (usuario != null && ficha.getiD() != 0) {
+            
+            jButton4ActionPerformed(evt);
+            calificacion.setCalificacion(5);
+            jButton5.setForeground(Color.yellow);
+            
+        }
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void botonGuardarFicha3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha3ActionPerformed
+        
+        if (usuario != null && ficha.getiD() != 0) {
+        
+            if(calificacion.getiD() == 0){
+                calificacion.crear();
+                calificacion.cargarPorFichaYUsuario();
+            } else {
+                calificacion.editar();
+            }
+        
+        }
+        
+    }//GEN-LAST:event_botonGuardarFicha3ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -847,25 +1137,39 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JButton botonGuardarFicha;
     private javax.swing.JButton botonGuardarFicha1;
     private javax.swing.JButton botonGuardarFicha2;
+    private javax.swing.JButton botonGuardarFicha3;
     private javax.swing.JMenuItem itemBorrar;
     private javax.swing.JMenuItem itemCargar;
     private javax.swing.JMenuItem itemGuardar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

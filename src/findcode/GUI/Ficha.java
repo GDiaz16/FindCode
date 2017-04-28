@@ -17,7 +17,6 @@ public class Ficha extends javax.swing.JPanel {
     private findcode.clases.Usuario usuario;
     private findcode.clases.Ficha ficha;
     private findcode.clases.Calificacion calificacion;
-    private int calificacionPromedio;
     private findcode.controladores.GestorFicha gestorFicha;
     private ArrayList<findcode.clases.Comentario> comentarios;
     private ArrayList<findcode.clases.Ficha> relacionados;
@@ -47,6 +46,7 @@ public class Ficha extends javax.swing.JPanel {
         busquedaComentarios();
         busquedaFichasRelacionadas();
         busquedaIngredientes();
+        busquedaPromedioCalificacion();
 
         //ficha = new findcode.clases.Ficha(popUp, listaIngredientes, textCodigo, listaPopUp);
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
@@ -82,6 +82,7 @@ public class Ficha extends javax.swing.JPanel {
         busquedaFichasRelacionadas();
         busquedaIngredientes();
         busquedaCalificaciones();
+        busquedaPromedioCalificacion();
 
         if (usuario.getCorreo().equals(ficha.getiDUsuario())) {
             textTituloFicha.setEditable(true);
@@ -177,15 +178,38 @@ public class Ficha extends javax.swing.JPanel {
         }
 
     }
+
+    public final void busquedaPromedioCalificacion() {
+    
+        jLabel7.setBackground(null);
+        jLabel6.setBackground(null);
+        jLabel3.setBackground(null);
+        jLabel2.setBackground(null);
+        jLabel1.setBackground(null);
+        
+        switch (findcode.clases.Calificacion.cargarPromedioFicha(ficha.getiD())) {
+            case 5:
+                jLabel7.setBackground(Color.yellow);
+            case 4:
+                jLabel6.setBackground(Color.yellow);
+            case 3:
+                jLabel3.setBackground(Color.yellow);
+            case 2:
+                jLabel2.setBackground(Color.yellow);
+            case 1:
+                jLabel1.setBackground(Color.yellow);
+        }
+    
+    }
     
     public final void busquedaCalificaciones() {
 
         calificacion = new findcode.clases.Calificacion();
         calificacion.setiDFicha(ficha.getiD());
         calificacion.setiDUsuario(usuario.getCorreo());
-        
+
         if (calificacion.cargarPorFichaYUsuario()) {
-        
+
             switch (calificacion.getCalificacion()) {
                 case 1:
                     jButton1ActionPerformed(null);
@@ -203,7 +227,7 @@ public class Ficha extends javax.swing.JPanel {
                     jButton5ActionPerformed(null);
                     break;
             }
-        
+
         }
 
     }
@@ -266,11 +290,11 @@ public class Ficha extends javax.swing.JPanel {
         listaIngredientes = new javax.swing.JList<String>();
         jPanel8 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -723,50 +747,30 @@ public class Ficha extends javax.swing.JPanel {
         jPanel12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel12.setLayout(new java.awt.GridLayout());
 
-        jButton6.setText("1");
-        jButton6.setFocusable(false);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton6);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("1");
+        jLabel1.setOpaque(true);
+        jPanel12.add(jLabel1);
 
-        jButton7.setText("2");
-        jButton7.setFocusable(false);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton7);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("2");
+        jLabel2.setOpaque(true);
+        jPanel12.add(jLabel2);
 
-        jButton9.setText("3");
-        jButton9.setFocusable(false);
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton9);
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("3");
+        jLabel3.setOpaque(true);
+        jPanel12.add(jLabel3);
 
-        jButton10.setText("4");
-        jButton10.setFocusable(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton10);
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("4");
+        jLabel6.setOpaque(true);
+        jPanel12.add(jLabel6);
 
-        jButton11.setText("5");
-        jButton11.setFocusable(false);
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton11);
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("5");
+        jLabel7.setOpaque(true);
+        jPanel12.add(jLabel7);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -981,7 +985,7 @@ public class Ficha extends javax.swing.JPanel {
             }
 
         }
-        
+
         try {
 
             ((Usuario) contenedor).busqueda();
@@ -1027,7 +1031,6 @@ public class Ficha extends javax.swing.JPanel {
 
         if (usuario != null && ficha.getiD() != 0) {
 
-            calificacion = new findcode.clases.Calificacion();
             calificacion.setiDFicha(ficha.getiD());
             calificacion.setiDUsuario(usuario.getCorreo());
             calificacion.setCalificacion(1);
@@ -1073,12 +1076,12 @@ public class Ficha extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
         if (usuario != null && ficha.getiD() != 0) {
-            
+
             jButton3ActionPerformed(evt);
             calificacion.setCalificacion(4);
             jButton4.setForeground(Color.yellow);
             jButton5.setForeground(Color.black);
-            
+
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -1086,49 +1089,31 @@ public class Ficha extends javax.swing.JPanel {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
         if (usuario != null && ficha.getiD() != 0) {
-            
+
             jButton4ActionPerformed(evt);
             calificacion.setCalificacion(5);
             jButton5.setForeground(Color.yellow);
-            
+
         }
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void botonGuardarFicha3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha3ActionPerformed
-        
+
         if (usuario != null && ficha.getiD() != 0) {
-        
-            if(calificacion.getiD() == 0){
+
+            if (calificacion.getiD() == 0) {
                 calificacion.crear();
                 calificacion.cargarPorFichaYUsuario();
             } else {
                 calificacion.editar();
             }
-        
+            
+            busquedaPromedioCalificacion();
+
         }
-        
+
     }//GEN-LAST:event_botonGuardarFicha3ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1142,22 +1127,22 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JMenuItem itemCargar;
     private javax.swing.JMenuItem itemGuardar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;

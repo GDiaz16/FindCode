@@ -2,7 +2,7 @@ package findcode.clases;
 
 import findcode.controladores.MySQL;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Ingrediente {
     
@@ -124,9 +124,9 @@ public class Ingrediente {
 
     }
     
-    public ArrayList<Ingrediente> cargarPorFicha(int iDFicha) {
+    public static HashMap<String, Ingrediente> cargarPorFicha(int iDFicha) {
 
-        ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+        HashMap<String, Ingrediente> ingredientes = new HashMap<>();
         
         try {
 
@@ -143,13 +143,14 @@ public class Ingrediente {
             while (db.getResultados().next()) {
                 
                 Ingrediente ingrediente = new Ingrediente();
+                ingrediente.setiD(db.getResultados().getInt("iD"));
                 ingrediente.setTitulo(db.getResultados().getString("titulo"));
                 ingrediente.setDescripcion(db.getResultados().getString("descripcion"));
                 ingrediente.setPosInicial(db.getResultados().getInt("posInicial"));
                 ingrediente.setPosFinal(db.getResultados().getInt("posFinal"));
                 ingrediente.setiDFicha(db.getResultados().getInt("iDFicha"));
                 
-                ingredientes.add(ingrediente);
+                ingredientes.put(db.getResultados().getString("titulo"), ingrediente);
 
             }
             

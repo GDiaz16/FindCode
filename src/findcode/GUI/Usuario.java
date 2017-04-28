@@ -1,6 +1,5 @@
 package findcode.GUI;
 
-import findcode.controladores.MotorDeBusqueda;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JPanel;
@@ -9,7 +8,7 @@ public class Usuario extends javax.swing.JPanel {
 
     private JPanel contenedor;
     private findcode.clases.Usuario usuario;
-    private HashMap<Integer, findcode.clases.Ficha> fichas;
+    private ArrayList<findcode.clases.Ficha> fichas;
     private ArrayList<Resultado> resultados;
     
     public Usuario(JPanel contenedor, findcode.clases.Usuario usuario) {
@@ -22,20 +21,22 @@ public class Usuario extends javax.swing.JPanel {
     
     public final void busqueda(){
         
+        jPanel2.removeAll();
         resultados = new ArrayList<>();
-        fichas = new MotorDeBusqueda(usuario).buscarPorUsuario();
+        fichas = usuario.buscarFichas();
         
         if (fichas.isEmpty()) {
             jPanel2.setLayout(new java.awt.GridLayout());
+            jPanel2.add(jLabel9);
             jLabel9.setVisible(true);
         }
         
         if (usuario == null) {
-            for (findcode.clases.Ficha ficha : fichas.values()) {
+            for (findcode.clases.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, ficha));
             }
         } else {
-            for (findcode.clases.Ficha ficha : fichas.values()) {
+            for (findcode.clases.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, usuario, ficha));
             }
         }

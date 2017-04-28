@@ -2,6 +2,7 @@ package findcode.clases;
 
 import findcode.controladores.MySQL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Ficha {
 
@@ -153,7 +154,7 @@ public class Ficha {
             db.getSentencia().setString(1, titulo);
             db.getSentencia().setString(2, descripcion);
             db.getSentencia().setString(3, ejemplo);
-            db.getSentencia().setInt(3, iD);
+            db.getSentencia().setInt(4, iD);
 
             db.getSentencia().execute();
             db.conexion().close();
@@ -183,6 +184,54 @@ public class Ficha {
             ex.printStackTrace();
         }
 
+    }
+    
+    public static ArrayList<Ficha> buscarTextoPorLenguaje(String busqueda, String lenguaje) {
+
+        ArrayList<Ficha> fichas = new ArrayList<>();
+
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = " select * from TFichas where"
+                    + " titulo LIKE ? AND iDLenguaje = ? ";
+
+            db.setSentencia(query);
+            db.getSentencia().setString(1, "%"+busqueda+"%");
+            db.getSentencia().setString(2, lenguaje);
+
+            db.setResultados(db.getSentencia().executeQuery());
+
+            while (db.getResultados().next()) {
+
+                Ficha ficha = new Ficha(db.getResultados().getInt("iD"),
+                        db.getResultados().getString("titulo"),
+                        db.getResultados().getString("descripcion"),
+                        db.getResultados().getString("ejemplo"),
+                        db.getResultados().getString("iDUsuario"),
+                        db.getResultados().getString("iDLenguaje"));
+                
+                fichas.add( ficha);
+
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return fichas;
+        
+    }
+    
+    public ArrayList<Ficha> buscarFichasRelacionadas() {
+
+        ArrayList<Ficha> fichas;
+        Usuario usuario = new Usuario();
+        usuario.setCorreo(iDUsuario);
+        fichas = usuario.buscarFichas();
+        return fichas;
+        
     }
 
 }

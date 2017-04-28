@@ -1,6 +1,5 @@
 package findcode.GUI;
 
-import findcode.controladores.MotorDeBusqueda;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JPanel;
@@ -9,7 +8,7 @@ public class Resultados extends javax.swing.JPanel {
 
     private JPanel contenedor;
     private findcode.clases.Usuario usuario;
-    private HashMap<Integer, findcode.clases.Ficha> fichas;
+    private ArrayList<findcode.clases.Ficha> fichas;
     private ArrayList<Resultado> resultados;
     private String busqueda;
     private String lenguaje;
@@ -29,29 +28,37 @@ public class Resultados extends javax.swing.JPanel {
     
     public Resultados(JPanel contenedor, findcode.clases.Usuario usuario, String busqueda, String lenguaje) {
         
-        this(contenedor, busqueda, lenguaje);
+        initComponents();
         jButton7.setVisible(true);
         jButton8.setVisible(true);
+        jLabel8.setVisible(false);
+        this.contenedor = contenedor;
+        this.busqueda = busqueda;
+        this.lenguaje = lenguaje;
+        jButton8.setText(usuario.getNickname());
         this.usuario = usuario;
+        busqueda();
 
     }
     
     public final void busqueda(){
         
+        jPanel2.removeAll();
         resultados = new ArrayList<>();
-        fichas = new MotorDeBusqueda(busqueda, lenguaje).buscarPorTitulo();
+        fichas = findcode.clases.Ficha.buscarTextoPorLenguaje(busqueda, lenguaje);
         
         if (fichas.isEmpty()) {
             jPanel2.setLayout(new java.awt.GridLayout());
+            jPanel2.add(jLabel8);
             jLabel8.setVisible(true);
         }
         
         if (usuario == null) {
-            for (findcode.clases.Ficha ficha : fichas.values()) {
+            for (findcode.clases.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, ficha));
             }
         } else {
-            for (findcode.clases.Ficha ficha : fichas.values()) {
+            for (findcode.clases.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, usuario, ficha));
             }
         }

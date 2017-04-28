@@ -245,6 +245,7 @@ public class GestorFicha {
         Font font = new Font("Verdana", Font.BOLD, 12);
         label.setSize(100, 100);
         label.setFont(font);
+        textCodigo.requestFocus();
         int x = textCodigo.getCaret().getMagicCaretPosition().x;
         int y = textCodigo.getCaret().getMagicCaretPosition().y;
         popUp.add(label);

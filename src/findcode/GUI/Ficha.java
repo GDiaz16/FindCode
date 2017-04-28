@@ -3,8 +3,10 @@ package findcode.GUI;
 import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.text.BadLocationException;
 
@@ -16,6 +18,7 @@ public class Ficha extends javax.swing.JPanel {
     private findcode.controladores.GestorFicha gestorFicha;
     private ArrayList<findcode.clases.Comentario> comentarios;
     private ArrayList<findcode.clases.Ficha> relacionados;
+    private HashMap<String, findcode.clases.Ingrediente> ingredientes;
 
     // Consultar ficha sin usuario
     public Ficha(JPanel contenedor, findcode.clases.Ficha ficha) {
@@ -40,6 +43,7 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.personalizarCampo(jTextField3, "Nuevo comentario", "");
         busquedaComentarios();
         busquedaFichasRelacionadas();
+        busquedaIngredientes();
 
         //ficha = new findcode.clases.Ficha(popUp, listaIngredientes, textCodigo, listaPopUp);
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
@@ -73,6 +77,7 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.personalizarCampo(jTextField3, "Nuevo comentario", "");
         busquedaComentarios();
         busquedaFichasRelacionadas();
+        busquedaIngredientes();
 
         if(usuario.getCorreo().equals(ficha.getiDUsuario())){
             textTituloFicha.setEditable(true);
@@ -107,6 +112,7 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.personalizarCampo(jTextField3, "Nuevo comentario", "");
         busquedaComentarios();
         busquedaFichasRelacionadas();
+        busquedaIngredientes();
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Lenguaje.cargarTodos().toArray()));
         textTituloFicha.setEditable(true);
         textDescripcion.setEditable(true);
@@ -121,6 +127,21 @@ public class Ficha extends javax.swing.JPanel {
 
     }
 
+    public final void busquedaIngredientes() {
+
+        jPanel7.removeAll();
+        ingredientes = findcode.clases.Ingrediente.cargarPorFicha(ficha.getiD());
+
+        DefaultListModel modelo = new DefaultListModel();
+        
+        for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
+            modelo.addElement(ingrediente.getTitulo());
+        }
+        
+        listaIngredientes.setModel(modelo);
+
+    }
+    
     public final void busquedaComentarios() {
 
         jPanel7.removeAll();
@@ -754,6 +775,10 @@ public class Ficha extends javax.swing.JPanel {
         ficha.setiDUsuario(usuario.getCorreo());
         ficha.crear();
         
+        for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
+            ingrediente.crear();
+        }
+        
         findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, usuario));
         
     }//GEN-LAST:event_botonGuardarFichaActionPerformed
@@ -771,6 +796,16 @@ public class Ficha extends javax.swing.JPanel {
         ficha.setEjemplo(textCodigo.getText());
         ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
         ficha.editar();
+        
+        for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
+            
+            if (ingrediente.getiD() == 0) {
+                ingrediente.crear();
+            } else {
+                ingrediente.editar();
+            }
+            
+        }
         
         try {
             

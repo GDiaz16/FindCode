@@ -179,7 +179,7 @@ public class Ficha extends javax.swing.JPanel {
         super.paint(g);
         jSplitPane1.setDividerLocation(0.70);
         jSplitPane2.setDividerLocation(0.70);
-        jSplitPane3.setDividerLocation(0.60);
+        jSplitPane3.setDividerLocation(this.getWidth() - 300);
         
     }
 

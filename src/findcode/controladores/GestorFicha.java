@@ -22,6 +22,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.Caret;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
@@ -75,7 +77,7 @@ public class GestorFicha {
         int caret = textCodigo.getCaretPosition();
         if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
                 && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_SHIFT) {
-
+            
             setText();
             //setListaIngredientes(1);
         }
@@ -109,11 +111,14 @@ public class GestorFicha {
             popUp.setVisible(true);
             popUp.show(evt.getComponent(), evt.getX(), evt.getY());
         } else if (evt.getButton() == MouseEvent.BUTTON1) {
-            String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
-            int a = ingredientes2.get(elemento).getPosInicial();
-            int b = ingredientes2.get(elemento).getPosFinal();
-            String contenido = ingredientes2.get(elemento).getDescripcion();
-            mostrarElemento(a, b, contenido);
+//            String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
+//            int a = ingredientes2.get(elemento).getPosInicial();
+//            int b = ingredientes2.get(elemento).getPosFinal();
+//            String contenido = ingredientes2.get(elemento).getDescripcion();
+//            //textCodigo.requestFocus(true);
+//            System.out.println("presionado el clic");
+//            mostrarElemento(a, b, contenido);
+//            mostrarElemento(a, b, contenido);
         }
     }
 
@@ -191,7 +196,7 @@ public class GestorFicha {
     }
 
     public void separador(String codigo) {
-        StringTokenizer st = new StringTokenizer(codigo, " \t\n", true);
+        StringTokenizer st = new StringTokenizer(codigo, " \t\n()", true);
         codigoDesarmado = new String[st.countTokens()];
         int i = 0;
         while (st.hasMoreTokens()) {
@@ -245,12 +250,17 @@ public class GestorFicha {
         Font font = new Font("Verdana", Font.BOLD, 12);
         label.setSize(100, 100);
         label.setFont(font);
-        textCodigo.requestFocus();
-        int x = textCodigo.getCaret().getMagicCaretPosition().x;
-        int y = textCodigo.getCaret().getMagicCaretPosition().y;
+        //
+        //int x = ;
+        //int y = ;
+        
         popUp.add(label);
-        popUp.setVisible(true);
-        popUp.show(textCodigo, x, y);
+        System.out.println("deberia mostrar popup");
+         if (textCodigo.getCaret().getMagicCaretPosition() != null){
+            popUp.setVisible(true);
+             //popUp.show(textCodigo,100,220);
+           popUp.show(textCodigo, textCodigo.getCaret().getMagicCaretPosition().x, textCodigo.getCaret().getMagicCaretPosition().y);
+        }
     }
 
 
@@ -259,9 +269,27 @@ public class GestorFicha {
         for (String cadena : ingredientes2.keySet()) {
             if (!model.contains(cadena)) {
                 model.addElement(cadena);
+                
             }
         }
-
+        listaIngredientes.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                System.out.println("elemento seleccionado "+listaIngredientes.getSelectedIndex());
+                String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
+                int a = ingredientes2.get(elemento).getPosInicial();
+                int b = ingredientes2.get(elemento).getPosFinal();
+                String contenido = ingredientes2.get(elemento).getDescripcion();
+                //textCodigo.requestFocus(true);
+                System.out.println("presionado el clic");
+                try {
+                    mostrarElemento(a, b, contenido);
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(GestorFicha.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            }
+        } );
         listaIngredientes.setModel(model);
     }
 
@@ -337,8 +365,18 @@ public class GestorFicha {
         //System.out.println("posX "+textCodigo.getCaret().getMagicCaretPosition().getX());
         //System.out.println("posY "+textCodigo.getCaret().getMagicCaretPosition().getY());
         
-       //textCodigo.setCaretPosition(fin);
-       textCodigo.getCaret().setDot(fin);
+       
+       //try{
+                           
+           textCodigo.setCaretPosition(fin);
+           textCodigo.getCaret().setVisible(true);
+           System.out.println("primer setDot");
+    
+           //textCodigo.requestFocus();
+       //}catch(){
+           
+       //}
+       
         mostrarTextoPopUp(contenido);
         
     }

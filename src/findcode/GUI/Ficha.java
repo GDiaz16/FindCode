@@ -24,7 +24,7 @@ public class Ficha extends javax.swing.JPanel {
 
     // Consultar ficha sin usuario
     public Ficha(JPanel contenedor, findcode.clases.Ficha ficha) {
-
+        
         initComponents();
         this.contenedor = contenedor;
         this.ficha = ficha;

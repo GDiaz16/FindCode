@@ -141,7 +141,7 @@ public class Resultados extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

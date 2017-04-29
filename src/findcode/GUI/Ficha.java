@@ -35,6 +35,7 @@ public class Ficha extends javax.swing.JPanel {
         jButton13.setVisible(false);
         botonGuardarFicha.setVisible(false);
         botonGuardarFicha1.setVisible(false);
+        botonGuardarFicha4.setVisible(false);
         jTextField1.setVisible(false);
         jTextField3.setVisible(false);
         botonGuardarFicha2.setVisible(false);
@@ -77,6 +78,7 @@ public class Ficha extends javax.swing.JPanel {
         // Visibilidad de los objetos necesarios
         botonGuardarFicha.setVisible(false);
         botonGuardarFicha1.setVisible(false);
+        botonGuardarFicha4.setVisible(false);
         jTextField1.setVisible(false);
         jButton8.setVisible(true);
         jButton13.setVisible(true);
@@ -108,6 +110,7 @@ public class Ficha extends javax.swing.JPanel {
             textDescripcion.setEditable(true);
             textCodigo.setEditable(true);
             botonGuardarFicha1.setVisible(true);
+            botonGuardarFicha4.setVisible(true);
             jTextField1.setVisible(true);
             jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Lenguaje.cargarTodos().toArray()));
             jComboBox1.setSelectedItem(ficha.getiDLenguaje());
@@ -155,6 +158,7 @@ public class Ficha extends javax.swing.JPanel {
         textCodigo.setEditable(true);
         botonGuardarFicha.setVisible(true);
         botonGuardarFicha1.setVisible(false);
+        botonGuardarFicha4.setVisible(false);
         jTextField1.setVisible(true);
         
         // Otras funciones
@@ -311,6 +315,7 @@ public class Ficha extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox();
         jTextField1 = new javax.swing.JTextField();
         botonGuardarFicha1 = new javax.swing.JButton();
+        botonGuardarFicha4 = new javax.swing.JButton();
         textTituloFicha = new javax.swing.JTextField();
         jScrollPane6 = new javax.swing.JScrollPane();
         textDescripcion = new javax.swing.JTextArea();
@@ -538,6 +543,14 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
+        botonGuardarFicha4.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        botonGuardarFicha4.setText("Borrar ficha");
+        botonGuardarFicha4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarFicha4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -555,6 +568,8 @@ public class Ficha extends javax.swing.JPanel {
                         .addComponent(botonGuardarFicha)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonGuardarFicha1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonGuardarFicha4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -581,7 +596,8 @@ public class Ficha extends javax.swing.JPanel {
                         .addComponent(jComboBox1)
                         .addComponent(botonGuardarFicha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(botonGuardarFicha1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(botonGuardarFicha1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonGuardarFicha4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jButton8)
                         .addGap(1, 1, 1)))
@@ -852,7 +868,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -889,7 +905,7 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
                     .addComponent(jScrollPane8))
                 .addContainerGap())
         );
@@ -1192,6 +1208,24 @@ public class Ficha extends javax.swing.JPanel {
 
     }//GEN-LAST:event_botonGuardarFicha3ActionPerformed
 
+    private void botonGuardarFicha4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha4ActionPerformed
+       
+        ficha.borrar();
+        
+        try {
+
+            ((Usuario) contenedor).busqueda();
+            findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
+
+        } catch (ClassCastException ex) {
+
+            ((Resultados) contenedor).busqueda();
+            findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
+
+        }
+        
+    }//GEN-LAST:event_botonGuardarFicha4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
@@ -1200,6 +1234,7 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JButton botonGuardarFicha1;
     private javax.swing.JButton botonGuardarFicha2;
     private javax.swing.JButton botonGuardarFicha3;
+    private javax.swing.JButton botonGuardarFicha4;
     private javax.swing.JMenuItem itemBorrar;
     private javax.swing.JMenuItem itemCargar;
     private javax.swing.JMenuItem itemGuardar;

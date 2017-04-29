@@ -74,7 +74,7 @@ public class Usuario extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel9.setForeground(java.awt.Color.decode("#D8D8D8"));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("No hay resultados");
+        jLabel9.setText("No hay fichas creadas");
         jPanel2.add(jLabel9);
 
         jScrollPane2.setViewportView(jPanel2);

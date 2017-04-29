@@ -82,7 +82,7 @@
                           <Connection code="java.awt.Color.decode(&quot;#D8D8D8&quot;)" type="code"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="No hay resultados"/>
+                        <Property name="text" type="java.lang.String" value="No hay fichas"/>
                       </Properties>
                     </Component>
                   </SubComponents>

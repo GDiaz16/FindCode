@@ -147,14 +147,16 @@ public class Ficha {
             String query = "UPDATE TFichas "
                     + "SET titulo = ?, "
                     + " descripcion = ?, "
-                    + " ejemplo = ? "
+                    + " ejemplo = ? ,"
+                    + " iDLenguaje = ? "
                     + "WHERE iD = ? ";
 
             db.setSentencia(query);
             db.getSentencia().setString(1, titulo);
             db.getSentencia().setString(2, descripcion);
             db.getSentencia().setString(3, ejemplo);
-            db.getSentencia().setInt(4, iD);
+            db.getSentencia().setString(4, iDLenguaje);
+            db.getSentencia().setInt(5, iD);
 
             db.getSentencia().execute();
             db.conexion().close();

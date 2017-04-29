@@ -94,7 +94,7 @@ public class Resultados extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel8.setForeground(java.awt.Color.decode("#D8D8D8"));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("No hay resultados");
+        jLabel8.setText("No hay fichas");
         jPanel2.add(jLabel8);
 
         jScrollPane2.setViewportView(jPanel2);

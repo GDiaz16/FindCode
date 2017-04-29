@@ -177,8 +177,8 @@ public class Ficha extends javax.swing.JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        jSplitPane1.setDividerLocation(0.70);
-        jSplitPane2.setDividerLocation(0.70);
+        jSplitPane1.setDividerLocation(this.getHeight() - 450);
+        jSplitPane2.setDividerLocation(this.getHeight() - 400);
         jSplitPane3.setDividerLocation(this.getWidth() - 300);
         
     }
@@ -203,6 +203,12 @@ public class Ficha extends javax.swing.JPanel {
         ArrayList<Comentario> panelesComentario = new ArrayList<>();
         comentarios = findcode.clases.Comentario.cargarPorFicha(ficha.getiD());
 
+        if (comentarios.isEmpty()) {
+            jPanel7.setLayout(new java.awt.GridLayout());
+            jPanel7.add(jLabel9);
+            jLabel9.setVisible(true);
+        }
+        
         for (findcode.clases.Comentario comentario : comentarios) {
             panelesComentario.add(new Comentario(contenedor, comentario));
         }
@@ -221,7 +227,12 @@ public class Ficha extends javax.swing.JPanel {
         ArrayList<Resultado> panelesResultado = new ArrayList<>();
         relacionados = ficha.buscarFichasRelacionadas();
 
-        System.out.println("sdasda" + usuario);
+        if (relacionados.isEmpty()) {
+            jPanel3.setLayout(new java.awt.GridLayout());
+            jPanel3.add(jLabel10);
+            jLabel10.setVisible(true);
+        }
+        
         for (findcode.clases.Ficha ficha1 : relacionados) {
             panelesResultado.add(new Resultado(this, usuario, ficha1));
         }
@@ -338,6 +349,7 @@ public class Ficha extends javax.swing.JPanel {
         botonGuardarFicha3 = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
         jPanel7 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -354,6 +366,7 @@ public class Ficha extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
 
         itemGuardar.setText("Guardar");
         itemGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -625,6 +638,7 @@ public class Ficha extends javax.swing.JPanel {
         jScrollPane6.setViewportView(textDescripcion);
 
         jSplitPane3.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane3.setDividerLocation(500);
         jSplitPane3.setDividerSize(10);
         jSplitPane3.setToolTipText("");
         jSplitPane3.setContinuousLayout(true);
@@ -741,6 +755,13 @@ public class Ficha extends javax.swing.JPanel {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel9.setForeground(java.awt.Color.decode("#D8D8D8"));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("No hay comentarios");
+        jPanel7.add(jLabel9);
+
         jScrollPane9.setViewportView(jPanel7);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -754,7 +775,7 @@ public class Ficha extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botonGuardarFicha2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -783,7 +804,7 @@ public class Ficha extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -868,7 +889,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -896,6 +917,13 @@ public class Ficha extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel10.setForeground(java.awt.Color.decode("#D8D8D8"));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("No hay relaciones");
+        jPanel3.add(jLabel10);
+
         jScrollPane8.setViewportView(jPanel3);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -905,8 +933,8 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
-                    .addComponent(jScrollPane8))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -1248,6 +1276,7 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JButton jButton8;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1255,6 +1284,7 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;

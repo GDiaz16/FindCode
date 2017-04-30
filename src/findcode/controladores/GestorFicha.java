@@ -344,12 +344,14 @@ public class GestorFicha {
     }
 
     public void setIngredientes(String titulo, String comentario, int inicio, int fin) {
+        
         if (ingredientes2.isEmpty()||!ingredientes2.containsKey(titulo)) {
             findcode.clases.Ingrediente ingrediente = new findcode.clases.Ingrediente();
             ingrediente.setDescripcion(comentario);
             ingrediente.setTitulo(titulo);
             ingrediente.setPosInicial(inicio);
             ingrediente.setPosFinal(fin);
+            
 //            ingredientes2.put(ingrediente.getTitulo(), ingrediente);
 //            System.out.println("titulo " + ingrediente.getTitulo());
 //            System.out.println("comentario " + ingrediente.getDescripcion());

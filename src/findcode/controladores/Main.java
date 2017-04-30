@@ -1,9 +1,14 @@
 package findcode.controladores;
 
 import findcode.GUI.Inicio;
+import java.awt.CardLayout;
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main {
@@ -19,23 +24,17 @@ public class Main {
         
         // Crear ventana
         JFrame frame = new JFrame();
+        frame.setBackground(Color.white);
         frame.add(new Inicio());
         frame.setSize(650, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+        findcode.controladores.Utilidades.asignarFondo(frame, "imagenes/fondo.gif");
         frame.setVisible(true);
         
         // Crear tablas si no existen
         // MySQL db = new MySQL();
         // db.crearTablas();
-        
-        //findcode.clases.Ingrediente i = new findcode.clases.Ingrediente();
-        //i.setTitulo("Instanciar");
-        //i.setDescripcion("Instancia de la primera clase de tipo tal");
-        //i.setPosInicial(1);
-        //i.setPosFinal(5);
-        //i.setiDFicha(1);
-        //i.crear();
         
     }
     

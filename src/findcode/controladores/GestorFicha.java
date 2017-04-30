@@ -24,7 +24,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.Caret;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
@@ -197,7 +196,7 @@ public class GestorFicha {
         simbolos.add("%");
         simbolos.add("\"");
     }
-
+//separa las palabras cuando encuentra un espacio, salto de linea, tabulacion o parentesis y las coloca en un array
     public void separador(String codigo) {
         StringTokenizer st = new StringTokenizer(codigo, " \t\n()", true);
         codigoDesarmado = new String[st.countTokens()];
@@ -208,7 +207,7 @@ public class GestorFicha {
         }
 
     }
-
+//vuelve a colocar texto en el textpane
     public void setText() {
         separador(textCodigo.getText());
         textCodigo.setText("");
@@ -224,7 +223,7 @@ public class GestorFicha {
             }
         }
     }
-
+//le da formato al texto cuando encuentra palabras reservadas
     public SimpleAttributeSet formato(String palabraReservada) {
 
         SimpleAttributeSet simp = new SimpleAttributeSet();
@@ -246,7 +245,7 @@ public class GestorFicha {
         return simp;
     }
 
-    //Texto a mostrar cuando se seleccione un elemento de la lista
+//Texto a mostrar cuando se seleccione un elemento de la lista
     public void mostrarTextoPopUp(String contenido) {
         JLabel label = new JLabel(contenido);
         label.setForeground(Color.blue);
@@ -265,7 +264,7 @@ public class GestorFicha {
            popUp.show(textCodigo, textCodigo.getCaret().getMagicCaretPosition().x, textCodigo.getCaret().getMagicCaretPosition().y);
         }
     }
-
+//agregar un listener al seleccionar los elementos
     public void listListener(){
          listaIngredientes.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -287,6 +286,7 @@ public class GestorFicha {
         } ); 
         
     }
+//coloca los ingredientes en el modelo y luego establece el modelo en la lista
     public void setListaIngredientes() {
 
         for (String cadena : ingredientes2.keySet()) {
@@ -295,17 +295,17 @@ public class GestorFicha {
                 
             }
         }
-       
+       //listListener();
         listaIngredientes.setModel(model);
     }
-
+//eliminar un elemento de la lista de ingredientes
     public void eliminarElemento(int index) {
         String elemento = model.getElementAt(index).toString();
         model.remove(index);
         ingredientes2.remove(elemento);
         listaIngredientes.setModel(model);
     }
-
+//accion del boton guardar de la ventana emergente
     public void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {
 
         //setListaSeleccion(textTitulo.getText());
@@ -325,7 +325,7 @@ public class GestorFicha {
         textTitulo.setText("");
         textComentario.setText("");
     }
-
+//accion del item guardar en la lista emergente del textpane
     public void itemGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         if (seleccion != null) {
             //System.out.println("Guardar presionado...");
@@ -338,21 +338,21 @@ public class GestorFicha {
         }
         //setListaSeleccion(titulo);
     }
-
+//accion del item borrar que aparece al dar clic izquierdo en la lista de ingredientes
     public void itemBorrarActionPerformed(java.awt.event.ActionEvent evt) {
         eliminarElemento(listaIngredientes.getSelectedIndex());
     }
-
+//crea un objeto del tipo ingrediente y lo coloca en el hashmap de ingredientes
     public void setIngredientes(String titulo, String comentario, int inicio, int fin) {
         
-        if (ingredientes2.isEmpty()||!ingredientes2.containsKey(titulo)) {
+        if (!ingredientes2.containsKey(titulo)) {
             findcode.clases.Ingrediente ingrediente = new findcode.clases.Ingrediente();
             ingrediente.setDescripcion(comentario);
             ingrediente.setTitulo(titulo);
             ingrediente.setPosInicial(inicio);
             ingrediente.setPosFinal(fin);
             
-//            ingredientes2.put(ingrediente.getTitulo(), ingrediente);
+            ingredientes2.put(ingrediente.getTitulo(), ingrediente);
 //            System.out.println("titulo " + ingrediente.getTitulo());
 //            System.out.println("comentario " + ingrediente.getDescripcion());
 //            System.out.println("inicio " + ingrediente.getPosInicial());
@@ -361,7 +361,7 @@ public class GestorFicha {
             System.out.println("ya existe el elemento");
         }
     }
-
+//resalta con color el texto referente al elemento de la lista de ingredientes y muestra el pop up con el comentario
     public void mostrarElemento(/*int inicio, int fin, String contenido*/) throws BadLocationException {
         //System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
         String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();

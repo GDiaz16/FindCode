@@ -50,7 +50,6 @@ public class GestorFicha {
     JMenuItem cargar;
     JMenuItem guardar;
     JMenuItem borrar;
-    //int caret;
     String seleccion;
 
     public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
@@ -71,7 +70,7 @@ public class GestorFicha {
         this.textTituloFicha = textTituloFicha;
         this.ingredientes2 = ingredientes2;
         cargarPalabras();
-        listListener();
+        //listListener();
     }
 
     //capturar el evento de escribir en el panel y dejar el cursor en el lugar al que se mueva
@@ -90,15 +89,15 @@ public class GestorFicha {
 
     //mostrar pop UP con el click en la ventana del codigo
     public void textCodigoMouseReleased(java.awt.event.MouseEvent evt) {
-        popUp.removeAll();
-        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() > 1) {
-            //mostrarTextoPopUp();
-            //System.out.println("clic izquierdo");
-            //popUp.setVisible(true);
-            //popUp.show(evt.getComponent(), evt.getX(), evt.getY());
-        } else if (evt.getButton() == MouseEvent.BUTTON3) {
+        //popUp.removeAll();
+//        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() > 1) {
+//            //mostrarTextoPopUp();
+//            //System.out.println("clic izquierdo");
+//            //popUp.setVisible(true);
+//            //popUp.show(evt.getComponent(), evt.getX(), evt.getY());
+//        } else 
+            if (evt.getButton() == MouseEvent.BUTTON3) {
             cargarListaPopUp(1);
-            //System.out.println("clic derecho");
             popUp.setVisible(true);
             popUp.show(evt.getComponent(), evt.getX(), evt.getY());
         }
@@ -107,34 +106,33 @@ public class GestorFicha {
     }
 
     public void listaIngredientesMouseReleased(java.awt.event.MouseEvent evt) throws BadLocationException {
-        popUp.removeAll();
+        
         if (evt.getButton() == MouseEvent.BUTTON3) {
             cargarListaPopUp(2);
             popUp.setVisible(true);
             popUp.show(evt.getComponent(), evt.getX(), evt.getY());
-       }// else if (evt.getButton() == MouseEvent.BUTTON1) {
-////            String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
-////            int a = ingredientes2.get(elemento).getPosInicial();
-////            int b = ingredientes2.get(elemento).getPosFinal();
-////            String contenido = ingredientes2.get(elemento).getDescripcion();
-////            //textCodigo.requestFocus(true);
-////            System.out.println("presionado el clic");
-////            mostrarElemento(a, b, contenido);
-////            mostrarElemento(a, b, contenido);
-//        }
+       }else if (evt.getButton() == MouseEvent.BUTTON1) {
+            System.out.println("evento list");
+            try {
+                mostrarElemento();
+            } catch (BadLocationException ex) {
+                Logger.getLogger(GestorFicha.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     //cargar datos que se van a mostrar en el popUP
     public void cargarListaPopUp(int opcion) {
+        popUp.removeAll();
         if (opcion == 1) {
             seleccion = textCodigo.getSelectedText();
-            System.out.println(seleccion);
+            //System.out.println(seleccion);
             popUp.add(cargar);
             popUp.add(guardar);
         }
-        if (opcion == 2) {
+        else if (opcion == 2) {
             popUp.add(borrar);
-            System.out.println("item " + listaIngredientes.getSelectedIndex());
+            //System.out.println("item " + listaIngredientes.getSelectedIndex());
         }
 
     }
@@ -247,6 +245,7 @@ public class GestorFicha {
 
 //Texto a mostrar cuando se seleccione un elemento de la lista
     public void mostrarTextoPopUp(String contenido) {
+        
         JLabel label = new JLabel(contenido);
         label.setForeground(Color.blue);
         Font font = new Font("Verdana", Font.BOLD, 12);
@@ -265,27 +264,30 @@ public class GestorFicha {
         }
     }
 //agregar un listener al seleccionar los elementos
-    public void listListener(){
-         listaIngredientes.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-//                System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
-//                String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
-//                int a = ingredientes2.get(elemento).getPosInicial();
-//                int b = ingredientes2.get(elemento).getPosFinal();
-//                String contenido = ingredientes2.get(elemento).getDescripcion();
-//                //textCodigo.requestFocus(true);
-//                System.out.println("presionado el clic");
-                try {
-                    mostrarElemento(/*a, b, contenido*/);
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(GestorFicha.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-            }
-        } ); 
-        
-    }
+//    public void listListener(){
+//         listaIngredientes.addListSelectionListener(new ListSelectionListener() {
+//             
+//            @Override
+//            public void valueChanged(ListSelectionEvent e) {
+//                
+//                //System.out.println("evento list");
+////                System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
+////                String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
+////                int a = ingredientes2.get(elemento).getPosInicial();
+////                int b = ingredientes2.get(elemento).getPosFinal();
+////                String contenido = ingredientes2.get(elemento).getDescripcion();
+////                //textCodigo.requestFocus(true);
+////                System.out.println("presionado el clic");
+////                try {
+////                    mostrarElemento(/*a, b, contenido*/);
+////                } catch (BadLocationException ex) {
+////                    Logger.getLogger(GestorFicha.class.getName()).log(Level.SEVERE, null, ex);
+////                }
+//            
+//            }
+//        } ); 
+//        
+//    }
 //coloca los ingredientes en el modelo y luego establece el modelo en la lista
     public void setListaIngredientes() {
 
@@ -300,10 +302,12 @@ public class GestorFicha {
     }
 //eliminar un elemento de la lista de ingredientes
     public void eliminarElemento(int index) {
-        String elemento = model.getElementAt(index).toString();
-        model.remove(index);
-        ingredientes2.remove(elemento);
-        listaIngredientes.setModel(model);
+        if (index != -1) {
+            String elemento = model.getElementAt(index).toString();
+            model.remove(index);
+            ingredientes2.remove(elemento);
+            listaIngredientes.setModel(model);
+        }
     }
 //accion del boton guardar de la ventana emergente
     public void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,36 +366,21 @@ public class GestorFicha {
         }
     }
 //resalta con color el texto referente al elemento de la lista de ingredientes y muestra el pop up con el comentario
-    public void mostrarElemento(/*int inicio, int fin, String contenido*/) throws BadLocationException {
-        //System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
-        String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
-        int inicio = ingredientes2.get(elemento).getPosInicial();
-        int fin = ingredientes2.get(elemento).getPosFinal();
-        String contenido = ingredientes2.get(elemento).getDescripcion();
-        //textCodigo.requestFocus(true);
-        //System.out.println("presionado el clic");
-        Highlighter highlighter = textCodigo.getHighlighter();
-        HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.green);
-        highlighter.removeAllHighlights();
-        System.out.println("inicio " + inicio + "  --- final " + fin);
-        highlighter.addHighlight(inicio, fin, painter);
-        
-        //System.out.println("posX "+textCodigo.getCaret().getMagicCaretPosition().getX());
-        //System.out.println("posY "+textCodigo.getCaret().getMagicCaretPosition().getY());
-         
-       
-       //try{
-                           
-           textCodigo.setCaretPosition(fin);
-           textCodigo.getCaret().setVisible(true);
-           System.out.println("primer setDot");
-    
-           //textCodigo.requestFocus();
-       //}catch(){
-           
-       //}
-       
-        mostrarTextoPopUp(contenido);
+    public void mostrarElemento() throws BadLocationException {
+        System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
+//       String contenido = ingredientes2.get(elemento).getDescripcion();
+//       
+//        Highlighter highlighter = textCodigo.getHighlighter();
+//        HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.green);
+//        highlighter.removeAllHighlights();
+//        System.out.println("inicio " + inicio + "  --- final " + fin);
+//        highlighter.addHighlight(inicio, fin, painter);
+//                    
+//           textCodigo.setCaretPosition(fin);
+//           textCodigo.getCaret().setVisible(true);
+//           System.out.println("primer setDot");
+//          
+//        mostrarTextoPopUp(contenido);
         
     }
 

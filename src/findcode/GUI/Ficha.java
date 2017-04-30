@@ -185,17 +185,6 @@ public class Ficha extends javax.swing.JPanel {
 
     }
     
-    // Realizar acciones al pintar GUI
-    @Override
-    public void update(Graphics g) {
-    super.update(g);
-    jSplitPane1.setDividerLocation(this.getHeight() - 450);
-    jSplitPane2.setDividerLocation(this.getHeight() - 400);
-    jSplitPane3.setDividerLocation(this.getWidth() - 300);
-    
-    }
-    
-
     public final void busquedaIngredientes() {
 
         ingredientes = findcode.clases.Ingrediente.cargarPorFicha(ficha.getiD());
@@ -510,6 +499,11 @@ public class Ficha extends javax.swing.JPanel {
         jMenuItem1.setText("jMenuItem1");
 
         setOpaque(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         jScrollPane1.setOpaque(false);
@@ -1093,27 +1087,33 @@ public class Ficha extends javax.swing.JPanel {
 
     private void botonGuardarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFichaActionPerformed
 
-        ficha.setTitulo(textTituloFicha.getText());
-        ficha.setDescripcion(textDescripcion.getText());
-        ficha.setEjemplo(textCodigo.getText());
+        if (Utilidades.validarCampo(textTituloFicha) &&
+                Utilidades.validarCampo(textDescripcion) &&
+                Utilidades.validarCampo(textCodigo)) {
         
-        if(jTextField1.getForeground().equals(Color.decode("#D8D8D8"))){
-            ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
-        } else {
-            findcode.clases.Lenguaje lenguaje = new findcode.clases.Lenguaje();
-            lenguaje.setNombre(jTextField1.getText());
-            lenguaje.crear();
-            ficha.setiDLenguaje(jTextField1.getText());
-        }
-        
-        ficha.setiDUsuario(usuario.getCorreo());
-        ficha.crear();
+            ficha.setTitulo(textTituloFicha.getText());
+            ficha.setDescripcion(textDescripcion.getText());
+            ficha.setEjemplo(textCodigo.getText());
 
-        for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
-            ingrediente.crear();
-        }
+            if(jTextField1.getForeground().equals(Color.decode("#D8D8D8"))){
+                ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
+            } else {
+                findcode.clases.Lenguaje lenguaje = new findcode.clases.Lenguaje();
+                lenguaje.setNombre(jTextField1.getText());
+                lenguaje.crear();
+                ficha.setiDLenguaje(jTextField1.getText());
+            }
 
-        findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, usuario));
+            ficha.setiDUsuario(usuario.getCorreo());
+            ficha.crear();
+
+            for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
+                ingrediente.crear();
+            }
+
+            findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, usuario));
+            
+        }    
 
     }//GEN-LAST:event_botonGuardarFichaActionPerformed
 
@@ -1124,44 +1124,49 @@ public class Ficha extends javax.swing.JPanel {
 
     private void botonGuardarFicha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha1ActionPerformed
 
-        ficha.setTitulo(textTituloFicha.getText());
-        ficha.setDescripcion(textDescripcion.getText());
-        ficha.setEjemplo(textCodigo.getText());
-        
-        if(jTextField1.getForeground().equals(Color.decode("#D8D8D8"))){
-            ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
-        } else {
-            findcode.clases.Lenguaje lenguaje = new findcode.clases.Lenguaje();
-            lenguaje.setNombre(jTextField1.getText());
-            lenguaje.crear();
-            ficha.setiDLenguaje(jTextField1.getText());
-        }
-        
-        ficha.editar();
+        if (Utilidades.validarCampo(textTituloFicha) &&
+                Utilidades.validarCampo(textDescripcion) &&
+                Utilidades.validarCampo(textCodigo)) {
+            
+            ficha.setTitulo(textTituloFicha.getText());
+            ficha.setDescripcion(textDescripcion.getText());
+            ficha.setEjemplo(textCodigo.getText());
 
-        for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
-
-            if (ingrediente.getiD() == 0) {
-                ingrediente.crear();
+            if(jTextField1.getForeground().equals(Color.decode("#D8D8D8"))){
+                ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
             } else {
-                ingrediente.editar();
+                findcode.clases.Lenguaje lenguaje = new findcode.clases.Lenguaje();
+                lenguaje.setNombre(jTextField1.getText());
+                lenguaje.crear();
+                ficha.setiDLenguaje(jTextField1.getText());
+            }
+
+            ficha.editar();
+
+            for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
+
+                if (ingrediente.getiD() == 0) {
+                    ingrediente.crear();
+                } else {
+                    ingrediente.editar();
+                }
+
+            }
+
+            try {
+
+                ((Usuario) contenedor).busqueda();
+                findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
+
+            } catch (ClassCastException ex) {
+
+                ((Resultados) contenedor).busqueda();
+                findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
+
             }
 
         }
-
-        try {
-
-            ((Usuario) contenedor).busqueda();
-            findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
-
-        } catch (ClassCastException ex) {
-
-            ((Resultados) contenedor).busqueda();
-            findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
-
-        }
-
-
+        
     }//GEN-LAST:event_botonGuardarFicha1ActionPerformed
 
     private void botonGuardarFicha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha2ActionPerformed
@@ -1295,6 +1300,14 @@ public class Ficha extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_botonGuardarFicha4ActionPerformed
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        
+        jSplitPane1.setDividerLocation(this.getHeight() - 450);
+        jSplitPane2.setDividerLocation(this.getHeight() - 400);
+        jSplitPane3.setDividerLocation(this.getWidth() - 300);
+        
+    }//GEN-LAST:event_formComponentResized
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

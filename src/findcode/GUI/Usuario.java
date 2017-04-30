@@ -14,6 +14,8 @@ public class Usuario extends javax.swing.JPanel {
     public Usuario(JPanel contenedor, findcode.clases.Usuario usuario) {
         initComponents();
         jLabel9.setVisible(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        jScrollPane2.getViewport().setOpaque(false);
         this.contenedor = contenedor;
         this.usuario = usuario;
         busqueda();
@@ -64,22 +66,30 @@ public class Usuario extends javax.swing.JPanel {
         jButton9 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
+        setOpaque(false);
         setLayout(new java.awt.CardLayout());
 
+        jScrollPane1.setOpaque(false);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setOpaque(false);
+
+        jScrollPane2.setOpaque(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setOpaque(false);
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel9.setForeground(java.awt.Color.decode("#D8D8D8"));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("No hay resultados");
+        jLabel9.setText("No hay fichas creadas");
         jPanel2.add(jLabel9);
 
         jScrollPane2.setViewportView(jPanel2);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setOpaque(false);
 
         jButton6.setText("v");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +142,7 @@ public class Usuario extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -18,6 +18,7 @@ public class Registro extends javax.swing.JPanel {
         jPanel5.setVisible(true);
         jPanel7.setVisible(false);
         jPanel8.setVisible(false);
+        jScrollPane1.getViewport().setOpaque(false);
         Utilidades.personalizarCampo(jTextField1, "Nombre", "");
         Utilidades.personalizarCampo(jTextField5, "Correo electronico", "");
         Utilidades.personalizarCampo(jTextField6, "nickName", "");
@@ -71,9 +72,13 @@ public class Registro extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
 
+        setOpaque(false);
         setLayout(new java.awt.CardLayout());
 
+        jScrollPane1.setOpaque(false);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setOpaque(false);
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 48)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -84,9 +89,11 @@ public class Registro extends javax.swing.JPanel {
         jLabel5.setText("Unete a nosotros!");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setOpaque(false);
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setOpaque(false);
 
         jTextField1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(153, 153, 153));
@@ -187,6 +194,7 @@ public class Registro extends javax.swing.JPanel {
         jPanel3.add(jPanel2, new java.awt.GridBagConstraints());
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setOpaque(false);
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
         jButton4.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
@@ -199,6 +207,7 @@ public class Registro extends javax.swing.JPanel {
         jPanel5.add(jButton4, new java.awt.GridBagConstraints());
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setOpaque(false);
 
         jButton5.setText("v");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -233,6 +242,7 @@ public class Registro extends javax.swing.JPanel {
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setOpaque(false);
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
         jButton6.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
@@ -245,6 +255,7 @@ public class Registro extends javax.swing.JPanel {
         jPanel7.add(jButton6, new java.awt.GridBagConstraints());
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setOpaque(false);
         jPanel8.setLayout(new java.awt.GridBagLayout());
 
         jButton7.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N

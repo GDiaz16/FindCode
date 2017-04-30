@@ -41,6 +41,7 @@ public class Ficha extends javax.swing.JPanel {
         botonGuardarFicha2.setVisible(false);
         jPanel11.setVisible(false);
         botonGuardarFicha3.setVisible(false);
+        jScrollPane1.getViewport().setOpaque(false);
         
         // Lista de lenguajes
         String[] s = {ficha.getiDLenguaje()};
@@ -84,6 +85,7 @@ public class Ficha extends javax.swing.JPanel {
         jButton13.setVisible(true);
         jTextField3.setVisible(true);
         botonGuardarFicha2.setVisible(true);
+        jScrollPane1.getViewport().setOpaque(false);
         
         // Asignar datos a la ficha
         jButton8.setText(usuario.getNickname());
@@ -140,6 +142,16 @@ public class Ficha extends javax.swing.JPanel {
         botonGuardarFicha3.setVisible(false);
         jTextField3.setVisible(false);
         botonGuardarFicha2.setVisible(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        jScrollPane2.getViewport().setOpaque(false);
+        jScrollPane3.getViewport().setOpaque(false);
+        jScrollPane4.getViewport().setOpaque(false);
+        jScrollPane5.getViewport().setOpaque(false);
+        jScrollPane6.getViewport().setOpaque(false);
+        jScrollPane7.getViewport().setOpaque(false);
+        jScrollPane8.getViewport().setOpaque(false);
+        jScrollPane9.getViewport().setOpaque(false);
+        
         
         // Asignar datos
         jButton8.setText(usuario.getNickname());
@@ -175,13 +187,14 @@ public class Ficha extends javax.swing.JPanel {
     
     // Realizar acciones al pintar GUI
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        jSplitPane1.setDividerLocation(this.getHeight() - 450);
-        jSplitPane2.setDividerLocation(this.getHeight() - 400);
-        jSplitPane3.setDividerLocation(this.getWidth() - 300);
-        
+    public void update(Graphics g) {
+    super.update(g);
+    jSplitPane1.setDividerLocation(this.getHeight() - 450);
+    jSplitPane2.setDividerLocation(this.getHeight() - 400);
+    jSplitPane3.setDividerLocation(this.getWidth() - 300);
+    
     }
+    
 
     public final void busquedaIngredientes() {
 
@@ -496,11 +509,16 @@ public class Ficha extends javax.swing.JPanel {
 
         jMenuItem1.setText("jMenuItem1");
 
+        setOpaque(false);
         setLayout(new java.awt.CardLayout());
 
+        jScrollPane1.setOpaque(false);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setOpaque(false);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setOpaque(false);
 
         jButton12.setText("v");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
@@ -630,6 +648,8 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
+        jScrollPane6.setOpaque(false);
+
         textDescripcion.setEditable(false);
         textDescripcion.setColumns(20);
         textDescripcion.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
@@ -648,6 +668,8 @@ public class Ficha extends javax.swing.JPanel {
         jSplitPane1.setDividerSize(10);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setContinuousLayout(true);
+
+        jScrollPane2.setOpaque(false);
 
         textCodigo.setEditable(false);
         textCodigo.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
@@ -669,6 +691,10 @@ public class Ficha extends javax.swing.JPanel {
 
         jSplitPane1.setTopComponent(jScrollPane2);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jScrollPane7.setBackground(new java.awt.Color(255, 255, 255));
+
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(0, 0));
 
@@ -683,6 +709,9 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
+        jPanel11.setOpaque(false);
+
+        jPanel10.setOpaque(false);
         jPanel10.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton1.setText("1");
@@ -753,6 +782,8 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
+        jScrollPane9.setOpaque(false);
+
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -821,13 +852,17 @@ public class Ficha extends javax.swing.JPanel {
         jSplitPane2.setDividerSize(10);
         jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane2.setContinuousLayout(true);
+        jSplitPane2.setOpaque(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setOpaque(false);
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Lista de ingredientes");
+
+        jScrollPane5.setOpaque(false);
 
         listaIngredientes.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         listaIngredientes.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
@@ -839,6 +874,9 @@ public class Ficha extends javax.swing.JPanel {
         });
         jScrollPane5.setViewportView(listaIngredientes);
 
+        jPanel8.setOpaque(false);
+
+        jPanel12.setOpaque(false);
         jPanel12.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -909,13 +947,17 @@ public class Ficha extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel6.setOpaque(false);
 
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Codigos relacionados");
 
+        jScrollPane8.setOpaque(false);
+
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setOpaque(false);
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N

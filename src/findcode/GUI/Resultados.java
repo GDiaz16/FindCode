@@ -19,6 +19,8 @@ public class Resultados extends javax.swing.JPanel {
         jButton7.setVisible(false);
         jButton8.setVisible(false);
         jLabel8.setVisible(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        jScrollPane2.getViewport().setOpaque(false);
         this.contenedor = contenedor;
         this.busqueda = busqueda;
         this.lenguaje = lenguaje;
@@ -84,11 +86,18 @@ public class Resultados extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
 
+        setOpaque(false);
         setLayout(new java.awt.CardLayout());
 
+        jScrollPane1.setOpaque(false);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setOpaque(false);
+
+        jScrollPane2.setOpaque(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setOpaque(false);
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
@@ -100,6 +109,7 @@ public class Resultados extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jPanel2);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setOpaque(false);
 
         jButton6.setText("v");
         jButton6.addActionListener(new java.awt.event.ActionListener() {

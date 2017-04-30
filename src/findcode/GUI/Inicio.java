@@ -12,6 +12,7 @@ public class Inicio extends javax.swing.JPanel {
     public Inicio() {
         
         initComponents();
+        jScrollPane1.getViewport().setOpaque(false);
         jPanel5.setVisible(false);
         Utilidades.personalizarCampo(jTextField1, "¿Que desea buscar?", "");
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Lenguaje.cargarTodos().toArray()));
@@ -52,6 +53,8 @@ public class Inicio extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 51, 51));
+        setOpaque(false);
         addHierarchyListener(new java.awt.event.HierarchyListener() {
             public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
                 formHierarchyChanged(evt);
@@ -59,7 +62,11 @@ public class Inicio extends javax.swing.JPanel {
         });
         setLayout(new java.awt.CardLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.setViewport(null);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 0));
+        jPanel1.setOpaque(false);
 
         jTextField1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -86,6 +93,7 @@ public class Inicio extends javax.swing.JPanel {
         jLabel4.setText("Una mejor manera de entender el codigo");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setOpaque(false);
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jButton1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
@@ -98,6 +106,7 @@ public class Inicio extends javax.swing.JPanel {
         jPanel2.add(jButton1, new java.awt.GridBagConstraints());
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setOpaque(false);
 
         jButton5.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton5.setText("Cerrar sesion");
@@ -164,8 +173,10 @@ public class Inicio extends javax.swing.JPanel {
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setOpaque(false);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setOpaque(false);
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
@@ -183,6 +194,7 @@ public class Inicio extends javax.swing.JPanel {
         jPanel3.add(jButton2, new java.awt.GridBagConstraints());
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setOpaque(false);
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
         jButton3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
@@ -223,7 +235,7 @@ public class Inicio extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

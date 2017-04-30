@@ -4,11 +4,13 @@ import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.text.BadLocationException;
 
@@ -25,7 +27,7 @@ public class Ficha extends javax.swing.JPanel {
 
     // Consultar ficha sin usuario
     public Ficha(JPanel contenedor, findcode.clases.Ficha ficha) {
-
+        
         initComponents();
         this.contenedor = contenedor;
         this.ficha = ficha;
@@ -41,6 +43,7 @@ public class Ficha extends javax.swing.JPanel {
         botonGuardarFicha2.setVisible(false);
         jPanel11.setVisible(false);
         botonGuardarFicha3.setVisible(false);
+        jScrollPane1.getViewport().setOpaque(false);
         
         // Lista de lenguajes
         String[] s = {ficha.getiDLenguaje()};
@@ -63,7 +66,7 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha);
+                textDescripcion, textTituloFicha, ingredientes);
 
     }
 
@@ -84,6 +87,7 @@ public class Ficha extends javax.swing.JPanel {
         jButton13.setVisible(true);
         jTextField3.setVisible(true);
         botonGuardarFicha2.setVisible(true);
+        jScrollPane1.getViewport().setOpaque(false);
         
         // Asignar datos a la ficha
         jButton8.setText(usuario.getNickname());
@@ -120,7 +124,7 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha);
+                textDescripcion, textTituloFicha, ingredientes);
 
     }
 
@@ -140,6 +144,16 @@ public class Ficha extends javax.swing.JPanel {
         botonGuardarFicha3.setVisible(false);
         jTextField3.setVisible(false);
         botonGuardarFicha2.setVisible(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        jScrollPane2.getViewport().setOpaque(false);
+        jScrollPane3.getViewport().setOpaque(false);
+        jScrollPane4.getViewport().setOpaque(false);
+        jScrollPane5.getViewport().setOpaque(false);
+        jScrollPane6.getViewport().setOpaque(false);
+        jScrollPane7.getViewport().setOpaque(false);
+        jScrollPane8.getViewport().setOpaque(false);
+        jScrollPane9.getViewport().setOpaque(false);
+        
         
         // Asignar datos
         jButton8.setText(usuario.getNickname());
@@ -169,20 +183,10 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha);
+                textDescripcion, textTituloFicha, ingredientes);
 
     }
     
-    // Realizar acciones al pintar GUI
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        jSplitPane1.setDividerLocation(this.getHeight() - 450);
-        jSplitPane2.setDividerLocation(this.getHeight() - 400);
-        jSplitPane3.setDividerLocation(this.getWidth() - 300);
-        
-    }
-
     public final void busquedaIngredientes() {
 
         ingredientes = findcode.clases.Ingrediente.cargarPorFicha(ficha.getiD());
@@ -245,23 +249,33 @@ public class Ficha extends javax.swing.JPanel {
 
     public final void busquedaPromedioCalificacion() {
     
-        jLabel7.setBackground(null);
-        jLabel6.setBackground(null);
-        jLabel3.setBackground(null);
-        jLabel2.setBackground(null);
-        jLabel1.setBackground(null);
+        jLabel7.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+        jLabel6.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+        jLabel3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+        jLabel2.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+        jLabel1.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
         
         switch (findcode.clases.Calificacion.cargarPromedioFicha(ficha.getiD())) {
             case 5:
-                jLabel7.setBackground(Color.yellow);
+                jLabel7.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
             case 4:
-                jLabel6.setBackground(Color.yellow);
+                jLabel6.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
             case 3:
-                jLabel3.setBackground(Color.yellow);
+                jLabel3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
             case 2:
-                jLabel2.setBackground(Color.yellow);
+                jLabel2.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
             case 1:
-                jLabel1.setBackground(Color.yellow);
+                jLabel1.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
         }
     
     }
@@ -496,11 +510,21 @@ public class Ficha extends javax.swing.JPanel {
 
         jMenuItem1.setText("jMenuItem1");
 
+        setOpaque(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
+        jScrollPane1.setOpaque(false);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setOpaque(false);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setOpaque(false);
 
         jButton12.setText("v");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
@@ -630,6 +654,8 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
+        jScrollPane6.setOpaque(false);
+
         textDescripcion.setEditable(false);
         textDescripcion.setColumns(20);
         textDescripcion.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
@@ -648,6 +674,8 @@ public class Ficha extends javax.swing.JPanel {
         jSplitPane1.setDividerSize(10);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setContinuousLayout(true);
+
+        jScrollPane2.setOpaque(false);
 
         textCodigo.setEditable(false);
         textCodigo.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
@@ -669,6 +697,10 @@ public class Ficha extends javax.swing.JPanel {
 
         jSplitPane1.setTopComponent(jScrollPane2);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jScrollPane7.setBackground(new java.awt.Color(255, 255, 255));
+
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(0, 0));
 
@@ -683,10 +715,16 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
+        jPanel11.setOpaque(false);
+
+        jPanel10.setOpaque(false);
         jPanel10.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton1.setText("1");
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setDefaultCapable(false);
         jButton1.setFocusable(false);
+        jButton1.setOpaque(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -694,8 +732,9 @@ public class Ficha extends javax.swing.JPanel {
         });
         jPanel10.add(jButton1);
 
-        jButton2.setText("2");
+        jButton2.setBorderPainted(false);
         jButton2.setFocusable(false);
+        jButton2.setOpaque(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -703,8 +742,9 @@ public class Ficha extends javax.swing.JPanel {
         });
         jPanel10.add(jButton2);
 
-        jButton3.setText("3");
+        jButton3.setBorderPainted(false);
         jButton3.setFocusable(false);
+        jButton3.setOpaque(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -712,8 +752,9 @@ public class Ficha extends javax.swing.JPanel {
         });
         jPanel10.add(jButton3);
 
-        jButton4.setText("4");
+        jButton4.setBorderPainted(false);
         jButton4.setFocusable(false);
+        jButton4.setOpaque(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -721,8 +762,9 @@ public class Ficha extends javax.swing.JPanel {
         });
         jPanel10.add(jButton4);
 
-        jButton5.setText("5");
+        jButton5.setBorderPainted(false);
         jButton5.setFocusable(false);
+        jButton5.setOpaque(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -752,6 +794,8 @@ public class Ficha extends javax.swing.JPanel {
                 botonGuardarFicha3ActionPerformed(evt);
             }
         });
+
+        jScrollPane9.setOpaque(false);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
@@ -821,13 +865,17 @@ public class Ficha extends javax.swing.JPanel {
         jSplitPane2.setDividerSize(10);
         jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane2.setContinuousLayout(true);
+        jSplitPane2.setOpaque(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setOpaque(false);
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Lista de ingredientes");
+
+        jScrollPane5.setOpaque(false);
 
         listaIngredientes.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         listaIngredientes.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
@@ -839,31 +887,24 @@ public class Ficha extends javax.swing.JPanel {
         });
         jScrollPane5.setViewportView(listaIngredientes);
 
+        jPanel8.setOpaque(false);
+
+        jPanel12.setOpaque(false);
         jPanel12.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("1");
-        jLabel1.setOpaque(true);
         jPanel12.add(jLabel1);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("2");
-        jLabel2.setOpaque(true);
         jPanel12.add(jLabel2);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("3");
-        jLabel3.setOpaque(true);
         jPanel12.add(jLabel3);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("4");
-        jLabel6.setOpaque(true);
         jPanel12.add(jLabel6);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("5");
-        jLabel7.setOpaque(true);
         jPanel12.add(jLabel7);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -909,13 +950,17 @@ public class Ficha extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel6.setOpaque(false);
 
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Codigos relacionados");
 
+        jScrollPane8.setOpaque(false);
+
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setOpaque(false);
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel10.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
@@ -1051,27 +1096,35 @@ public class Ficha extends javax.swing.JPanel {
 
     private void botonGuardarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFichaActionPerformed
 
-        ficha.setTitulo(textTituloFicha.getText());
-        ficha.setDescripcion(textDescripcion.getText());
-        ficha.setEjemplo(textCodigo.getText());
+        if (Utilidades.validarCampo(textTituloFicha) &&
+                Utilidades.validarCampo(textDescripcion) &&
+                Utilidades.validarCampo(textCodigo)) {
         
-        if(jTextField1.getForeground().equals(Color.decode("#D8D8D8"))){
-            ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
-        } else {
-            findcode.clases.Lenguaje lenguaje = new findcode.clases.Lenguaje();
-            lenguaje.setNombre(jTextField1.getText());
-            lenguaje.crear();
-            ficha.setiDLenguaje(jTextField1.getText());
-        }
-        
-        ficha.setiDUsuario(usuario.getCorreo());
-        ficha.crear();
+            ficha.setTitulo(textTituloFicha.getText());
+            ficha.setDescripcion(textDescripcion.getText());
+            ficha.setEjemplo(textCodigo.getText());
 
-        for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
-            ingrediente.crear();
-        }
+            if(jTextField1.getForeground().equals(Color.decode("#D8D8D8"))){
+                ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
+            } else {
+                findcode.clases.Lenguaje lenguaje = new findcode.clases.Lenguaje();
+                lenguaje.setNombre(jTextField1.getText());
+                lenguaje.crear();
+                ficha.setiDLenguaje(jTextField1.getText());
+            }
 
-        findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, usuario));
+            ficha.setiDUsuario(usuario.getCorreo());
+            ficha.crear();
+            ficha.cargarIDIngresado();
+
+            for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
+                ingrediente.setiDFicha(ficha.getiD());
+                ingrediente.crear();
+            }
+
+            findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, usuario));
+            
+        }    
 
     }//GEN-LAST:event_botonGuardarFichaActionPerformed
 
@@ -1082,44 +1135,50 @@ public class Ficha extends javax.swing.JPanel {
 
     private void botonGuardarFicha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha1ActionPerformed
 
-        ficha.setTitulo(textTituloFicha.getText());
-        ficha.setDescripcion(textDescripcion.getText());
-        ficha.setEjemplo(textCodigo.getText());
-        
-        if(jTextField1.getForeground().equals(Color.decode("#D8D8D8"))){
-            ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
-        } else {
-            findcode.clases.Lenguaje lenguaje = new findcode.clases.Lenguaje();
-            lenguaje.setNombre(jTextField1.getText());
-            lenguaje.crear();
-            ficha.setiDLenguaje(jTextField1.getText());
-        }
-        
-        ficha.editar();
+        if (Utilidades.validarCampo(textTituloFicha) &&
+                Utilidades.validarCampo(textDescripcion) &&
+                Utilidades.validarCampo(textCodigo)) {
+            
+            ficha.setTitulo(textTituloFicha.getText());
+            ficha.setDescripcion(textDescripcion.getText());
+            ficha.setEjemplo(textCodigo.getText());
 
-        for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
-
-            if (ingrediente.getiD() == 0) {
-                ingrediente.crear();
+            if(jTextField1.getForeground().equals(Color.decode("#D8D8D8"))){
+                ficha.setiDLenguaje(jComboBox1.getSelectedItem().toString());
             } else {
-                ingrediente.editar();
+                findcode.clases.Lenguaje lenguaje = new findcode.clases.Lenguaje();
+                lenguaje.setNombre(jTextField1.getText());
+                lenguaje.crear();
+                ficha.setiDLenguaje(jTextField1.getText());
+            }
+
+            ficha.editar();
+
+            for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
+
+                ingrediente.setiDFicha(ficha.getiD());
+                if (ingrediente.getiD() == 0) {
+                    ingrediente.crear();
+                } else {
+                    ingrediente.editar();
+                }
+
+            }
+
+            try {
+
+                ((Usuario) contenedor).busqueda();
+                findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
+
+            } catch (ClassCastException ex) {
+
+                ((Resultados) contenedor).busqueda();
+                findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
+
             }
 
         }
-
-        try {
-
-            ((Usuario) contenedor).busqueda();
-            findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
-
-        } catch (ClassCastException ex) {
-
-            ((Resultados) contenedor).busqueda();
-            findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
-
-        }
-
-
+        
     }//GEN-LAST:event_botonGuardarFicha1ActionPerformed
 
     private void botonGuardarFicha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha2ActionPerformed
@@ -1155,11 +1214,17 @@ public class Ficha extends javax.swing.JPanel {
             calificacion.setiDFicha(ficha.getiD());
             calificacion.setiDUsuario(usuario.getCorreo());
             calificacion.setCalificacion(1);
-            jButton1.setForeground(Color.yellow);
-            jButton2.setForeground(Color.black);
-            jButton3.setForeground(Color.black);
-            jButton4.setForeground(Color.black);
-            jButton5.setForeground(Color.black);
+            
+            jButton1.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton2.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
 
         }
 
@@ -1171,10 +1236,15 @@ public class Ficha extends javax.swing.JPanel {
 
             jButton1ActionPerformed(evt);
             calificacion.setCalificacion(2);
-            jButton2.setForeground(Color.yellow);
-            jButton3.setForeground(Color.black);
-            jButton4.setForeground(Color.black);
-            jButton5.setForeground(Color.black);
+            
+            jButton2.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
 
         }
 
@@ -1186,9 +1256,13 @@ public class Ficha extends javax.swing.JPanel {
 
             jButton2ActionPerformed(evt);
             calificacion.setCalificacion(3);
-            jButton3.setForeground(Color.yellow);
-            jButton4.setForeground(Color.black);
-            jButton5.setForeground(Color.black);
+            
+            jButton3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
 
         }
 
@@ -1200,8 +1274,11 @@ public class Ficha extends javax.swing.JPanel {
 
             jButton3ActionPerformed(evt);
             calificacion.setCalificacion(4);
-            jButton4.setForeground(Color.yellow);
-            jButton5.setForeground(Color.black);
+            
+            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
 
         }
 
@@ -1213,6 +1290,10 @@ public class Ficha extends javax.swing.JPanel {
 
             jButton4ActionPerformed(evt);
             calificacion.setCalificacion(5);
+            
+            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            
             jButton5.setForeground(Color.yellow);
 
         }
@@ -1253,6 +1334,14 @@ public class Ficha extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_botonGuardarFicha4ActionPerformed
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        
+        jSplitPane1.setDividerLocation(this.getHeight() - 450);
+        jSplitPane2.setDividerLocation(this.getHeight() - 400);
+        jSplitPane3.setDividerLocation(this.getWidth() - 300);
+        
+    }//GEN-LAST:event_formComponentResized
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

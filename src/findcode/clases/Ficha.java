@@ -137,6 +137,39 @@ public class Ficha {
 
         return false;
     }
+    
+    public boolean cargarIDIngresado() {
+
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = " select MAX(iD) as maximo from TFichas where iDUsuario = ? ";
+
+            db.setSentencia(query);
+            db.getSentencia().setString(1, iDUsuario);
+
+            db.setResultados(db.getSentencia().executeQuery());
+
+            if (db.numeroColumnas() == 0) {
+                return false;
+
+            }
+
+            while (db.getResultados().next()) {
+
+                iD = db.getResultados().getInt("maximo");
+
+            }
+
+            return true;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
 
     public void editar() {
 

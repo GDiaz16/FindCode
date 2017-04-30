@@ -3,7 +3,6 @@ package findcode.GUI;
 import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;

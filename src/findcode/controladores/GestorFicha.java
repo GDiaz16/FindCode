@@ -72,6 +72,7 @@ public class GestorFicha {
         this.textTituloFicha = textTituloFicha;
         this.ingredientes2 = ingredientes2;
         cargarPalabras();
+        listListener();
     }
 
     //capturar el evento de escribir en el panel y dejar el cursor en el lugar al que se mueva
@@ -265,7 +266,27 @@ public class GestorFicha {
         }
     }
 
-
+    public void listListener(){
+         listaIngredientes.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+//                System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
+//                String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
+//                int a = ingredientes2.get(elemento).getPosInicial();
+//                int b = ingredientes2.get(elemento).getPosFinal();
+//                String contenido = ingredientes2.get(elemento).getDescripcion();
+//                //textCodigo.requestFocus(true);
+//                System.out.println("presionado el clic");
+                try {
+                    mostrarElemento(/*a, b, contenido*/);
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(GestorFicha.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            }
+        } ); 
+        
+    }
     public void setListaIngredientes() {
 
         for (String cadena : ingredientes2.keySet()) {
@@ -274,24 +295,7 @@ public class GestorFicha {
                 
             }
         }
-        listaIngredientes.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
-                String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
-                int a = ingredientes2.get(elemento).getPosInicial();
-                int b = ingredientes2.get(elemento).getPosFinal();
-                String contenido = ingredientes2.get(elemento).getDescripcion();
-                //textCodigo.requestFocus(true);
-                System.out.println("presionado el clic");
-                try {
-                    mostrarElemento(a, b, contenido);
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(GestorFicha.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-            }
-        } ); 
+       
         listaIngredientes.setModel(model);
     }
 
@@ -340,24 +344,30 @@ public class GestorFicha {
     }
 
     public void setIngredientes(String titulo, String comentario, int inicio, int fin) {
-        if (!ingredientes2.containsKey(titulo)) {
+        if (ingredientes2.isEmpty()||!ingredientes2.containsKey(titulo)) {
             findcode.clases.Ingrediente ingrediente = new findcode.clases.Ingrediente();
             ingrediente.setDescripcion(comentario);
             ingrediente.setTitulo(titulo);
             ingrediente.setPosInicial(inicio);
             ingrediente.setPosFinal(fin);
             ingredientes2.put(ingrediente.getTitulo(), ingrediente);
-            System.out.println("titulo " + ingrediente.getTitulo());
-            System.out.println("comentario " + ingrediente.getDescripcion());
-            System.out.println("inicio " + ingrediente.getPosInicial());
-            System.out.println("final " + ingrediente.getPosFinal());
+//            System.out.println("titulo " + ingrediente.getTitulo());
+//            System.out.println("comentario " + ingrediente.getDescripcion());
+//            System.out.println("inicio " + ingrediente.getPosInicial());
+//            System.out.println("final " + ingrediente.getPosFinal());
         } else {
             System.out.println("ya existe el elemento");
         }
     }
 
-    public void mostrarElemento(int inicio, int fin, String contenido) throws BadLocationException {
-
+    public void mostrarElemento(/*int inicio, int fin, String contenido*/) throws BadLocationException {
+        //System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
+        String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
+        int inicio = ingredientes2.get(elemento).getPosInicial();
+        int fin = ingredientes2.get(elemento).getPosFinal();
+        String contenido = ingredientes2.get(elemento).getDescripcion();
+        //textCodigo.requestFocus(true);
+        //System.out.println("presionado el clic");
         Highlighter highlighter = textCodigo.getHighlighter();
         HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.green);
         highlighter.removeAllHighlights();

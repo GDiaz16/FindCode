@@ -1115,8 +1115,10 @@ public class Ficha extends javax.swing.JPanel {
 
             ficha.setiDUsuario(usuario.getCorreo());
             ficha.crear();
+            ficha.cargarIDIngresado();
 
             for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
+                ingrediente.setiDFicha(ficha.getiD());
                 ingrediente.crear();
             }
 
@@ -1154,6 +1156,7 @@ public class Ficha extends javax.swing.JPanel {
 
             for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
 
+                ingrediente.setiDFicha(ficha.getiD());
                 if (ingrediente.getiD() == 0) {
                     ingrediente.crear();
                 } else {

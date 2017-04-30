@@ -15,6 +15,7 @@ public class Login extends javax.swing.JPanel {
         
         initComponents();
         this.contenedor = contenedor;
+        jScrollPane1.getViewport().setOpaque(false);
         Utilidades.personalizarCampo(jTextField1, "Correo ó NickName", "");
         Utilidades.personalizarCampo(jPasswordField1, "Contraseña", "");
         
@@ -41,9 +42,13 @@ public class Login extends javax.swing.JPanel {
 
         jLabel1.setText("jLabel1");
 
+        setOpaque(false);
         setLayout(new java.awt.CardLayout());
 
+        jScrollPane1.setOpaque(false);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setOpaque(false);
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 48)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -54,9 +59,11 @@ public class Login extends javax.swing.JPanel {
         jLabel5.setText("Una mejor manera de entender el codigo");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setOpaque(false);
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setOpaque(false);
 
         jTextField1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(153, 153, 153));
@@ -102,6 +109,7 @@ public class Login extends javax.swing.JPanel {
         jPanel3.add(jPanel2, new java.awt.GridBagConstraints());
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setOpaque(false);
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
         jButton4.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
@@ -114,6 +122,7 @@ public class Login extends javax.swing.JPanel {
         jPanel5.add(jButton4, new java.awt.GridBagConstraints());
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setOpaque(false);
 
         jButton5.setText("v");
         jButton5.addActionListener(new java.awt.event.ActionListener() {

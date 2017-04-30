@@ -8,6 +8,7 @@
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[32767, 135]"/>
     </Property>
+    <Property name="opaque" type="boolean" value="false"/>
   </Properties>
   <Events>
     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="formMouseClicked"/>
@@ -60,6 +61,7 @@
             <EtchetBorder/>
           </Border>
         </Property>
+        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
 
       <Layout>
@@ -99,6 +101,7 @@
             <EtchetBorder/>
           </Border>
         </Property>
+        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
 
       <Layout>

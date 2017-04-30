@@ -217,6 +217,9 @@
       </Properties>
     </Component>
   </NonVisualComponents>
+  <Properties>
+    <Property name="opaque" type="boolean" value="false"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -233,6 +236,9 @@
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
   <SubComponents>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <Properties>
+        <Property name="opaque" type="boolean" value="false"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
           <CardConstraints cardName="card2"/>
@@ -246,6 +252,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
+            <Property name="opaque" type="boolean" value="false"/>
           </Properties>
 
           <Layout>
@@ -289,6 +296,7 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+                <Property name="opaque" type="boolean" value="false"/>
               </Properties>
 
               <Layout>
@@ -479,6 +487,9 @@
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane6">
+              <Properties>
+                <Property name="opaque" type="boolean" value="false"/>
+              </Properties>
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -530,6 +541,9 @@
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
                   <SubComponents>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+                      <Properties>
+                        <Property name="opaque" type="boolean" value="false"/>
+                      </Properties>
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                       </AuxValues>
@@ -558,6 +572,11 @@
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JPanel" name="jPanel4">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                      </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
                           <JSplitPaneConstraints position="right"/>
@@ -578,6 +597,11 @@
                       </Layout>
                       <SubComponents>
                         <Container class="javax.swing.JScrollPane" name="jScrollPane7">
+                          <Properties>
+                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                            </Property>
+                          </Properties>
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
@@ -655,6 +679,9 @@
                                   </Events>
                                 </Component>
                                 <Container class="javax.swing.JPanel" name="jPanel11">
+                                  <Properties>
+                                    <Property name="opaque" type="boolean" value="false"/>
+                                  </Properties>
 
                                   <Layout>
                                     <DimensionLayout dim="0">
@@ -676,6 +703,9 @@
                                   </Layout>
                                   <SubComponents>
                                     <Container class="javax.swing.JPanel" name="jPanel10">
+                                      <Properties>
+                                        <Property name="opaque" type="boolean" value="false"/>
+                                      </Properties>
 
                                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                                         <Property name="columns" type="int" value="0"/>
@@ -743,6 +773,9 @@
                                   </Events>
                                 </Component>
                                 <Container class="javax.swing.JScrollPane" name="jScrollPane9">
+                                  <Properties>
+                                    <Property name="opaque" type="boolean" value="false"/>
+                                  </Properties>
 
                                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                                   <SubComponents>
@@ -793,6 +826,7 @@
                     <Property name="dividerSize" type="int" value="10"/>
                     <Property name="orientation" type="int" value="0"/>
                     <Property name="continuousLayout" type="boolean" value="true"/>
+                    <Property name="opaque" type="boolean" value="false"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -812,6 +846,7 @@
                             <EtchetBorder/>
                           </Border>
                         </Property>
+                        <Property name="opaque" type="boolean" value="false"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -858,6 +893,9 @@
                           </Properties>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="jScrollPane5">
+                          <Properties>
+                            <Property name="opaque" type="boolean" value="false"/>
+                          </Properties>
                           <AuxValues>
                             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                           </AuxValues>
@@ -891,6 +929,9 @@
                           </SubComponents>
                         </Container>
                         <Container class="javax.swing.JPanel" name="jPanel8">
+                          <Properties>
+                            <Property name="opaque" type="boolean" value="false"/>
+                          </Properties>
 
                           <Layout>
                             <DimensionLayout dim="0">
@@ -912,6 +953,9 @@
                           </Layout>
                           <SubComponents>
                             <Container class="javax.swing.JPanel" name="jPanel12">
+                              <Properties>
+                                <Property name="opaque" type="boolean" value="false"/>
+                              </Properties>
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                                 <Property name="columns" type="int" value="0"/>
@@ -969,6 +1013,7 @@
                             <EtchetBorder/>
                           </Border>
                         </Property>
+                        <Property name="opaque" type="boolean" value="false"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -1012,6 +1057,9 @@
                           </Properties>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="jScrollPane8">
+                          <Properties>
+                            <Property name="opaque" type="boolean" value="false"/>
+                          </Properties>
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
@@ -1025,6 +1073,7 @@
                                     <EtchetBorder/>
                                   </Border>
                                 </Property>
+                                <Property name="opaque" type="boolean" value="false"/>
                               </Properties>
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">

@@ -185,17 +185,6 @@ public class Ficha extends javax.swing.JPanel {
 
     }
     
-    // Realizar acciones al pintar GUI
-    @Override
-    public void update(Graphics g) {
-    super.update(g);
-    jSplitPane1.setDividerLocation(this.getHeight() - 450);
-    jSplitPane2.setDividerLocation(this.getHeight() - 400);
-    jSplitPane3.setDividerLocation(this.getWidth() - 300);
-    
-    }
-    
-
     public final void busquedaIngredientes() {
 
         ingredientes = findcode.clases.Ingrediente.cargarPorFicha(ficha.getiD());
@@ -510,6 +499,11 @@ public class Ficha extends javax.swing.JPanel {
         jMenuItem1.setText("jMenuItem1");
 
         setOpaque(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         jScrollPane1.setOpaque(false);
@@ -1295,6 +1289,14 @@ public class Ficha extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_botonGuardarFicha4ActionPerformed
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        
+        jSplitPane1.setDividerLocation(this.getHeight() - 450);
+        jSplitPane2.setDividerLocation(this.getHeight() - 400);
+        jSplitPane3.setDividerLocation(this.getWidth() - 300);
+        
+    }//GEN-LAST:event_formComponentResized
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

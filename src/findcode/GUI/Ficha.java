@@ -4,11 +4,13 @@ import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.text.BadLocationException;
 
@@ -247,23 +249,33 @@ public class Ficha extends javax.swing.JPanel {
 
     public final void busquedaPromedioCalificacion() {
     
-        jLabel7.setBackground(null);
-        jLabel6.setBackground(null);
-        jLabel3.setBackground(null);
-        jLabel2.setBackground(null);
-        jLabel1.setBackground(null);
+        jLabel7.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+        jLabel6.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+        jLabel3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+        jLabel2.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+        jLabel1.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
         
         switch (findcode.clases.Calificacion.cargarPromedioFicha(ficha.getiD())) {
             case 5:
-                jLabel7.setBackground(Color.yellow);
+                jLabel7.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
             case 4:
-                jLabel6.setBackground(Color.yellow);
+                jLabel6.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
             case 3:
-                jLabel3.setBackground(Color.yellow);
+                jLabel3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
             case 2:
-                jLabel2.setBackground(Color.yellow);
+                jLabel2.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
             case 1:
-                jLabel1.setBackground(Color.yellow);
+                jLabel1.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
         }
     
     }
@@ -708,8 +720,11 @@ public class Ficha extends javax.swing.JPanel {
         jPanel10.setOpaque(false);
         jPanel10.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton1.setText("1");
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setDefaultCapable(false);
         jButton1.setFocusable(false);
+        jButton1.setOpaque(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -717,8 +732,9 @@ public class Ficha extends javax.swing.JPanel {
         });
         jPanel10.add(jButton1);
 
-        jButton2.setText("2");
+        jButton2.setBorderPainted(false);
         jButton2.setFocusable(false);
+        jButton2.setOpaque(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -726,8 +742,9 @@ public class Ficha extends javax.swing.JPanel {
         });
         jPanel10.add(jButton2);
 
-        jButton3.setText("3");
+        jButton3.setBorderPainted(false);
         jButton3.setFocusable(false);
+        jButton3.setOpaque(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -735,8 +752,9 @@ public class Ficha extends javax.swing.JPanel {
         });
         jPanel10.add(jButton3);
 
-        jButton4.setText("4");
+        jButton4.setBorderPainted(false);
         jButton4.setFocusable(false);
+        jButton4.setOpaque(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -744,8 +762,9 @@ public class Ficha extends javax.swing.JPanel {
         });
         jPanel10.add(jButton4);
 
-        jButton5.setText("5");
+        jButton5.setBorderPainted(false);
         jButton5.setFocusable(false);
+        jButton5.setOpaque(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -874,28 +893,18 @@ public class Ficha extends javax.swing.JPanel {
         jPanel12.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("1");
-        jLabel1.setOpaque(true);
         jPanel12.add(jLabel1);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("2");
-        jLabel2.setOpaque(true);
         jPanel12.add(jLabel2);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("3");
-        jLabel3.setOpaque(true);
         jPanel12.add(jLabel3);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("4");
-        jLabel6.setOpaque(true);
         jPanel12.add(jLabel6);
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("5");
-        jLabel7.setOpaque(true);
         jPanel12.add(jLabel7);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -1202,11 +1211,17 @@ public class Ficha extends javax.swing.JPanel {
             calificacion.setiDFicha(ficha.getiD());
             calificacion.setiDUsuario(usuario.getCorreo());
             calificacion.setCalificacion(1);
-            jButton1.setForeground(Color.yellow);
-            jButton2.setForeground(Color.black);
-            jButton3.setForeground(Color.black);
-            jButton4.setForeground(Color.black);
-            jButton5.setForeground(Color.black);
+            
+            jButton1.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton2.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
 
         }
 
@@ -1218,10 +1233,15 @@ public class Ficha extends javax.swing.JPanel {
 
             jButton1ActionPerformed(evt);
             calificacion.setCalificacion(2);
-            jButton2.setForeground(Color.yellow);
-            jButton3.setForeground(Color.black);
-            jButton4.setForeground(Color.black);
-            jButton5.setForeground(Color.black);
+            
+            jButton2.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
 
         }
 
@@ -1233,9 +1253,13 @@ public class Ficha extends javax.swing.JPanel {
 
             jButton2ActionPerformed(evt);
             calificacion.setCalificacion(3);
-            jButton3.setForeground(Color.yellow);
-            jButton4.setForeground(Color.black);
-            jButton5.setForeground(Color.black);
+            
+            jButton3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
 
         }
 
@@ -1247,8 +1271,11 @@ public class Ficha extends javax.swing.JPanel {
 
             jButton3ActionPerformed(evt);
             calificacion.setCalificacion(4);
-            jButton4.setForeground(Color.yellow);
-            jButton5.setForeground(Color.black);
+            
+            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
 
         }
 
@@ -1260,6 +1287,10 @@ public class Ficha extends javax.swing.JPanel {
 
             jButton4ActionPerformed(evt);
             calificacion.setCalificacion(5);
+            
+            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            
             jButton5.setForeground(Color.yellow);
 
         }

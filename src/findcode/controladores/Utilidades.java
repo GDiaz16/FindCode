@@ -67,7 +67,7 @@ public class Utilidades {
     public static boolean validarCampo(JTextComponent jTextField){
         if(jTextField.getText().trim().equals("") || 
                 jTextField.getForeground().equals(Color.decode("#D8D8D8"))) {
-            jTextField.setBackground(Color.decode("#FFBF00"));
+            jTextField.setBackground(Color.decode("#CEF6CE"));
             return false;
         }
         return true;
@@ -75,8 +75,8 @@ public class Utilidades {
     
     public static boolean compararCampos(JTextComponent jTextField1, JTextComponent jTextField2){
         if(!jTextField1.getText().equals(jTextField2.getText())) {
-            jTextField1.setBackground(Color.decode("#FFBF00"));
-            jTextField2.setBackground(Color.decode("#FFBF00"));
+            jTextField1.setBackground(Color.decode("#CEF6CE"));
+            jTextField2.setBackground(Color.decode("#CEF6CE"));
             
             jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
                 @Override

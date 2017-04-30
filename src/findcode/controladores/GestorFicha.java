@@ -33,7 +33,7 @@ public class GestorFicha {
 
     HashSet<String> palabrasClave = new HashSet<>();
     HashSet<String> simbolos = new HashSet<>();
-    HashMap<String, findcode.clases.Ingrediente> ingredientes2 = new HashMap<>();
+    HashMap<String, findcode.clases.Ingrediente> ingredientes2;
     HashSet<String> ingredientes = new HashSet<>();
     String[] codigoDesarmado;
     DefaultListModel model = new DefaultListModel();
@@ -56,7 +56,8 @@ public class GestorFicha {
 
     public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
             JList listaPopUp, JMenuItem cargar, JMenuItem guardar, JMenuItem borrar, JDialog ventanaGuadar, JTextArea textComentario,
-            JTextField textTitulo, JTextArea textDescripcion, JTextField textTituloFicha) {
+            JTextField textTitulo, JTextArea textDescripcion, JTextField textTituloFicha, 
+            HashMap<String, findcode.clases.Ingrediente> ingredientes2) {
         this.textCodigo = textCodigo;
         this.listaIngredientes = listaIngredientes;
         this.popUp = popUp;
@@ -69,6 +70,7 @@ public class GestorFicha {
         this.textTitulo = textTitulo;
         this.textDescripcion = textDescripcion;
         this.textTituloFicha = textTituloFicha;
+        this.ingredientes2 = ingredientes2;
         cargarPalabras();
     }
 
@@ -110,16 +112,16 @@ public class GestorFicha {
             cargarListaPopUp(2);
             popUp.setVisible(true);
             popUp.show(evt.getComponent(), evt.getX(), evt.getY());
-        } else if (evt.getButton() == MouseEvent.BUTTON1) {
-//            String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
-//            int a = ingredientes2.get(elemento).getPosInicial();
-//            int b = ingredientes2.get(elemento).getPosFinal();
-//            String contenido = ingredientes2.get(elemento).getDescripcion();
-//            //textCodigo.requestFocus(true);
-//            System.out.println("presionado el clic");
-//            mostrarElemento(a, b, contenido);
-//            mostrarElemento(a, b, contenido);
-        }
+       }// else if (evt.getButton() == MouseEvent.BUTTON1) {
+////            String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
+////            int a = ingredientes2.get(elemento).getPosInicial();
+////            int b = ingredientes2.get(elemento).getPosFinal();
+////            String contenido = ingredientes2.get(elemento).getDescripcion();
+////            //textCodigo.requestFocus(true);
+////            System.out.println("presionado el clic");
+////            mostrarElemento(a, b, contenido);
+////            mostrarElemento(a, b, contenido);
+//        }
     }
 
     //cargar datos que se van a mostrar en el popUP
@@ -275,7 +277,7 @@ public class GestorFicha {
         listaIngredientes.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                System.out.println("elemento seleccionado "+listaIngredientes.getSelectedIndex());
+                System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
                 String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
                 int a = ingredientes2.get(elemento).getPosInicial();
                 int b = ingredientes2.get(elemento).getPosFinal();
@@ -289,7 +291,7 @@ public class GestorFicha {
                 }
             
             }
-        } );
+        } ); 
         listaIngredientes.setModel(model);
     }
 
@@ -364,7 +366,7 @@ public class GestorFicha {
         
         //System.out.println("posX "+textCodigo.getCaret().getMagicCaretPosition().getX());
         //System.out.println("posY "+textCodigo.getCaret().getMagicCaretPosition().getY());
-        
+         
        
        //try{
                            

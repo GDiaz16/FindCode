@@ -64,7 +64,7 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha);
+                textDescripcion, textTituloFicha, ingredientes);
 
     }
 
@@ -122,7 +122,7 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha);
+                textDescripcion, textTituloFicha, ingredientes);
 
     }
 
@@ -181,7 +181,7 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha);
+                textDescripcion, textTituloFicha, ingredientes);
 
     }
     

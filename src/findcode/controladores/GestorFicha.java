@@ -351,10 +351,10 @@ public class GestorFicha {
             ingrediente.setPosInicial(inicio);
             ingrediente.setPosFinal(fin);
             ingredientes2.put(ingrediente.getTitulo(), ingrediente);
-//            System.out.println("titulo " + ingrediente.getTitulo());
-//            System.out.println("comentario " + ingrediente.getDescripcion());
-//            System.out.println("inicio " + ingrediente.getPosInicial());
-//            System.out.println("final " + ingrediente.getPosFinal());
+            System.out.println("titulo " + ingrediente.getTitulo());
+            System.out.println("comentario " + ingrediente.getDescripcion());
+            System.out.println("inicio " + ingrediente.getPosInicial());
+            System.out.println("final " + ingrediente.getPosFinal());
         } else {
             System.out.println("ya existe el elemento");
         }

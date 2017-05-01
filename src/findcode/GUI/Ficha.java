@@ -290,19 +290,19 @@ public class Ficha extends javax.swing.JPanel {
 
             switch (calificacion.getCalificacion()) {
                 case 1:
-                    jButton1ActionPerformed(null);
+                    jLabel8MouseClicked(null);
                     break;
                 case 2:
-                    jButton2ActionPerformed(null);
+                    jLabel11MouseClicked(null);
                     break;
                 case 3:
-                    jButton3ActionPerformed(null);
+                    jLabel12MouseClicked(null);
                     break;
                 case 4:
-                    jButton4ActionPerformed(null);
+                    jLabel13MouseClicked(null);
                     break;
                 case 5:
-                    jButton5ActionPerformed(null);
+                    jLabel15MouseClicked(null);
                     break;
             }
 
@@ -355,11 +355,11 @@ public class Ficha extends javax.swing.JPanel {
         botonGuardarFicha2 = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         botonGuardarFicha3 = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
         jPanel7 = new javax.swing.JPanel();
@@ -720,57 +720,55 @@ public class Ficha extends javax.swing.JPanel {
         jPanel10.setOpaque(false);
         jPanel10.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setDefaultCapable(false);
-        jButton1.setFocusable(false);
-        jButton1.setOpaque(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel8MousePressed(evt);
             }
         });
-        jPanel10.add(jButton1);
+        jPanel10.add(jLabel8);
 
-        jButton2.setBorderPainted(false);
-        jButton2.setFocusable(false);
-        jButton2.setOpaque(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel11MousePressed(evt);
             }
         });
-        jPanel10.add(jButton2);
+        jPanel10.add(jLabel11);
 
-        jButton3.setBorderPainted(false);
-        jButton3.setFocusable(false);
-        jButton3.setOpaque(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel12MousePressed(evt);
             }
         });
-        jPanel10.add(jButton3);
+        jPanel10.add(jLabel12);
 
-        jButton4.setBorderPainted(false);
-        jButton4.setFocusable(false);
-        jButton4.setOpaque(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel13MousePressed(evt);
             }
         });
-        jPanel10.add(jButton4);
+        jPanel10.add(jLabel13);
 
-        jButton5.setBorderPainted(false);
-        jButton5.setFocusable(false);
-        jButton5.setOpaque(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel15MousePressed(evt);
             }
         });
-        jPanel10.add(jButton5);
+        jPanel10.add(jLabel15);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -819,7 +817,7 @@ public class Ficha extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
+                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botonGuardarFicha2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1207,99 +1205,6 @@ public class Ficha extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_listaIngredientesMouseReleased
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        if (usuario != null && ficha.getiD() != 0) {
-
-            calificacion.setiDFicha(ficha.getiD());
-            calificacion.setiDUsuario(usuario.getCorreo());
-            calificacion.setCalificacion(1);
-            
-            jButton1.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-            jButton2.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-            jButton3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        if (usuario != null && ficha.getiD() != 0) {
-
-            jButton1ActionPerformed(evt);
-            calificacion.setCalificacion(2);
-            
-            jButton2.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-            jButton3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-
-        }
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        if (usuario != null && ficha.getiD() != 0) {
-
-            jButton2ActionPerformed(evt);
-            calificacion.setCalificacion(3);
-            
-            jButton3.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-
-        }
-
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
-        if (usuario != null && ficha.getiD() != 0) {
-
-            jButton3ActionPerformed(evt);
-            calificacion.setCalificacion(4);
-            
-            jButton4.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-
-        }
-
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-        if (usuario != null && ficha.getiD() != 0) {
-
-            jButton4ActionPerformed(evt);
-            calificacion.setCalificacion(5);
-            
-            jButton5.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
-                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
-            
-            jButton5.setForeground(Color.yellow);
-
-        }
-
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void botonGuardarFicha3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha3ActionPerformed
 
         if (usuario != null && ficha.getiD() != 0) {
@@ -1343,6 +1248,117 @@ public class Ficha extends javax.swing.JPanel {
         
     }//GEN-LAST:event_formComponentResized
 
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        
+        if (usuario != null && ficha.getiD() != 0) {
+
+            calificacion.setiDFicha(ficha.getiD());
+            calificacion.setiDUsuario(usuario.getCorreo());
+            calificacion.setCalificacion(1);
+            
+            jLabel8.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jLabel11.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jLabel12.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jLabel13.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jLabel15.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+
+        }
+        
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        
+        if (usuario != null && ficha.getiD() != 0) {
+
+            jLabel8MouseClicked(evt);
+            calificacion.setCalificacion(2);
+            
+            jLabel11.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jLabel12.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jLabel13.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jLabel15.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+
+        }
+        
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+       
+        if (usuario != null && ficha.getiD() != 0) {
+
+            jLabel11MouseClicked(evt);
+            calificacion.setCalificacion(3);
+            
+            jLabel12.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jLabel13.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jLabel15.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+
+        }
+        
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        
+        if (usuario != null && ficha.getiD() != 0) {
+
+            jLabel12MouseClicked(evt);
+            calificacion.setCalificacion(4);
+            
+            jLabel13.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+            jLabel15.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+
+        }
+        
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+        
+        if (usuario != null && ficha.getiD() != 0) {
+
+            jLabel13MouseClicked(evt);
+            calificacion.setCalificacion(5);
+            
+            jLabel15.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
+                        .getImage().getScaledInstance(30, 30,Image.SCALE_DEFAULT)));
+
+        }
+        
+    }//GEN-LAST:event_jLabel15MouseClicked
+
+    private void jLabel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MousePressed
+        jLabel8MouseClicked(evt);
+    }//GEN-LAST:event_jLabel8MousePressed
+
+    private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
+        jLabel11MouseClicked(evt);
+    }//GEN-LAST:event_jLabel11MousePressed
+
+    private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
+        jLabel12MouseClicked(evt);
+    }//GEN-LAST:event_jLabel12MousePressed
+
+    private void jLabel13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MousePressed
+        jLabel13MouseClicked(evt);
+    }//GEN-LAST:event_jLabel13MousePressed
+
+    private void jLabel15MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MousePressed
+        jLabel15MouseClicked(evt);
+    }//GEN-LAST:event_jLabel15MousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
@@ -1355,24 +1371,24 @@ public class Ficha extends javax.swing.JPanel {
     private javax.swing.JMenuItem itemBorrar;
     private javax.swing.JMenuItem itemCargar;
     private javax.swing.JMenuItem itemGuardar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton8;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;

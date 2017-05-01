@@ -34,6 +34,8 @@ public class Resultados extends javax.swing.JPanel {
         jButton7.setVisible(true);
         jButton8.setVisible(true);
         jLabel8.setVisible(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        jScrollPane2.getViewport().setOpaque(false);
         this.contenedor = contenedor;
         this.busqueda = busqueda;
         this.lenguaje = lenguaje;

@@ -118,14 +118,18 @@ public class GestorFicha {
 //        if (evt.getClickCount() == 1) {
 //            System.out.println("no visible");
 //        } else
-            if (evt.getButton() == MouseEvent.BUTTON1&&evt.getClickCount() != 1) {
-            popUp.setVisible(false);
+        if (evt.getButton() == MouseEvent.BUTTON1 /*&& evt.getClickCount() != 1*/) {
+           // popUp.setVisible(false);
+            
             System.out.println("evento list" + index++);
+            
             try {
                 mostrarElemento();
             } catch (BadLocationException ex) {
                 Logger.getLogger(GestorFicha.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
+            
         }
 
     }
@@ -268,8 +272,12 @@ public class GestorFicha {
         //System.out.println("deberia mostrar popup");
         if (textCodigo.getCaret().getMagicCaretPosition() != null) {
             popUp.setVisible(true);
+            
             //popUp.show(textCodigo,100,220);
             popUp.show(textCodigo, textCodigo.getCaret().getMagicCaretPosition().x, textCodigo.getCaret().getMagicCaretPosition().y - 20);
+        }
+        else{
+            System.out.println("caret = null");
         }
 
     }
@@ -400,7 +408,7 @@ public class GestorFicha {
             textCodigo.moveCaretPosition(fin);
             //textCodigo.getCaret().setVisible(true);
             mostrarTextoPopUp(contenido);
-        }
+        } 
     }
 
 }

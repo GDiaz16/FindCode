@@ -2,6 +2,7 @@ package findcode.GUI;
 
 import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
+import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 
 public class Inicio extends javax.swing.JPanel {
@@ -10,24 +11,24 @@ public class Inicio extends javax.swing.JPanel {
     private findcode.clases.Usuario usuario;
 
     public Inicio() {
-        
+
         initComponents();
         jScrollPane1.getViewport().setOpaque(false);
         jPanel5.setVisible(false);
         Utilidades.personalizarCampo(jTextField1, "¿Que desea buscar?", "");
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Lenguaje.cargarTodos().toArray()));
-        
+
     }
 
     public Inicio(JPanel contenedor, findcode.clases.Usuario usuario) {
-        
+
         this();
         this.contenedor = contenedor;
         this.usuario = usuario;
         jPanel5.setVisible(true);
         jPanel6.setVisible(false);
         jButton8.setText(usuario.getNickname());
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -60,10 +61,14 @@ public class Inicio extends javax.swing.JPanel {
                 formHierarchyChanged(evt);
             }
         });
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         jScrollPane1.setOpaque(false);
-        jScrollPane1.setViewport(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 0));
         jPanel1.setOpaque(false);
@@ -76,11 +81,21 @@ public class Inicio extends javax.swing.JPanel {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         jComboBox1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
+            }
+        });
+        jComboBox1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox1KeyPressed(evt);
             }
         });
 
@@ -103,6 +118,11 @@ public class Inicio extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+        });
         jPanel2.add(jButton1, new java.awt.GridBagConstraints());
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -115,12 +135,22 @@ public class Inicio extends javax.swing.JPanel {
                 jButton5ActionPerformed(evt);
             }
         });
+        jButton5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton5KeyPressed(evt);
+            }
+        });
 
         jButton8.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton8.setText("Usuario");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
+            }
+        });
+        jButton8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton8KeyPressed(evt);
             }
         });
 
@@ -132,6 +162,11 @@ public class Inicio extends javax.swing.JPanel {
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
+            }
+        });
+        jButton12.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton12KeyPressed(evt);
             }
         });
 
@@ -191,6 +226,11 @@ public class Inicio extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton2KeyPressed(evt);
+            }
+        });
         jPanel3.add(jButton2, new java.awt.GridBagConstraints());
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -202,6 +242,11 @@ public class Inicio extends javax.swing.JPanel {
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+            }
+        });
+        jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton3KeyPressed(evt);
             }
         });
         jPanel4.add(jButton3, new java.awt.GridBagConstraints());
@@ -332,8 +377,87 @@ public class Inicio extends javax.swing.JPanel {
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
 
         findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
-        
+
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            jButton1ActionPerformed(null);
+
+        }
+
+        if (usuario != null && evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+
+            jButton12ActionPerformed(null);
+
+        }
+
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            jButton1ActionPerformed(null);
+
+        }
+
+        jButton12KeyPressed(null);
+
+    }//GEN-LAST:event_jComboBox1KeyPressed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+
+        jTextField1.requestFocus();
+
+    }//GEN-LAST:event_formFocusGained
+
+    private void jButton12KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton12KeyPressed
+
+        try {
+            
+            if (usuario != null && evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+
+                jButton12ActionPerformed(null);
+
+            }
+            
+        } catch (java.lang.NullPointerException ex) {}
+
+
+    }//GEN-LAST:event_jButton12KeyPressed
+
+    private void jButton5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton5KeyPressed
+
+        jButton12KeyPressed(evt);
+
+    }//GEN-LAST:event_jButton5KeyPressed
+
+    private void jButton8KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton8KeyPressed
+
+        jButton12KeyPressed(evt);
+
+    }//GEN-LAST:event_jButton8KeyPressed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+
+        jButton12KeyPressed(evt);
+
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    private void jButton2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyPressed
+
+        jButton12KeyPressed(evt);
+
+    }//GEN-LAST:event_jButton2KeyPressed
+
+    private void jButton3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton3KeyPressed
+
+        jButton12KeyPressed(evt);
+
+    }//GEN-LAST:event_jButton3KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

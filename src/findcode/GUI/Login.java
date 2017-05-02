@@ -3,6 +3,7 @@ package findcode.GUI;
 
 import findcode.clases.Usuario;
 import findcode.controladores.Utilidades;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ public class Login extends javax.swing.JPanel {
         jScrollPane1.getViewport().setOpaque(false);
         Utilidades.personalizarCampo(jTextField1, "Correo ó NickName", "");
         Utilidades.personalizarCampo(jPasswordField1, "Contraseña", "");
+        jTextField1.grabFocus();
         
     }
 
@@ -43,6 +45,11 @@ public class Login extends javax.swing.JPanel {
         jLabel1.setText("jLabel1");
 
         setOpaque(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         jScrollPane1.setOpaque(false);
@@ -69,10 +76,14 @@ public class Login extends javax.swing.JPanel {
         jTextField1.setForeground(new java.awt.Color(153, 153, 153));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Correo o Nickname");
-        jTextField1.setFocusCycleRoot(false);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
             }
         });
 
@@ -82,6 +93,11 @@ public class Login extends javax.swing.JPanel {
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
+            }
+        });
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
             }
         });
 
@@ -119,6 +135,11 @@ public class Login extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
+        jButton4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton4KeyPressed(evt);
+            }
+        });
         jPanel5.add(jButton4, new java.awt.GridBagConstraints());
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -128,6 +149,11 @@ public class Login extends javax.swing.JPanel {
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
+            }
+        });
+        jButton5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton5KeyPressed(evt);
             }
         });
 
@@ -225,6 +251,51 @@ public class Login extends javax.swing.JPanel {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        
+        jTextField1.requestFocus();
+        
+    }//GEN-LAST:event_formFocusGained
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        
+        jButton5KeyPressed(evt);
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            jButton4ActionPerformed(null);
+
+        }
+        
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jButton5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton5KeyPressed
+        
+        try {
+            
+            if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+
+                jButton5ActionPerformed(null);
+
+            }
+            
+        } catch (java.lang.NullPointerException ex) {}
+        
+    }//GEN-LAST:event_jButton5KeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        
+        jButton5KeyPressed(evt);
+        jTextField1KeyPressed(evt);
+        
+    }//GEN-LAST:event_jPasswordField1KeyPressed
+
+    private void jButton4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton4KeyPressed
+        
+        jButton5KeyPressed(evt);
+        
+    }//GEN-LAST:event_jButton4KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

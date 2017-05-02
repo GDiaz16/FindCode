@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JPanel;
@@ -12,9 +13,9 @@ public class Resultados extends javax.swing.JPanel {
     private ArrayList<Resultado> resultados;
     private String busqueda;
     private String lenguaje;
-    
+
     public Resultados(JPanel contenedor, String busqueda, String lenguaje) {
-        
+
         initComponents();
         jButton7.setVisible(false);
         jButton8.setVisible(false);
@@ -25,11 +26,11 @@ public class Resultados extends javax.swing.JPanel {
         this.busqueda = busqueda;
         this.lenguaje = lenguaje;
         busqueda();
-        
+
     }
-    
+
     public Resultados(JPanel contenedor, findcode.clases.Usuario usuario, String busqueda, String lenguaje) {
-        
+
         initComponents();
         jButton7.setVisible(true);
         jButton8.setVisible(true);
@@ -44,19 +45,19 @@ public class Resultados extends javax.swing.JPanel {
         busqueda();
 
     }
-    
-    public final void busqueda(){
-        
+
+    public final void busqueda() {
+
         jPanel2.removeAll();
         resultados = new ArrayList<>();
         fichas = findcode.clases.Ficha.buscarTextoPorLenguaje(busqueda, lenguaje);
-        
+
         if (fichas.isEmpty()) {
             jPanel2.setLayout(new java.awt.GridLayout());
             jPanel2.add(jLabel8);
             jLabel8.setVisible(true);
         }
-        
+
         if (usuario == null) {
             for (findcode.clases.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, ficha));
@@ -66,11 +67,48 @@ public class Resultados extends javax.swing.JPanel {
                 resultados.add(new Resultado(this, usuario, ficha));
             }
         }
-        
+
         for (Resultado resultado : resultados) {
             jPanel2.add(resultado);
         }
         
+        for (int i = 0; i < resultados.size(); i++) {
+            
+            final int i2 = i;
+            
+            resultados.get(i).addKeyListener(new java.awt.event.KeyAdapter() {
+                
+                @Override
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+
+                    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+                        if (i2 > 0) {
+                            resultados.get(i2 - 1).requestFocus();
+                        }
+
+                    }
+                    
+                    if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                        if (i2 > 0) {
+                            resultados.get(i2 - 1).requestFocus();
+                        }
+
+                    }
+                    
+                    if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                        if (i2 < resultados.size() - 1) {
+                            resultados.get(i2 + 1).requestFocus();
+                        }
+
+                    }
+
+                }
+            });
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -89,6 +127,16 @@ public class Resultados extends javax.swing.JPanel {
         jButton8 = new javax.swing.JButton();
 
         setOpaque(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         jScrollPane1.setOpaque(false);
@@ -119,12 +167,22 @@ public class Resultados extends javax.swing.JPanel {
                 jButton6ActionPerformed(evt);
             }
         });
+        jButton6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton6KeyPressed(evt);
+            }
+        });
 
         jButton7.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton7.setText("Cerrar sesion");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
+            }
+        });
+        jButton7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton7KeyPressed(evt);
             }
         });
 
@@ -137,6 +195,11 @@ public class Resultados extends javax.swing.JPanel {
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
+            }
+        });
+        jButton8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton8KeyPressed(evt);
             }
         });
 
@@ -201,20 +264,68 @@ public class Resultados extends javax.swing.JPanel {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
-        
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        
+
         findcode.controladores.Utilidades.cambiarPantalla(this, new Inicio());
-        
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
+
         findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, this.usuario));
-        
+
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+
+            jButton6ActionPerformed(null);
+
+        }
+
+    }//GEN-LAST:event_formKeyPressed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+
+        jPanel2.getComponent(0).requestFocus();
+
+    }//GEN-LAST:event_formFocusGained
+
+    private void jButton6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton6KeyPressed
+        
+        try {
+            
+            if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+
+                jButton6ActionPerformed(null);
+
+            }
+            
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                jPanel2.getComponent(0).requestFocus();
+
+            }
+            
+        } catch (java.lang.NullPointerException ex) {}
+        
+    }//GEN-LAST:event_jButton6KeyPressed
+
+    private void jButton7KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton7KeyPressed
+        
+        jButton6KeyPressed(evt);
+        
+    }//GEN-LAST:event_jButton7KeyPressed
+
+    private void jButton8KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton8KeyPressed
+        
+        jButton6KeyPressed(evt);
+        
+    }//GEN-LAST:event_jButton8KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

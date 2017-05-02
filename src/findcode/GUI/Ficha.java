@@ -30,6 +30,7 @@ public class Ficha extends javax.swing.JPanel {
     private ArrayList<findcode.clases.Comentario> comentarios;
     private ArrayList<findcode.clases.Ficha> relacionados;
     private HashMap<String, findcode.clases.Ingrediente> ingredientes;
+    private HashMap<String, findcode.clases.Ingrediente> ingredientesIniciales;
 
     // Consultar ficha sin usuario
     public Ficha(JPanel contenedor, findcode.clases.Ficha ficha) {
@@ -198,7 +199,8 @@ public class Ficha extends javax.swing.JPanel {
     public final void busquedaIngredientes() {
 
         ingredientes = findcode.clases.Ingrediente.cargarPorFicha(ficha.getiD());
-
+        ingredientesIniciales = ingredientes;
+        
         DefaultListModel modelo = new DefaultListModel();
 
         for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
@@ -1333,6 +1335,13 @@ public class Ficha extends javax.swing.JPanel {
                 }
 
             }
+            
+            for (findcode.clases.Ingrediente ingrediente : ingredientesIniciales.values()) {
+                if(!ingredientes.containsValue(ingrediente)){
+                    ingrediente.borrar();
+                }
+            }
+            
 
             try {
 

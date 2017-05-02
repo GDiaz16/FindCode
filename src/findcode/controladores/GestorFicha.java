@@ -70,6 +70,7 @@ public class GestorFicha {
         this.textTituloFicha = textTituloFicha;
         this.ingredientes2 = ingredientes2;
         cargarPalabras();
+        setText();
         //listListener();
     }
 

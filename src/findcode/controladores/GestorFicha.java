@@ -123,11 +123,14 @@ public class GestorFicha {
         if (evt.getButton() == MouseEvent.BUTTON1) {
 
             System.out.println("evento list" + index++);
+            
             try {
                 mostrarElemento();
             } catch (BadLocationException ex) {
                 Logger.getLogger(GestorFicha.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
+            
         }
 
     }
@@ -226,10 +229,13 @@ public class GestorFicha {
         popUp.add(label);
         
         if (textCodigo.getCaret().getMagicCaretPosition() != null) {
-            
+          
             popUp.show(textCodigo, textCodigo.getCaret().getMagicCaretPosition().x, textCodigo.getCaret().getMagicCaretPosition().y - 20);
             popUp.setVisible(true);
             
+        }
+        else{
+            System.out.println("caret = null");
         }
 
     }
@@ -361,7 +367,7 @@ public class GestorFicha {
             //textCodigo.getCaret().setVisible(true);
             mostrarTextoPopUp(contenido);
         }
-        
+
     }
 
 }

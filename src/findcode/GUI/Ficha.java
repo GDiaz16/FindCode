@@ -1324,7 +1324,7 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_botonGuardarFicha2ActionPerformed
 
     private void listaIngredientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaIngredientesMouseReleased
-       
+
     }//GEN-LAST:event_listaIngredientesMouseReleased
 
     private void botonGuardarFicha3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha3ActionPerformed

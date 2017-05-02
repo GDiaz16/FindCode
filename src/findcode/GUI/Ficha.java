@@ -5,6 +5,7 @@ import findcode.controladores.Utilidades;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -219,6 +220,43 @@ public class Ficha extends javax.swing.JPanel {
         for (Comentario comentario : panelesComentario) {
             jPanel7.add(comentario);
         }
+        
+        for (int i = 0; i < panelesComentario.size(); i++) {
+            
+            final int i2 = i;
+            
+            panelesComentario.get(i).addKeyListener(new java.awt.event.KeyAdapter() {
+                
+                @Override
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+
+                    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+                        if (i2 > 0) {
+                            panelesComentario.get(i2 - 1).requestFocus();
+                        }
+
+                    }
+                    
+                    if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                        if (i2 > 0) {
+                            panelesComentario.get(i2 - 1).requestFocus();
+                        }
+
+                    }
+                    
+                    if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                        if (i2 < panelesComentario.size() - 1) {
+                            panelesComentario.get(i2 + 1).requestFocus();
+                        }
+
+                    }
+
+                }
+            });
+        }
 
     }
 
@@ -361,6 +399,7 @@ public class Ficha extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
+        botonGuardarFicha3 = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
         botonGuardarFicha2 = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
@@ -370,7 +409,6 @@ public class Ficha extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        botonGuardarFicha3 = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -547,6 +585,11 @@ public class Ficha extends javax.swing.JPanel {
                 jButton12ActionPerformed(evt);
             }
         });
+        jButton12.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton12KeyPressed(evt);
+            }
+        });
 
         jButton13.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton13.setText("Cerrar sesion");
@@ -575,6 +618,11 @@ public class Ficha extends javax.swing.JPanel {
                 botonGuardarFichaActionPerformed(evt);
             }
         });
+        botonGuardarFicha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonGuardarFichaKeyPressed(evt);
+            }
+        });
 
         jComboBox1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jComboBox1.setFocusable(false);
@@ -583,9 +631,19 @@ public class Ficha extends javax.swing.JPanel {
                 jComboBox1ActionPerformed(evt);
             }
         });
+        jComboBox1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox1KeyPressed(evt);
+            }
+        });
 
         jTextField1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         botonGuardarFicha1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         botonGuardarFicha1.setText("Guardar ficha");
@@ -594,12 +652,22 @@ public class Ficha extends javax.swing.JPanel {
                 botonGuardarFicha1ActionPerformed(evt);
             }
         });
+        botonGuardarFicha1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonGuardarFicha1KeyPressed(evt);
+            }
+        });
 
         botonGuardarFicha4.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         botonGuardarFicha4.setText("Borrar ficha");
         botonGuardarFicha4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGuardarFicha4ActionPerformed(evt);
+            }
+        });
+        botonGuardarFicha4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonGuardarFicha4KeyPressed(evt);
             }
         });
 
@@ -668,6 +736,11 @@ public class Ficha extends javax.swing.JPanel {
                 textTituloFichaActionPerformed(evt);
             }
         });
+        textTituloFicha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textTituloFichaKeyPressed(evt);
+            }
+        });
 
         jScrollPane6.setOpaque(false);
 
@@ -676,6 +749,11 @@ public class Ficha extends javax.swing.JPanel {
         textDescripcion.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         textDescripcion.setRows(2);
         textDescripcion.setText("Descripcion");
+        textDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textDescripcionKeyPressed(evt);
+            }
+        });
         jScrollPane6.setViewportView(textDescripcion);
 
         jSplitPane3.setBackground(new java.awt.Color(255, 255, 255));
@@ -705,6 +783,9 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
         textCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textCodigoKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textCodigoKeyReleased(evt);
             }
@@ -720,14 +801,37 @@ public class Ficha extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(0, 0));
 
+        botonGuardarFicha3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        botonGuardarFicha3.setText("Calificar");
+        botonGuardarFicha3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarFicha3ActionPerformed(evt);
+            }
+        });
+        botonGuardarFicha3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonGuardarFicha3KeyPressed(evt);
+            }
+        });
+
         jTextField3.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField3KeyPressed(evt);
+            }
+        });
 
         botonGuardarFicha2.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         botonGuardarFicha2.setText("Comentar");
         botonGuardarFicha2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGuardarFicha2ActionPerformed(evt);
+            }
+        });
+        botonGuardarFicha2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botonGuardarFicha2KeyPressed(evt);
             }
         });
 
@@ -800,14 +904,6 @@ public class Ficha extends javax.swing.JPanel {
             .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
         );
-
-        botonGuardarFicha3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        botonGuardarFicha3.setText("Calificar");
-        botonGuardarFicha3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonGuardarFicha3ActionPerformed(evt);
-            }
-        });
 
         jScrollPane9.setOpaque(false);
 
@@ -897,6 +993,11 @@ public class Ficha extends javax.swing.JPanel {
         listaIngredientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 listaIngredientesMouseReleased(evt);
+            }
+        });
+        listaIngredientes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                listaIngredientesKeyPressed(evt);
             }
         });
         jScrollPane5.setViewportView(listaIngredientes);
@@ -1380,6 +1481,90 @@ public class Ficha extends javax.swing.JPanel {
         textTituloFicha.requestFocus();
         
     }//GEN-LAST:event_formFocusGained
+
+    private void jButton12KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton12KeyPressed
+        
+        try {
+            
+            if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+
+                jButton12ActionPerformed(null);
+
+            }
+            
+        } catch (java.lang.NullPointerException ex) {}
+        
+    }//GEN-LAST:event_jButton12KeyPressed
+
+    private void botonGuardarFichaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonGuardarFichaKeyPressed
+        
+        jButton12KeyPressed(evt);
+        
+    }//GEN-LAST:event_botonGuardarFichaKeyPressed
+
+    private void botonGuardarFicha1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonGuardarFicha1KeyPressed
+        
+        jButton12KeyPressed(evt);
+        
+    }//GEN-LAST:event_botonGuardarFicha1KeyPressed
+
+    private void botonGuardarFicha4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonGuardarFicha4KeyPressed
+        
+        jButton12KeyPressed(evt);
+        
+    }//GEN-LAST:event_botonGuardarFicha4KeyPressed
+
+    private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
+        
+        jButton12KeyPressed(evt);
+        
+    }//GEN-LAST:event_jComboBox1KeyPressed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        
+        jButton12KeyPressed(evt);
+        
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void textTituloFichaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textTituloFichaKeyPressed
+        
+        jButton12KeyPressed(evt);
+        
+    }//GEN-LAST:event_textTituloFichaKeyPressed
+
+    private void textDescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textDescripcionKeyPressed
+        jButton12KeyPressed(evt);
+    }//GEN-LAST:event_textDescripcionKeyPressed
+
+    private void textCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCodigoKeyPressed
+        
+        jButton12KeyPressed(evt);
+        
+    }//GEN-LAST:event_textCodigoKeyPressed
+
+    private void listaIngredientesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listaIngredientesKeyPressed
+        
+        jButton12KeyPressed(evt);
+        
+    }//GEN-LAST:event_listaIngredientesKeyPressed
+
+    private void botonGuardarFicha3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonGuardarFicha3KeyPressed
+        
+        jButton12KeyPressed(evt);
+        
+    }//GEN-LAST:event_botonGuardarFicha3KeyPressed
+
+    private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyPressed
+       
+        jButton12KeyPressed(evt);
+        
+    }//GEN-LAST:event_jTextField3KeyPressed
+
+    private void botonGuardarFicha2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonGuardarFicha2KeyPressed
+        
+        jButton12KeyPressed(evt);
+        
+    }//GEN-LAST:event_botonGuardarFicha2KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

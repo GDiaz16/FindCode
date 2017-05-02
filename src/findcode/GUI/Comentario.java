@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import java.awt.Color;
 import javax.swing.JPanel;
 
 public class Comentario extends javax.swing.JPanel {
@@ -26,10 +27,25 @@ public class Comentario extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setOpaque(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                formFocusLost(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
 
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Usuario");
+        jLabel7.setOpaque(true);
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(1);
@@ -60,6 +76,24 @@ public class Comentario extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        
+        jLabel7.setBackground(Color.decode("#CEF6CE"));
+        jTextArea1.setBackground(Color.decode("#CEF6CE"));
+        
+    }//GEN-LAST:event_formFocusGained
+
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+        
+        jLabel7.setBackground(Color.decode("#FFFFFF"));
+        jTextArea1.setBackground(Color.decode("#FFFFFF"));
+        
+    }//GEN-LAST:event_formFocusLost
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        this.requestFocus();
+    }//GEN-LAST:event_formMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import findcode.clases.Ingrediente;
 import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.awt.AWTException;
@@ -199,7 +200,7 @@ public class Ficha extends javax.swing.JPanel {
     public final void busquedaIngredientes() {
 
         ingredientes = findcode.clases.Ingrediente.cargarPorFicha(ficha.getiD());
-        ingredientesIniciales = ingredientes;
+        ingredientesIniciales = (HashMap<String, Ingrediente>) ingredientes.clone();
         
         DefaultListModel modelo = new DefaultListModel();
 
@@ -1336,9 +1337,10 @@ public class Ficha extends javax.swing.JPanel {
 
             }
             
-            for (findcode.clases.Ingrediente ingrediente : ingredientesIniciales.values()) {
-                if(!ingredientes.containsValue(ingrediente)){
-                    ingrediente.borrar();
+            for (String ingrediente : ingredientesIniciales.keySet()) {
+                System.out.println("sadasd");
+                if(!ingredientes.containsKey(ingrediente)){
+                    ingredientesIniciales.get(ingrediente).borrar();
                 }
             }
             

@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JPanel;
@@ -47,6 +48,43 @@ public class Usuario extends javax.swing.JPanel {
             jPanel2.add(resultado);
         }
         
+        for (int i = 0; i < resultados.size(); i++) {
+            
+            final int i2 = i;
+            
+            resultados.get(i).addKeyListener(new java.awt.event.KeyAdapter() {
+                
+                @Override
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+
+                    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+                        if (i2 > 0) {
+                            resultados.get(i2 - 1).requestFocus();
+                        }
+
+                    }
+                    
+                    if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+                        if (i2 > 0) {
+                            resultados.get(i2 - 1).requestFocus();
+                        }
+
+                    }
+                    
+                    if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                        if (i2 < resultados.size() - 1) {
+                            resultados.get(i2 + 1).requestFocus();
+                        }
+
+                    }
+
+                }
+            });
+        }
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -67,6 +105,11 @@ public class Usuario extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
 
         setOpaque(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         jScrollPane1.setOpaque(false);
@@ -97,12 +140,22 @@ public class Usuario extends javax.swing.JPanel {
                 jButton6ActionPerformed(evt);
             }
         });
+        jButton6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton6KeyPressed(evt);
+            }
+        });
 
         jButton7.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton7.setText("Cerrar sesion");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
+            }
+        });
+        jButton7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton7KeyPressed(evt);
             }
         });
 
@@ -117,12 +170,22 @@ public class Usuario extends javax.swing.JPanel {
                 jButton8ActionPerformed(evt);
             }
         });
+        jButton8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton8KeyPressed(evt);
+            }
+        });
 
         jButton9.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton9.setText("+ Ficha");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
+            }
+        });
+        jButton9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton9KeyPressed(evt);
             }
         });
 
@@ -224,6 +287,50 @@ public class Usuario extends javax.swing.JPanel {
         findcode.controladores.Utilidades.cambiarPantalla(this, new Ficha(this, usuario));
         
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        
+        jPanel2.getComponent(0).requestFocus();
+        
+    }//GEN-LAST:event_formFocusGained
+
+    private void jButton6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton6KeyPressed
+        
+        try {
+            
+            if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+
+                jButton6ActionPerformed(null);
+
+            }
+            
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+                jPanel2.getComponent(0).requestFocus();
+
+            }
+            
+        } catch (java.lang.NullPointerException ex) {}
+        
+    }//GEN-LAST:event_jButton6KeyPressed
+
+    private void jButton9KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton9KeyPressed
+        
+        jButton6KeyPressed(evt);
+        
+    }//GEN-LAST:event_jButton9KeyPressed
+
+    private void jButton7KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton7KeyPressed
+        
+        jButton6KeyPressed(evt);
+        
+    }//GEN-LAST:event_jButton7KeyPressed
+
+    private void jButton8KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton8KeyPressed
+        
+        jButton6KeyPressed(evt);
+        
+    }//GEN-LAST:event_jButton8KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

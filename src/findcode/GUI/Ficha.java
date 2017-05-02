@@ -432,6 +432,10 @@ public class Ficha extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
 
+        popUp.setLightWeightPopupEnabled(false);
+        popUp.setRequestFocusEnabled(false);
+        popUp.setVerifyInputWhenFocusTarget(false);
+
         itemGuardar.setText("Guardar");
         itemGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -993,6 +997,9 @@ public class Ficha extends javax.swing.JPanel {
         listaIngredientes.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         listaIngredientes.setSelectionBackground(new java.awt.Color(51, 204, 0));
         listaIngredientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaIngredientesMousePressed(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 listaIngredientesMouseReleased(evt);
             }
@@ -1317,11 +1324,7 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_botonGuardarFicha2ActionPerformed
 
     private void listaIngredientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaIngredientesMouseReleased
-        try {
-            gestorFicha.listaIngredientesMouseReleased(evt);
-        } catch (BadLocationException ex) {
-            Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
     }//GEN-LAST:event_listaIngredientesMouseReleased
 
     private void botonGuardarFicha3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha3ActionPerformed
@@ -1567,6 +1570,16 @@ public class Ficha extends javax.swing.JPanel {
         jButton12KeyPressed(evt);
         
     }//GEN-LAST:event_botonGuardarFicha2KeyPressed
+
+    private void listaIngredientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaIngredientesMousePressed
+        
+        try {
+            gestorFicha.listaIngredientesMouseReleased(evt);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_listaIngredientesMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -73,6 +73,11 @@ public class Registro extends javax.swing.JPanel {
         jButton7 = new javax.swing.JButton();
 
         setOpaque(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         jScrollPane1.setOpaque(false);
@@ -409,6 +414,12 @@ public class Registro extends javax.swing.JPanel {
         findcode.controladores.Utilidades.cambiarPantalla(this, new Inicio());
         
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        
+        jTextField1.requestFocus();
+        
+    }//GEN-LAST:event_formFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

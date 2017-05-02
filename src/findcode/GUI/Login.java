@@ -18,6 +18,7 @@ public class Login extends javax.swing.JPanel {
         jScrollPane1.getViewport().setOpaque(false);
         Utilidades.personalizarCampo(jTextField1, "Correo ó NickName", "");
         Utilidades.personalizarCampo(jPasswordField1, "Contraseña", "");
+        jTextField1.grabFocus();
         
     }
 
@@ -43,6 +44,11 @@ public class Login extends javax.swing.JPanel {
         jLabel1.setText("jLabel1");
 
         setOpaque(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         jScrollPane1.setOpaque(false);
@@ -69,7 +75,6 @@ public class Login extends javax.swing.JPanel {
         jTextField1.setForeground(new java.awt.Color(153, 153, 153));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Correo o Nickname");
-        jTextField1.setFocusCycleRoot(false);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -225,6 +230,12 @@ public class Login extends javax.swing.JPanel {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        
+        jTextField1.requestFocus();
+        
+    }//GEN-LAST:event_formFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

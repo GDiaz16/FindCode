@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JPanel;
@@ -89,6 +90,11 @@ public class Resultados extends javax.swing.JPanel {
         jButton8 = new javax.swing.JButton();
 
         setOpaque(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         jScrollPane1.setOpaque(false);
@@ -215,6 +221,16 @@ public class Resultados extends javax.swing.JPanel {
         findcode.controladores.Utilidades.cambiarPantalla(this, new Usuario(this, this.usuario));
         
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        
+        if (evt.getKeyCode()==KeyEvent.VK_ESCAPE){
+            
+            jButton6ActionPerformed(null);
+            
+        }
+        
+    }//GEN-LAST:event_formKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

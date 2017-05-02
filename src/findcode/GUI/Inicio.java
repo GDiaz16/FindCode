@@ -2,6 +2,7 @@ package findcode.GUI;
 
 import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
+import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 
 public class Inicio extends javax.swing.JPanel {
@@ -60,10 +61,14 @@ public class Inicio extends javax.swing.JPanel {
                 formHierarchyChanged(evt);
             }
         });
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
 
         jScrollPane1.setOpaque(false);
-        jScrollPane1.setViewport(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 0));
         jPanel1.setOpaque(false);
@@ -76,11 +81,21 @@ public class Inicio extends javax.swing.JPanel {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         jComboBox1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
+            }
+        });
+        jComboBox1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox1KeyPressed(evt);
             }
         });
 
@@ -334,6 +349,32 @@ public class Inicio extends javax.swing.JPanel {
         findcode.controladores.Utilidades.cambiarPantalla(this, contenedor);
         
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            
+            jButton1ActionPerformed(null);
+            
+        }
+        
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
+        
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            
+            jButton1ActionPerformed(null);
+            
+        }
+        
+    }//GEN-LAST:event_jComboBox1KeyPressed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        
+        jTextField1.requestFocus();
+        
+    }//GEN-LAST:event_formFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

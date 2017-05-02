@@ -1,13 +1,16 @@
 package findcode.controladores;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Image;
+import java.lang.reflect.Field;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
 public class Utilidades {
@@ -103,7 +106,7 @@ public class Utilidades {
         nuevo.getParent().remove(anterior);
         nuevo.getParent().validate();
         nuevo.updateUI();
-        nuevo.requestFocusInWindow();
+        nuevo.requestFocus();
         
     }
     

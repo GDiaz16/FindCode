@@ -51,6 +51,7 @@ public class GestorFicha {
     JMenuItem guardar;
     JMenuItem borrar;
     String seleccion;
+    int index;
 
     public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
             JList listaPopUp, JMenuItem cargar, JMenuItem guardar, JMenuItem borrar, JDialog ventanaGuadar, JTextArea textComentario,
@@ -69,6 +70,7 @@ public class GestorFicha {
         this.textDescripcion = textDescripcion;
         this.textTituloFicha = textTituloFicha;
         this.ingredientes2 = ingredientes2;
+        setListaIngredientes();
         cargarPalabras();
         setText();
         //listListener();
@@ -107,20 +109,25 @@ public class GestorFicha {
     }
 
     public void listaIngredientesMouseReleased(java.awt.event.MouseEvent evt) throws BadLocationException {
-        //listaIngredientes.requestFocus(true);
-popUp.requestFocus(false);
+
         if (evt.getButton() == MouseEvent.BUTTON3) {
             cargarListaPopUp(2);
             //popUp.setVisible(true);
             popUp.show(evt.getComponent(), evt.getX(), evt.getY());
-        } else if (evt.getButton() == MouseEvent.BUTTON1) {
-            System.out.println("evento list");
+        }
+//        if (evt.getClickCount() == 1) {
+//            System.out.println("no visible");
+//        } else
+            if (evt.getButton() == MouseEvent.BUTTON1&&evt.getClickCount() != 1) {
+            popUp.setVisible(false);
+            System.out.println("evento list" + index++);
             try {
                 mostrarElemento();
             } catch (BadLocationException ex) {
                 Logger.getLogger(GestorFicha.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
 
     //cargar datos que se van a mostrar en el popUP
@@ -257,13 +264,14 @@ popUp.requestFocus(false);
         label.setSize(100, 100);
         label.setFont(font);
         popUp.add(label);
+        //textCodigo.moveCaretPosition(index);
         //System.out.println("deberia mostrar popup");
         if (textCodigo.getCaret().getMagicCaretPosition() != null) {
-            //popUp.setVisible(true);
+            popUp.setVisible(true);
             //popUp.show(textCodigo,100,220);
-            popUp.show(textCodigo, textCodigo.getCaret().getMagicCaretPosition().x, textCodigo.getCaret().getMagicCaretPosition().y);
+            popUp.show(textCodigo, textCodigo.getCaret().getMagicCaretPosition().x, textCodigo.getCaret().getMagicCaretPosition().y - 20);
         }
-        
+
     }
 //agregar un listener al seleccionar los elementos
 //    public void listListener(){
@@ -387,13 +395,10 @@ popUp.requestFocus(false);
             Highlighter highlighter = textCodigo.getHighlighter();
             HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.green);
             highlighter.removeAllHighlights();
-            //System.out.println("inicio " + inicio + "  --- final " + fin);
             highlighter.addHighlight(inicio, fin, painter);
 
-            textCodigo.setCaretPosition(fin);
+            textCodigo.moveCaretPosition(fin);
             //textCodigo.getCaret().setVisible(true);
-            System.out.println("primer setDot");
-
             mostrarTextoPopUp(contenido);
         }
     }

@@ -54,7 +54,7 @@ insert into TPalabraReservada (iD, iDLenguaje) values
 ("defun", "Lisp"),
 ("body", "HTML"),
 ("int", "Java"),
-("public", "Java")
+("public", "Java"),
 ("abstract", "Java"),
 ("class", "Java"),
 ("const", "Java"),

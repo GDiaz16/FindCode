@@ -193,11 +193,12 @@ popUp.requestFocus(false);
         simbolos.add("*");
         simbolos.add("%");
         simbolos.add("\"");
+        simbolos.add(",");
     }
 //separa las palabras cuando encuentra un espacio, salto de linea, tabulacion o parentesis y las coloca en un array
 
     public void separador(String codigo) {
-        StringTokenizer st = new StringTokenizer(codigo, " \t\n()", true);
+        StringTokenizer st = new StringTokenizer(codigo, " \t\n(),\"", true);
         codigoDesarmado = new String[st.countTokens()];
         int i = 0;
         while (st.hasMoreTokens()) {
@@ -236,7 +237,7 @@ popUp.requestFocus(false);
         } else if (simbolos.contains(palabraReservada)) {
             StyleConstants.setBold(simp, false);
             StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.orange);
+            StyleConstants.setForeground(simp, Color.getHSBColor(120, 150, 160));
         } else {
             StyleConstants.setBold(simp, false);
             StyleConstants.setFontSize(simp, 12);

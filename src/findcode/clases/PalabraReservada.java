@@ -2,12 +2,17 @@ package findcode.clases;
 
 import findcode.controladores.MySQL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PalabraReservada {
 
     String palabraReservada;
     String idLenguaje;
 
+    public PalabraReservada() {
+        
+    }
+    
     public PalabraReservada(String palabraReservada, String idLenguaje) {
         this.palabraReservada = palabraReservada;
         this.idLenguaje = idLenguaje;
@@ -81,6 +86,36 @@ public class PalabraReservada {
         }
 
         return false;
+
+    }
+    
+    public static ArrayList<String> cargarPorLenguaje(String iDLenguaje) {
+
+        ArrayList<String> palabrasReservadas = new ArrayList<>();
+        
+        try {
+
+            MySQL db = new MySQL();
+
+            String query = " select * from TPalabraReservada where "
+                    + "idLenguaje = ?";
+
+            db.setSentencia(query);
+            db.getSentencia().setString(1, iDLenguaje);
+
+            db.setResultados(db.getSentencia().executeQuery());
+
+            while (db.getResultados().next()) {
+                
+                palabrasReservadas.add(db.getResultados().getString("iD"));
+                
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return palabrasReservadas;
 
     }
 

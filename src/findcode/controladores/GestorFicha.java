@@ -14,6 +14,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JDialog;
 import javax.swing.JList;
@@ -30,7 +31,7 @@ import javax.swing.text.Highlighter.HighlightPainter;
 
 public class GestorFicha {
 
-    HashSet<String> palabrasClave = new HashSet<>();
+    ArrayList<String> palabrasReservadas;
     HashSet<String> simbolos = new HashSet<>();
     HashMap<String, findcode.clases.Ingrediente> ingredientes2;
     HashSet<String> ingredientes = new HashSet<>();
@@ -56,7 +57,7 @@ public class GestorFicha {
     public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
             JList listaPopUp, JMenuItem cargar, JMenuItem guardar, JMenuItem borrar, JDialog ventanaGuadar, JTextArea textComentario,
             JTextField textTitulo, JTextArea textDescripcion, JTextField textTituloFicha,
-            HashMap<String, findcode.clases.Ingrediente> ingredientes2) {
+            HashMap<String, findcode.clases.Ingrediente> ingredientes2, ArrayList<String> palabrasReservadas) {
         this.textCodigo = textCodigo;
         this.listaIngredientes = listaIngredientes;
         this.popUp = popUp;
@@ -70,6 +71,7 @@ public class GestorFicha {
         this.textDescripcion = textDescripcion;
         this.textTituloFicha = textTituloFicha;
         this.ingredientes2 = ingredientes2;
+        this.palabrasReservadas = palabrasReservadas;
         setListaIngredientes();
         cargarPalabras();
         setText();
@@ -147,49 +149,6 @@ public class GestorFicha {
 
     public void cargarPalabras() {
 
-        palabrasClave.add("abstract");
-        palabrasClave.add("class");
-        palabrasClave.add("const");
-        palabrasClave.add("continue");
-        palabrasClave.add("default");
-        palabrasClave.add("do");
-        palabrasClave.add("double");
-        palabrasClave.add("else");
-        palabrasClave.add("enum");
-        palabrasClave.add("extends");
-        palabrasClave.add("final");
-        palabrasClave.add("finally");
-        palabrasClave.add("float");
-        palabrasClave.add("for");
-        palabrasClave.add("goto");
-        palabrasClave.add("if");
-        palabrasClave.add("implements");
-        palabrasClave.add("import");
-        palabrasClave.add("instanceof");
-        palabrasClave.add("int");
-        palabrasClave.add("interface");
-        palabrasClave.add("long");
-        palabrasClave.add("native");
-        palabrasClave.add("new");
-        palabrasClave.add("package");
-        palabrasClave.add("private");
-        palabrasClave.add("protected");
-        palabrasClave.add("public");
-        palabrasClave.add("return");
-        palabrasClave.add("short");
-        palabrasClave.add("static");
-        palabrasClave.add("strictfp");
-        palabrasClave.add("super");
-        palabrasClave.add("switch");
-        palabrasClave.add("synchronized");
-        palabrasClave.add("this");
-        palabrasClave.add("throw");
-        palabrasClave.add("throws");
-        palabrasClave.add("transient");
-        palabrasClave.add("try");
-        palabrasClave.add("void");
-        palabrasClave.add("volatile");
-        palabrasClave.add("while");
         simbolos.add("(");
         simbolos.add(")");
         simbolos.add(";");
@@ -237,7 +196,7 @@ public class GestorFicha {
     public SimpleAttributeSet formato(String palabraReservada) {
 
         SimpleAttributeSet simp = new SimpleAttributeSet();
-        if (palabrasClave.contains(palabraReservada)) {
+        if (palabrasReservadas.contains(palabraReservada)) {
             StyleConstants.setBold(simp, true);
             StyleConstants.setFontSize(simp, 12);
             StyleConstants.setForeground(simp, Color.blue);

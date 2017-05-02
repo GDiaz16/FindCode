@@ -3,7 +3,6 @@ package findcode.GUI;
 import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -67,7 +66,8 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha, ingredientes);
+                textDescripcion, textTituloFicha, ingredientes, 
+                findcode.clases.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
 
     }
 
@@ -125,7 +125,8 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha, ingredientes);
+                textDescripcion, textTituloFicha, ingredientes, 
+                findcode.clases.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
 
     }
 
@@ -183,7 +184,8 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha, ingredientes);
+                textDescripcion, textTituloFicha, ingredientes, 
+                findcode.clases.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
 
     }
 

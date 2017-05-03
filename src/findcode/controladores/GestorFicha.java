@@ -73,26 +73,26 @@ public class GestorFicha {
 
     //capturar el evento de escribir en el panel y dejar el cursor en el lugar al que se mueva
     public void textCodigoKeyReleased(java.awt.event.KeyEvent evt) {
+
+    }
+
+    public void textCodigoKeyPressed(java.awt.event.KeyEvent evt) {
         int caret = textCodigo.getCaretPosition();
         if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
                 && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_SHIFT) {
 
             setText();
-            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE
-                    || evt.getKeyCode() == KeyEvent.VK_DELETE) {
-                corrimiento(caret, 1);
-            } else {
-                corrimiento(caret, 2);
+            switch (evt.getKeyCode()) {
+                case KeyEvent.VK_BACK_SPACE:
+                    corrimiento(caret, 1);
+                    break;
+                case KeyEvent.VK_DELETE:
+                    corrimiento(caret, 2);
+                    break;
+                default:
+                    corrimiento(caret, 3);
+                    break;
             }
-            textCodigo.setCaretPosition(caret);
-        }
-    }
-
-    public void textCodigoKeyPressed(java.awt.event.KeyEvent evt) {
-        int caret = textCodigo.getCaretPosition();
-        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            
-            corrimiento(caret, 1);
             textCodigo.setCaretPosition(caret);
         }
     }
@@ -339,34 +339,55 @@ public class GestorFicha {
     public void corrimiento(int caret, int tecla) {
         boolean borrado = false;
         Ingrediente temporal = null;
+
         for (Ingrediente elemento : ingredientes2.values()) {
             int inicio = elemento.getPosInicial();
             int fin = elemento.getPosFinal();
-            if (tecla == 1) {
-                if (caret < elemento.getPosInicial()) {
-                    elemento.setPosInicial(--inicio);
-                    elemento.setPosFinal(--fin);
-                } else if (inicio < caret && caret < fin) {
-                    elemento.setPosFinal(--fin);
-                }
-            } else if (tecla == 2) {
-                if (caret < elemento.getPosInicial()) {
-                    elemento.setPosInicial(++inicio);
-                    elemento.setPosFinal(++fin);
-                } else if (inicio < caret && caret < fin) {
-                    elemento.setPosFinal(++fin);
-                }
+            switch (tecla) {
+                case 1:
+                    if (caret <= elemento.getPosInicial() && caret > 0) {
+                        elemento.setPosInicial(inicio - 1);
+                        elemento.setPosFinal(fin - 1);
+                    } else if (inicio < caret && caret <= fin) {
+                        elemento.setPosFinal(fin - 1);
+                    }
+                    break;
+                case 2:
+                    if (caret == elemento.getPosInicial()) {
+                        elemento.setPosFinal(fin - 1);
+                    } else if (caret < elemento.getPosInicial()) {
+                        elemento.setPosInicial(inicio - 1);
+                        elemento.setPosFinal(fin - 1);
+
+                    } else if (inicio < caret && caret <= fin) {
+                        elemento.setPosFinal(fin - 1);
+                    }
+                    break;
+
+                case 3:
+                    if (caret <= elemento.getPosInicial()) {
+                        elemento.setPosInicial(inicio + 1);
+                        elemento.setPosFinal(fin + 1);
+                    } else if (inicio < caret && caret <= fin) {
+                        elemento.setPosFinal(fin + 1);
+                    }
+                    break;
+
             }
+
             if (inicio == fin - 1) {
-                System.out.println("Elemento eliminado");
-                JOptionPane.showMessageDialog(null, "Borraste un elemento del codigo \n "
-                        + "este se borrara de la lista de ingredientes", "", 2);
                 borrado = true;
                 temporal = elemento;
             }
+            System.out.println("inicio = " + inicio);
+            System.out.println("fin = " + fin);
+            System.out.println("caret = " + caret);
         }
+
         if (borrado && temporal != null) {
-            System.out.println("Borrar");
+            //System.out.println("Borrar");
+            JOptionPane.showMessageDialog(null, "Borraste un elemento del codigo \n "
+                    + "este se borrara de la lista de ingredientes", "", 2);
             eliminarElemento(temporal.getTitulo());
         }
     }

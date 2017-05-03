@@ -1653,18 +1653,6 @@ public class Ficha extends javax.swing.JPanel {
 
     private void popUpPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_popUpPopupMenuWillBecomeInvisible
 
-        Point punto = MouseInfo.getPointerInfo().getLocation();
-        int x = punto.x;
-        int y = punto.y;
-
-        try {
-            Robot bot = new Robot();
-            bot.mouseMove(x, y);
-            bot.mousePress(InputEvent.BUTTON1_MASK);
-            bot.mouseRelease(InputEvent.BUTTON1_MASK);
-        } catch (AWTException ex) {
-            Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
     }//GEN-LAST:event_popUpPopupMenuWillBecomeInvisible
 

@@ -1,5 +1,6 @@
 package findcode.controladores;
 
+import findcode.clases.Ingrediente;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.HashSet;
@@ -23,8 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
@@ -48,7 +47,7 @@ public class GestorFicha {
     JMenuItem guardar;
     JMenuItem borrar;
     String seleccion;
-    int index;
+    //int index;
 
     public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
             JList listaPopUp, JMenuItem cargar, JMenuItem guardar, JMenuItem borrar, JDialog ventanaGuadar, JTextArea textComentario,
@@ -77,10 +76,24 @@ public class GestorFicha {
         int caret = textCodigo.getCaretPosition();
         if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
                 && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_SHIFT) {
-            //textCodigo
-            setText();
-            textCodigo.setCaretPosition(caret);
 
+            setText();
+            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE
+                    || evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                corrimiento(caret, 1);
+            } else {
+                corrimiento(caret, 2);
+            }
+            textCodigo.setCaretPosition(caret);
+        }
+    }
+
+    public void textCodigoKeyPressed(java.awt.event.KeyEvent evt) {
+        int caret = textCodigo.getCaretPosition();
+        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            
+            corrimiento(caret, 1);
+            textCodigo.setCaretPosition(caret);
         }
     }
 
@@ -104,8 +117,7 @@ public class GestorFicha {
 
         if (evt.getButton() == MouseEvent.BUTTON1) {
 
-            System.out.println("evento list" + index++);
-
+            //System.out.println("evento list" + index++);
             try {
                 mostrarElemento();
             } catch (BadLocationException ex) {
@@ -122,12 +134,11 @@ public class GestorFicha {
         popUp.removeAll();
         if (opcion == 1) {
             seleccion = textCodigo.getSelectedText();
-            //System.out.println(seleccion);
             popUp.add(cargar);
             popUp.add(guardar);
         } else if (opcion == 2) {
             popUp.add(borrar);
-            //System.out.println("item " + listaIngredientes.getSelectedIndex());
+
         }
 
     }
@@ -216,8 +227,6 @@ public class GestorFicha {
             popUp.show(textCodigo, textCodigo.getCaret().getMagicCaretPosition().x, textCodigo.getCaret().getMagicCaretPosition().y - 20);
             popUp.setVisible(true);
 
-        } else {
-            System.out.println("caret = null");
         }
 
     }
@@ -243,6 +252,15 @@ public class GestorFicha {
             listaIngredientes.setModel(model);
         }
     }
+
+    public void eliminarElemento(String elemento) {
+        if (!elemento.equalsIgnoreCase(null)) {
+            model.removeElement(elemento);
+            ingredientes2.remove(elemento);
+            listaIngredientes.setModel(model);
+
+        }
+    }
 //accion del boton guardar de la ventana emergente
 
     public void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,7 +284,6 @@ public class GestorFicha {
 
     public void itemGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         if (seleccion != null) {
-            //System.out.println("Guardar presionado...");
             ventanaGuardar.setLocationRelativeTo(textCodigo);
             ventanaGuardar.setSize(330, 260);
             ventanaGuardar.setVisible(true);
@@ -303,12 +320,11 @@ public class GestorFicha {
     public void mostrarElemento() throws BadLocationException {
 
         if (!model.isEmpty()) {
+
             String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
             int inicio = ingredientes2.get(elemento).getPosInicial();
             int fin = ingredientes2.get(elemento).getPosFinal();
             String contenido = ingredientes2.get(elemento).getDescripcion();
-            System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
-
             Highlighter highlighter = textCodigo.getHighlighter();
             HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.green);
             highlighter.removeAllHighlights();
@@ -318,6 +334,41 @@ public class GestorFicha {
             mostrarTextoPopUp(contenido);
         }
 
+    }
+
+    public void corrimiento(int caret, int tecla) {
+        boolean borrado = false;
+        Ingrediente temporal = null;
+        for (Ingrediente elemento : ingredientes2.values()) {
+            int inicio = elemento.getPosInicial();
+            int fin = elemento.getPosFinal();
+            if (tecla == 1) {
+                if (caret < elemento.getPosInicial()) {
+                    elemento.setPosInicial(--inicio);
+                    elemento.setPosFinal(--fin);
+                } else if (inicio < caret && caret < fin) {
+                    elemento.setPosFinal(--fin);
+                }
+            } else if (tecla == 2) {
+                if (caret < elemento.getPosInicial()) {
+                    elemento.setPosInicial(++inicio);
+                    elemento.setPosFinal(++fin);
+                } else if (inicio < caret && caret < fin) {
+                    elemento.setPosFinal(++fin);
+                }
+            }
+            if (inicio == fin - 1) {
+                System.out.println("Elemento eliminado");
+                JOptionPane.showMessageDialog(null, "Borraste un elemento del codigo \n "
+                        + "este se borrara de la lista de ingredientes", "", 2);
+                borrado = true;
+                temporal = elemento;
+            }
+        }
+        if (borrado && temporal != null) {
+            System.out.println("Borrar");
+            eliminarElemento(temporal.getTitulo());
+        }
     }
 
 }

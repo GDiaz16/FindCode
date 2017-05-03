@@ -80,6 +80,7 @@ public class GestorFicha {
             //textCodigo
             setText();
             textCodigo.setCaretPosition(caret);
+
         }
     }
 

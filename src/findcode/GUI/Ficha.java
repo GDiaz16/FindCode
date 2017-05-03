@@ -1601,7 +1601,7 @@ public class Ficha extends javax.swing.JPanel {
     private void textCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCodigoKeyPressed
 
         jButton12KeyPressed(evt);
-
+        gestorFicha.textCodigoKeyPressed(evt);
     }//GEN-LAST:event_textCodigoKeyPressed
 
     private void listaIngredientesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listaIngredientesKeyPressed

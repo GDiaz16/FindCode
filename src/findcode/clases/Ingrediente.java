@@ -60,6 +60,28 @@ public class Ingrediente {
     public void setiDFicha(int iDFicha) {
         this.iDFicha = iDFicha;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 79 * hash + this.iD;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Ingrediente other = (Ingrediente) obj;
+        if (this.iD != other.iD) {
+            return false;
+        }
+        return true;
+    }
     
     public void crear() {
 

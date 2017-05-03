@@ -1,10 +1,15 @@
 package findcode.GUI;
 
+import findcode.clases.Ingrediente;
 import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
+import java.awt.AWTException;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.text.BadLocationException;
 
 public class Ficha extends javax.swing.JPanel {
@@ -25,6 +31,7 @@ public class Ficha extends javax.swing.JPanel {
     private ArrayList<findcode.clases.Comentario> comentarios;
     private ArrayList<findcode.clases.Ficha> relacionados;
     private HashMap<String, findcode.clases.Ingrediente> ingredientes;
+    private HashMap<String, findcode.clases.Ingrediente> ingredientesIniciales;
 
     // Consultar ficha sin usuario
     public Ficha(JPanel contenedor, findcode.clases.Ficha ficha) {
@@ -67,7 +74,8 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha, ingredientes);
+                textDescripcion, textTituloFicha, ingredientes,
+                findcode.clases.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
 
     }
 
@@ -125,7 +133,8 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha, ingredientes);
+                textDescripcion, textTituloFicha, ingredientes,
+                findcode.clases.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
 
     }
 
@@ -183,14 +192,16 @@ public class Ficha extends javax.swing.JPanel {
         // Gestor de ficha
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
-                textDescripcion, textTituloFicha, ingredientes);
+                textDescripcion, textTituloFicha, ingredientes,
+                findcode.clases.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
 
     }
 
     public final void busquedaIngredientes() {
 
         ingredientes = findcode.clases.Ingrediente.cargarPorFicha(ficha.getiD());
-
+        ingredientesIniciales = (HashMap<String, Ingrediente>) ingredientes.clone();
+        
         DefaultListModel modelo = new DefaultListModel();
 
         for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
@@ -220,13 +231,13 @@ public class Ficha extends javax.swing.JPanel {
         for (Comentario comentario : panelesComentario) {
             jPanel7.add(comentario);
         }
-        
+
         for (int i = 0; i < panelesComentario.size(); i++) {
-            
+
             final int i2 = i;
-            
+
             panelesComentario.get(i).addKeyListener(new java.awt.event.KeyAdapter() {
-                
+
                 @Override
                 public void keyPressed(java.awt.event.KeyEvent evt) {
 
@@ -237,7 +248,7 @@ public class Ficha extends javax.swing.JPanel {
                         }
 
                     }
-                    
+
                     if (evt.getKeyCode() == KeyEvent.VK_UP) {
 
                         if (i2 > 0) {
@@ -245,7 +256,7 @@ public class Ficha extends javax.swing.JPanel {
                         }
 
                     }
-                    
+
                     if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
 
                         if (i2 < panelesComentario.size() - 1) {
@@ -429,6 +440,49 @@ public class Ficha extends javax.swing.JPanel {
         jScrollPane8 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+
+        popUp.setLightWeightPopupEnabled(false);
+        popUp.setRequestFocusEnabled(false);
+        popUp.setVerifyInputWhenFocusTarget(false);
+        popUp.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+                popUpMenuKeyPressed(evt);
+            }
+            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
+        });
+        popUp.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                popUpFocusLost(evt);
+            }
+        });
+        popUp.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                popUpPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                popUpPopupMenuWillBecomeVisible(evt);
+            }
+        });
+        popUp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                popUpMousePressed(evt);
+            }
+        });
+        popUp.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                popUpComponentHidden(evt);
+            }
+        });
+        popUp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                popUpKeyPressed(evt);
+            }
+        });
 
         itemGuardar.setText("Guardar");
         itemGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -991,6 +1045,9 @@ public class Ficha extends javax.swing.JPanel {
         listaIngredientes.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         listaIngredientes.setSelectionBackground(new java.awt.Color(51, 204, 0));
         listaIngredientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaIngredientesMousePressed(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 listaIngredientesMouseReleased(evt);
             }
@@ -1279,6 +1336,14 @@ public class Ficha extends javax.swing.JPanel {
                 }
 
             }
+            
+            for (String ingrediente : ingredientesIniciales.keySet()) {
+                System.out.println("sadasd");
+                if(!ingredientes.containsKey(ingrediente)){
+                    ingredientesIniciales.get(ingrediente).borrar();
+                }
+            }
+            
 
             try {
 
@@ -1315,11 +1380,7 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_botonGuardarFicha2ActionPerformed
 
     private void listaIngredientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaIngredientesMouseReleased
-        try {
-            gestorFicha.listaIngredientesMouseReleased(evt);
-        } catch (BadLocationException ex) {
-            Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }//GEN-LAST:event_listaIngredientesMouseReleased
 
     private void botonGuardarFicha3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFicha3ActionPerformed
@@ -1477,59 +1538,60 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel15MousePressed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-        
+
         textTituloFicha.requestFocus();
-        
+
     }//GEN-LAST:event_formFocusGained
 
     private void jButton12KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton12KeyPressed
-        
+
         try {
-            
+
             if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
 
                 jButton12ActionPerformed(null);
 
             }
-            
-        } catch (java.lang.NullPointerException ex) {}
-        
+
+        } catch (java.lang.NullPointerException ex) {
+        }
+
     }//GEN-LAST:event_jButton12KeyPressed
 
     private void botonGuardarFichaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonGuardarFichaKeyPressed
-        
+
         jButton12KeyPressed(evt);
-        
+
     }//GEN-LAST:event_botonGuardarFichaKeyPressed
 
     private void botonGuardarFicha1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonGuardarFicha1KeyPressed
-        
+
         jButton12KeyPressed(evt);
-        
+
     }//GEN-LAST:event_botonGuardarFicha1KeyPressed
 
     private void botonGuardarFicha4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonGuardarFicha4KeyPressed
-        
+
         jButton12KeyPressed(evt);
-        
+
     }//GEN-LAST:event_botonGuardarFicha4KeyPressed
 
     private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
-        
+
         jButton12KeyPressed(evt);
-        
+
     }//GEN-LAST:event_jComboBox1KeyPressed
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        
+
         jButton12KeyPressed(evt);
-        
+
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void textTituloFichaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textTituloFichaKeyPressed
-        
+
         jButton12KeyPressed(evt);
-        
+
     }//GEN-LAST:event_textTituloFichaKeyPressed
 
     private void textDescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textDescripcionKeyPressed
@@ -1537,34 +1599,130 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_textDescripcionKeyPressed
 
     private void textCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCodigoKeyPressed
-        
+
         jButton12KeyPressed(evt);
-        
+
     }//GEN-LAST:event_textCodigoKeyPressed
 
     private void listaIngredientesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listaIngredientesKeyPressed
-        
+
         jButton12KeyPressed(evt);
-        
+
     }//GEN-LAST:event_listaIngredientesKeyPressed
 
     private void botonGuardarFicha3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonGuardarFicha3KeyPressed
-        
+
         jButton12KeyPressed(evt);
-        
+
     }//GEN-LAST:event_botonGuardarFicha3KeyPressed
 
     private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyPressed
-       
+
         jButton12KeyPressed(evt);
-        
+
     }//GEN-LAST:event_jTextField3KeyPressed
 
     private void botonGuardarFicha2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonGuardarFicha2KeyPressed
-        
+
         jButton12KeyPressed(evt);
-        
+
     }//GEN-LAST:event_botonGuardarFicha2KeyPressed
+
+    private void listaIngredientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaIngredientesMousePressed
+
+        try {
+            gestorFicha.listaIngredientesMouseReleased(evt);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_listaIngredientesMousePressed
+
+    private void popUpMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_popUpMousePressed
+
+
+    }//GEN-LAST:event_popUpMousePressed
+
+    private void popUpComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_popUpComponentHidden
+
+    }//GEN-LAST:event_popUpComponentHidden
+
+    private void popUpFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_popUpFocusLost
+
+    }//GEN-LAST:event_popUpFocusLost
+
+    private void popUpPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_popUpPopupMenuWillBecomeInvisible
+
+
+    }//GEN-LAST:event_popUpPopupMenuWillBecomeInvisible
+
+    private void popUpKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_popUpKeyPressed
+
+
+    }//GEN-LAST:event_popUpKeyPressed
+
+    private void popUpPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_popUpPopupMenuWillBecomeVisible
+
+
+    }//GEN-LAST:event_popUpPopupMenuWillBecomeVisible
+
+    private void popUpMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_popUpMenuKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+
+            if (listaIngredientes.getSelectedIndex() < listaIngredientes.getModel().getSize() - 1) {
+
+                PopupMenuListener[] p = popUp.getPopupMenuListeners();
+
+                for (PopupMenuListener p1 : p) {
+                    popUp.removePopupMenuListener(p1);
+                }
+
+                popUp.setVisible(false);
+
+                for (PopupMenuListener p1 : p) {
+                    popUp.addPopupMenuListener(p1);
+                }
+
+                listaIngredientes.setSelectedIndex(listaIngredientes.getSelectedIndex() + 1);
+                try {
+                    gestorFicha.mostrarElemento();
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+
+            if (listaIngredientes.getSelectedIndex() > 0) {
+
+                PopupMenuListener[] p = popUp.getPopupMenuListeners();
+
+                for (PopupMenuListener p1 : p) {
+                    popUp.removePopupMenuListener(p1);
+                }
+
+                popUp.setVisible(false);
+
+                for (PopupMenuListener p1 : p) {
+                    popUp.addPopupMenuListener(p1);
+                }
+                
+                listaIngredientes.setSelectedIndex(listaIngredientes.getSelectedIndex() - 1);
+                try {
+                    gestorFicha.mostrarElemento();
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(Ficha.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+        }
+
+    }//GEN-LAST:event_popUpMenuKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

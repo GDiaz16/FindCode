@@ -24,7 +24,7 @@ public class Main {
         
         // Crear ventana
         JFrame frame = new JFrame();
-        frame.setBackground(Color.white);
+        frame.setBackground(Color.decode("#58D3F7"));
         frame.add(new Inicio());
         frame.setSize(650, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -74,7 +74,9 @@ public class Inicio extends javax.swing.JPanel {
         jPanel1.setOpaque(false);
 
         jTextField1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(0, 153, 153));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setDragEnabled(true);
         jTextField1.setMinimumSize(new java.awt.Dimension(0, 0));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

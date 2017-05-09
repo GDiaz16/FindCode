@@ -3,7 +3,11 @@ package findcode.controladores;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -110,11 +114,16 @@ public class Utilidades {
 
     }
 
-    public static void asignarFondo(JFrame frame, String rutaImagen) {
+    public static void asignarFondo(JFrame frame, File rutaImagen) {
 
         // Fondo inicial
         ((JPanel) frame.getContentPane()).setOpaque(false);
-        ImageIcon imagen = new ImageIcon(rutaImagen);
+        ImageIcon imagen = null;
+        try {
+            imagen = new ImageIcon(rutaImagen.listFiles()[0].getCanonicalPath());
+        } catch (IOException ex) {
+        }
+
         imagen = new ImageIcon(imagen.getImage().getScaledInstance(frame.getWidth(),
                 frame.getHeight(),
                 Image.SCALE_DEFAULT));
@@ -130,25 +139,73 @@ public class Utilidades {
             @Override
             public void componentResized(java.awt.event.ComponentEvent evt) {
 
-                Thread hilo = new Thread(""){
-                    
-                    @Override
-                    public void run(){
-                        
-                        ImageIcon imagen = new ImageIcon(rutaImagen);
+                ImageIcon imagen = null;
+                try {
+                    imagen = new ImageIcon(rutaImagen.listFiles()[0].getCanonicalPath());
+                } catch (IOException ex) {
+                }
+                imagen = new ImageIcon(imagen.getImage().getScaledInstance(frame.getWidth(),
+                        frame.getHeight(),
+                        Image.SCALE_DEFAULT));
+                fondo.setIcon(imagen);
+                fondo.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+
+            }
+        });
+
+        Thread hilo2 = new Thread("") {
+
+            @Override
+            public void run() {
+
+                while (true) {
+
+                    for (int i = 0; i < rutaImagen.listFiles().length; i++) {
+
+                        ImageIcon imagen = null;
+                        try {
+                            imagen = new ImageIcon(rutaImagen.listFiles()[i].getCanonicalPath());
+                        } catch (IOException ex) {
+                        }
                         imagen = new ImageIcon(imagen.getImage().getScaledInstance(frame.getWidth(),
                                 frame.getHeight(),
                                 Image.SCALE_DEFAULT));
                         fondo.setIcon(imagen);
                         fondo.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-                        
+
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                        }
+
                     }
-                    
-                };
-                hilo.start();
+
+                    for (int i = rutaImagen.listFiles().length - 1; i >= 0; i--) {
+
+                        ImageIcon imagen = null;
+                        try {
+                            imagen = new ImageIcon(rutaImagen.listFiles()[i].getCanonicalPath());
+                        } catch (IOException ex) {
+                        }
+                        imagen = new ImageIcon(imagen.getImage().getScaledInstance(frame.getWidth(),
+                                frame.getHeight(),
+                                Image.SCALE_DEFAULT));
+                        fondo.setIcon(imagen);
+                        fondo.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                        }
+
+                    }
+
+                }
 
             }
-        });
+
+        };
+        hilo2.start();
 
     }
 

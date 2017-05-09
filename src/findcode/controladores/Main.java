@@ -3,6 +3,7 @@ package findcode.controladores;
 import findcode.GUI.Inicio;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -24,12 +25,12 @@ public class Main {
         
         // Crear ventana
         JFrame frame = new JFrame();
-        frame.setBackground(Color.white);
+        frame.setBackground(Color.decode("#58D3F7"));
         frame.add(new Inicio());
         frame.setSize(650, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-        findcode.controladores.Utilidades.asignarFondo(frame, "imagenes/fondo.gif");
+        findcode.controladores.Utilidades.asignarFondo(frame, new File("imagenes/fondo"));
         frame.setVisible(true);
         
         // Crear tablas si no existen

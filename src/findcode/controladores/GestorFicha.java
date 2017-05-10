@@ -27,6 +27,8 @@ import javax.swing.JTextField;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class GestorFicha {
 
@@ -37,7 +39,7 @@ public class GestorFicha {
     String[] codigoDesarmado;
     DefaultListModel model = new DefaultListModel();
     DefaultListModel modelPopUp;
-    private JTextPane textCodigo = new JTextPane();
+    private JTextPane textCodigo;
     private JList<String> listaIngredientes = new JList<>();
     private JPopupMenu popUp = new JPopupMenu();
     private JDialog ventanaGuardar;
@@ -178,7 +180,7 @@ public class GestorFicha {
         for (String cadena : codigoDesarmado) {
             SimpleAttributeSet simp = formato(cadena);
             try {
-
+                //textCodigo.getStyledDocument().
                 textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), cadena, simp);
 
             } catch (BadLocationException ex) {
@@ -337,59 +339,83 @@ public class GestorFicha {
     }
 
     public void corrimiento(int caret, int tecla) {
-        boolean borrado = false;
-        Ingrediente temporal = null;
+//        boolean borrado = false;
+//        Ingrediente temporal = null;
+//
+//        for (Ingrediente elemento : ingredientes2.values()) {
+//            int inicio = elemento.getPosInicial();
+//            int fin = elemento.getPosFinal();
+//            switch (tecla) {
+//                case 1:
+//                    if (caret <= elemento.getPosInicial() && caret > 0) {
+//                        elemento.setPosInicial(inicio - 1);
+//                        elemento.setPosFinal(fin - 1);
+//                    } else if (inicio < caret && caret <= fin) {
+//                        elemento.setPosFinal(fin - 1);
+//                    }
+//                    break;
+//                case 2:
+//                    if (caret == elemento.getPosInicial()) {
+//                        elemento.setPosFinal(fin - 1);
+//                    } else if (caret < elemento.getPosInicial()) {
+//                        elemento.setPosInicial(inicio - 1);
+//                        elemento.setPosFinal(fin - 1);
+//
+//                    } else if (inicio < caret && caret <= fin) {
+//                        elemento.setPosFinal(fin - 1);
+//                    }
+//                    break;
+//
+//                case 3:
+//                    if (caret <= elemento.getPosInicial()) {
+//                        elemento.setPosInicial(inicio + 1);
+//                        elemento.setPosFinal(fin + 1);
+//                    } else if (inicio < caret && caret <= fin) {
+//                        elemento.setPosFinal(fin + 1);
+//                    }
+//                    break;
+//
+//            }
+//
+//            if (inicio == fin - 1) {
+//                borrado = true;
+//                temporal = elemento;
+//            }
+//            System.out.println("inicio = " + inicio);
+//            System.out.println("fin = " + fin);
+//            System.out.println("caret = " + caret);
+//        }
+//
+//        if (borrado && temporal != null) {
+//            //System.out.println("Borrar");
+//            JOptionPane.showMessageDialog(null, "Borraste un elemento del codigo \n "
+//                    + "este se borrara de la lista de ingredientes", "", 2);
+//            eliminarElemento(temporal.getTitulo());
+//        }
+        DocumentListener documentListener = new DocumentListener() {
 
-        for (Ingrediente elemento : ingredientes2.values()) {
-            int inicio = elemento.getPosInicial();
-            int fin = elemento.getPosFinal();
-            switch (tecla) {
-                case 1:
-                    if (caret <= elemento.getPosInicial() && caret > 0) {
-                        elemento.setPosInicial(inicio - 1);
-                        elemento.setPosFinal(fin - 1);
-                    } else if (inicio < caret && caret <= fin) {
-                        elemento.setPosFinal(fin - 1);
-                    }
-                    break;
-                case 2:
-                    if (caret == elemento.getPosInicial()) {
-                        elemento.setPosFinal(fin - 1);
-                    } else if (caret < elemento.getPosInicial()) {
-                        elemento.setPosInicial(inicio - 1);
-                        elemento.setPosFinal(fin - 1);
-
-                    } else if (inicio < caret && caret <= fin) {
-                        elemento.setPosFinal(fin - 1);
-                    }
-                    break;
-
-                case 3:
-                    if (caret <= elemento.getPosInicial()) {
-                        elemento.setPosInicial(inicio + 1);
-                        elemento.setPosFinal(fin + 1);
-                    } else if (inicio < caret && caret <= fin) {
-                        elemento.setPosFinal(fin + 1);
-                    }
-                    break;
-
+            @Override
+            public void changedUpdate(DocumentEvent documentEvent) {
+                System.out.println("changedUpdate");
+                System.out.println(documentEvent.getOffset());
+                System.out.println(documentEvent.getLength());
             }
 
-            if (inicio == fin - 1) {
-                borrado = true;
-                temporal = elemento;
+            @Override
+            public void insertUpdate(DocumentEvent documentEvent) {
+                System.out.println("insertUpdate");
+                System.out.println(documentEvent.getOffset());
+                System.out.println(documentEvent.getLength());
             }
-            System.out.println("inicio = " + inicio);
-            System.out.println("fin = " + fin);
-            System.out.println("caret = " + caret);
-        }
 
-        if (borrado && temporal != null) {
-            //System.out.println("Borrar");
-            JOptionPane.showMessageDialog(null, "Borraste un elemento del codigo \n "
-                    + "este se borrara de la lista de ingredientes", "", 2);
-            eliminarElemento(temporal.getTitulo());
-        }
+            @Override
+            public void removeUpdate(DocumentEvent documentEvent) {
+                System.out.println("removeUpdate");
+                System.out.println(documentEvent.getOffset());
+                System.out.println(documentEvent.getLength());
+            }
+        };
+        textCodigo.getDocument().addDocumentListener(documentListener);
     }
 
 }

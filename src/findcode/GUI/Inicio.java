@@ -4,6 +4,7 @@ import findcode.clases.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Inicio extends javax.swing.JPanel {
 
@@ -35,8 +36,9 @@ public class Inicio extends javax.swing.JPanel {
     public final void personalizar(){
         
         Utilidades.personalizarCampo(jTextField1, "¿Que desea buscar?", "");
+        Utilidades.personalizarComboBox(jComboBox1, "Lenguaje", "");
         Utilidades.personalizarBotones(jButton1);
-        Utilidades.personalizarBotones(jButton12);
+        Utilidades.personalizarBotonBack(jButton12);
         Utilidades.personalizarBotones(jButton2);
         Utilidades.personalizarBotones(jButton3);
         Utilidades.personalizarBotones(jButton5);
@@ -130,6 +132,11 @@ public class Inicio extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton1.setText("Buscar");
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton1FocusGained(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -172,6 +179,7 @@ public class Inicio extends javax.swing.JPanel {
         });
 
         jLabel14.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 153, 153));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("FindCode");
 
@@ -357,7 +365,8 @@ public class Inicio extends javax.swing.JPanel {
         String lenguaje = jComboBox1.getSelectedItem().toString();
 
         // Validar campos
-        if (Utilidades.validarCampo(jTextField1)) {
+        if (Utilidades.validarCampo(jTextField1) 
+                && Utilidades.validarCampo(((JTextField) jComboBox1.getEditor().getEditorComponent()))) {
 
             if (usuario == null) {
                 findcode.controladores.Utilidades.cambiarPantalla(this, new Resultados(this, busqueda, lenguaje));
@@ -460,6 +469,12 @@ public class Inicio extends javax.swing.JPanel {
 
     private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
 
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            jButton1ActionPerformed(null);
+
+        }
+        
         jButton12KeyPressed(evt);
 
     }//GEN-LAST:event_jButton1KeyPressed
@@ -475,6 +490,10 @@ public class Inicio extends javax.swing.JPanel {
         jButton12KeyPressed(evt);
 
     }//GEN-LAST:event_jButton3KeyPressed
+
+    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1FocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

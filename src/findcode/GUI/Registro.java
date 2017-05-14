@@ -38,6 +38,7 @@ public class Registro extends javax.swing.JPanel {
         jPanel5.setVisible(false);
         jPanel7.setVisible(true);
         jPanel8.setVisible(true);
+        jScrollPane1.getViewport().setOpaque(false);
         jLabel5.setText("Edita tus datos personales");
         Utilidades.personalizarCampo(jTextField1, "Nombre", usuario.getNombre());
         Utilidades.personalizarCampo(jTextField5, "Correo electronico", usuario.getCorreo());
@@ -52,7 +53,7 @@ public class Registro extends javax.swing.JPanel {
     public final void personalizar(){
         
         Utilidades.personalizarBotones(jButton4);
-        Utilidades.personalizarBotones(jButton5);
+        Utilidades.personalizarBotonBack(jButton5);
         Utilidades.personalizarBotones(jButton6);
         Utilidades.personalizarBotones(jButton7);
         
@@ -98,10 +99,12 @@ public class Registro extends javax.swing.JPanel {
         jPanel1.setOpaque(false);
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 48)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("FindCode");
 
-        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 2, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 3, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 153, 153));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Unete a nosotros!");
 
@@ -264,6 +267,7 @@ public class Registro extends javax.swing.JPanel {
         });
 
         jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 153, 153));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("FindCode");
 

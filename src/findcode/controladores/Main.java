@@ -16,12 +16,12 @@ public class Main {
 
     public static void main(String[] args) {
         
-        // Dar apariencia de windows
+        /*// Dar apariencia de windows
         try {
         javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         
         // Crear ventana
         JFrame frame = new JFrame();

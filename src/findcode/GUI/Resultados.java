@@ -51,7 +51,7 @@ public class Resultados extends javax.swing.JPanel {
     
     public final void personalizar(){
         
-        Utilidades.personalizarBotones(jButton6);
+        Utilidades.personalizarBotonBack(jButton6);
         Utilidades.personalizarBotones(jButton7);
         Utilidades.personalizarBotones(jButton8);
         
@@ -158,11 +158,12 @@ public class Resultados extends javax.swing.JPanel {
         jScrollPane2.setOpaque(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setForeground(new java.awt.Color(0, 153, 153));
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel8.setForeground(java.awt.Color.decode("#D8D8D8"));
+        jLabel8.setForeground(new java.awt.Color(0, 153, 153));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("No hay fichas");
         jPanel2.add(jLabel8);
@@ -198,6 +199,7 @@ public class Resultados extends javax.swing.JPanel {
         });
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 153, 153));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("FindCode");
 

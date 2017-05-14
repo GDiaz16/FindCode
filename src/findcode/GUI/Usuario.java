@@ -26,7 +26,7 @@ public class Usuario extends javax.swing.JPanel {
     
     public final void personalizar(){
         
-        Utilidades.personalizarBotones(jButton6);
+        Utilidades.personalizarBotonBack(jButton6);
         Utilidades.personalizarBotones(jButton7);
         Utilidades.personalizarBotones(jButton8);
         Utilidades.personalizarBotones(jButton9);
@@ -135,7 +135,7 @@ public class Usuario extends javax.swing.JPanel {
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel9.setForeground(java.awt.Color.decode("#D8D8D8"));
+        jLabel9.setForeground(new java.awt.Color(0, 153, 153));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("No hay fichas creadas");
         jPanel2.add(jLabel9);
@@ -171,6 +171,7 @@ public class Usuario extends javax.swing.JPanel {
         });
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 153, 153));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("FindCode");
 
@@ -238,6 +239,7 @@ public class Usuario extends javax.swing.JPanel {
         );
 
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 153, 153));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Mis aportes:");
 

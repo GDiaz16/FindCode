@@ -1,5 +1,6 @@
 package findcode.controladores;
 
+import findcode.clases.Ingrediente;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.HashSet;
@@ -23,8 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
@@ -40,19 +39,15 @@ public class GestorFicha {
     DefaultListModel modelPopUp;
     private JTextPane textCodigo = new JTextPane();
     private JList<String> listaIngredientes = new JList<>();
-    private JList<String> listaPopUp;
     private JPopupMenu popUp = new JPopupMenu();
     private JDialog ventanaGuardar;
     private JTextArea textComentario;
     private JTextField textTitulo;
-    private JTextArea textDescripcion;
-    private JTextField textTituloFicha;
-    private findcode.clases.Usuario usuario;
     JMenuItem cargar;
     JMenuItem guardar;
     JMenuItem borrar;
     String seleccion;
-    int index;
+    //int index;
 
     public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
             JList listaPopUp, JMenuItem cargar, JMenuItem guardar, JMenuItem borrar, JDialog ventanaGuadar, JTextArea textComentario,
@@ -63,52 +58,53 @@ public class GestorFicha {
         this.textCodigo = textCodigo;
         this.listaIngredientes = listaIngredientes;
         this.popUp = popUp;
-        this.listaPopUp = listaPopUp;
         this.cargar = cargar;
         this.guardar = guardar;
         this.borrar = borrar;
         this.ventanaGuardar = ventanaGuadar;
         this.textComentario = textComentario;
         this.textTitulo = textTitulo;
-        this.textDescripcion = textDescripcion;
-        this.textTituloFicha = textTituloFicha;
         this.ingredientes2 = ingredientes2;
         this.palabrasReservadas = palabrasReservadas;
         setListaIngredientes();
         cargarPalabras();
         setText();
-        //listListener();
     }
 
     //capturar el evento de escribir en el panel y dejar el cursor en el lugar al que se mueva
     public void textCodigoKeyReleased(java.awt.event.KeyEvent evt) {
+
+    }
+
+    public void textCodigoKeyPressed(java.awt.event.KeyEvent evt) {
         int caret = textCodigo.getCaretPosition();
         if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
                 && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_SHIFT) {
 
             setText();
-            //setListaIngredientes(1);
+            switch (evt.getKeyCode()) {
+                case KeyEvent.VK_BACK_SPACE:
+                    corrimiento(caret, 1);
+                    break;
+                case KeyEvent.VK_DELETE:
+                    corrimiento(caret, 2);
+                    break;
+                default:
+                    corrimiento(caret, 3);
+                    break;
+            }
+            textCodigo.setCaretPosition(caret);
         }
-
-        textCodigo.setCaretPosition(caret);
-
     }
 
     //mostrar pop UP con el click en la ventana del codigo
     public void textCodigoMouseReleased(java.awt.event.MouseEvent evt) {
-        //popUp.removeAll();
-//        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() > 1) {
-//            //mostrarTextoPopUp();
-//            //System.out.println("clic izquierdo");
-//            //popUp.setVisible(true);
-//            //popUp.show(evt.getComponent(), evt.getX(), evt.getY());
-//        } else 
+
         if (evt.getButton() == MouseEvent.BUTTON3) {
             cargarListaPopUp(1);
             popUp.setVisible(true);
             popUp.show(evt.getComponent(), evt.getX(), evt.getY());
         }
-        //System.out.println("Se presiono");
 
     }
 
@@ -116,21 +112,19 @@ public class GestorFicha {
 
         if (evt.getButton() == MouseEvent.BUTTON3) {
             cargarListaPopUp(2);
-            //popUp.setVisible(true);
             popUp.show(evt.getComponent(), evt.getX(), evt.getY());
         }
 
         if (evt.getButton() == MouseEvent.BUTTON1) {
 
-            System.out.println("evento list" + index++);
-            
+            //System.out.println("evento list" + index++);
             try {
                 mostrarElemento();
             } catch (BadLocationException ex) {
                 Logger.getLogger(GestorFicha.class.getName()).log(Level.SEVERE, null, ex);
-                
+
             }
-            
+
         }
 
     }
@@ -140,12 +134,11 @@ public class GestorFicha {
         popUp.removeAll();
         if (opcion == 1) {
             seleccion = textCodigo.getSelectedText();
-            //System.out.println(seleccion);
             popUp.add(cargar);
             popUp.add(guardar);
         } else if (opcion == 2) {
             popUp.add(borrar);
-            //System.out.println("item " + listaIngredientes.getSelectedIndex());
+
         }
 
     }
@@ -165,8 +158,8 @@ public class GestorFicha {
         simbolos.add("\"");
         simbolos.add(",");
     }
-//separa las palabras cuando encuentra un espacio, salto de linea, tabulacion o parentesis y las coloca en un array
 
+//separa las palabras cuando encuentra un espacio, salto de linea, tabulacion o parentesis y las coloca en un array
     public void separador(String codigo) {
         StringTokenizer st = new StringTokenizer(codigo, " \t\n(),\"", true);
         codigoDesarmado = new String[st.countTokens()];
@@ -177,8 +170,8 @@ public class GestorFicha {
         }
 
     }
-//vuelve a colocar texto en el textpane
 
+//vuelve a colocar texto en el textpane
     public void setText() {
         separador(textCodigo.getText());
         textCodigo.setText("");
@@ -193,9 +186,10 @@ public class GestorFicha {
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }
-//le da formato al texto cuando encuentra palabras reservadas
 
+    }
+
+//le da formato al texto cuando encuentra palabras reservadas
     public SimpleAttributeSet formato(String palabraReservada) {
 
         SimpleAttributeSet simp = new SimpleAttributeSet();
@@ -219,7 +213,7 @@ public class GestorFicha {
 
 //Texto a mostrar cuando se seleccione un elemento de la lista
     public void mostrarTextoPopUp(String contenido) {
-        
+
         popUp.removeAll();
         JLabel label = new JLabel(contenido);
         label.setForeground(Color.blue);
@@ -227,45 +221,17 @@ public class GestorFicha {
         label.setSize(100, 100);
         label.setFont(font);
         popUp.add(label);
-        
+
         if (textCodigo.getCaret().getMagicCaretPosition() != null) {
-          
+
             popUp.show(textCodigo, textCodigo.getCaret().getMagicCaretPosition().x, textCodigo.getCaret().getMagicCaretPosition().y - 20);
             popUp.setVisible(true);
-            
-        }
-        else{
-            System.out.println("caret = null");
+
         }
 
     }
-//agregar un listener al seleccionar los elementos
-//    public void listListener(){
-//         listaIngredientes.addListSelectionListener(new ListSelectionListener() {
-//             
-//            @Override
-//            public void valueChanged(ListSelectionEvent e) {
-//                
-//                //System.out.println("evento list");
-////                System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
-////                String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
-////                int a = ingredientes2.get(elemento).getPosInicial();
-////                int b = ingredientes2.get(elemento).getPosFinal();
-////                String contenido = ingredientes2.get(elemento).getDescripcion();
-////                //textCodigo.requestFocus(true);
-////                System.out.println("presionado el clic");
-////                try {
-////                    mostrarElemento(/*a, b, contenido*/);
-////                } catch (BadLocationException ex) {
-////                    Logger.getLogger(GestorFicha.class.getName()).log(Level.SEVERE, null, ex);
-////                }
-//            
-//            }
-//        } ); 
-//        
-//    }
-//coloca los ingredientes en el modelo y luego establece el modelo en la lista
 
+//coloca los ingredientes en el modelo y luego establece el modelo en la lista
     public void setListaIngredientes() {
 
         for (String cadena : ingredientes2.keySet()) {
@@ -274,7 +240,6 @@ public class GestorFicha {
 
             }
         }
-        //listListener();
         listaIngredientes.setModel(model);
     }
 //eliminar un elemento de la lista de ingredientes
@@ -287,16 +252,23 @@ public class GestorFicha {
             listaIngredientes.setModel(model);
         }
     }
+
+    public void eliminarElemento(String elemento) {
+        if (!elemento.equalsIgnoreCase(null)) {
+            model.removeElement(elemento);
+            ingredientes2.remove(elemento);
+            listaIngredientes.setModel(model);
+
+        }
+    }
 //accion del boton guardar de la ventana emergente
 
     public void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {
 
-        //setListaSeleccion(textTitulo.getText());
         setIngredientes(textTitulo.getText(), textComentario.getText(),
                 textCodigo.getSelectionStart(), textCodigo.getSelectionEnd());
         setListaIngredientes();
 
-        //comentarios.put(textTitulo.getText(), textComentario.getText());
         ventanaGuardar.setVisible(false);
         textTitulo.setText("");
         textComentario.setText("");
@@ -312,7 +284,6 @@ public class GestorFicha {
 
     public void itemGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         if (seleccion != null) {
-            //System.out.println("Guardar presionado...");
             ventanaGuardar.setLocationRelativeTo(textCodigo);
             ventanaGuardar.setSize(330, 260);
             ventanaGuardar.setVisible(true);
@@ -322,13 +293,13 @@ public class GestorFicha {
         }
         //setListaSeleccion(titulo);
     }
-//accion del item borrar que aparece al dar clic izquierdo en la lista de ingredientes
 
+//accion del item borrar que aparece al dar clic izquierdo en la lista de ingredientes
     public void itemBorrarActionPerformed(java.awt.event.ActionEvent evt) {
         eliminarElemento(listaIngredientes.getSelectedIndex());
     }
-//crea un objeto del tipo ingrediente y lo coloca en el hashmap de ingredientes
 
+//crea un objeto del tipo ingrediente y lo coloca en el hashmap de ingredientes
     public void setIngredientes(String titulo, String comentario, int inicio, int fin) {
 
         if (!ingredientes2.containsKey(titulo)) {
@@ -339,35 +310,86 @@ public class GestorFicha {
             ingrediente.setPosFinal(fin);
 
             ingredientes2.put(ingrediente.getTitulo(), ingrediente);
-//            System.out.println("titulo " + ingrediente.getTitulo());
-//            System.out.println("comentario " + ingrediente.getDescripcion());
-//            System.out.println("inicio " + ingrediente.getPosInicial());
-//            System.out.println("final " + ingrediente.getPosFinal());
+
         } else {
-            System.out.println("ya existe el elemento");
+            JOptionPane.showMessageDialog(null, "El titulo ya existe!", "", 2);
         }
     }
-//resalta con color el texto referente al elemento de la lista de ingredientes y muestra el pop up con el comentario
 
+//resalta con color el texto referente al elemento de la lista de ingredientes y muestra el pop up con el comentario
     public void mostrarElemento() throws BadLocationException {
 
         if (!model.isEmpty()) {
+
             String elemento = model.getElementAt(listaIngredientes.getSelectedIndex()).toString();
             int inicio = ingredientes2.get(elemento).getPosInicial();
             int fin = ingredientes2.get(elemento).getPosFinal();
             String contenido = ingredientes2.get(elemento).getDescripcion();
-            System.out.println("elemento seleccionado " + listaIngredientes.getSelectedIndex());
-
             Highlighter highlighter = textCodigo.getHighlighter();
             HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.green);
             highlighter.removeAllHighlights();
             highlighter.addHighlight(inicio, fin, painter);
 
             textCodigo.moveCaretPosition(fin);
-            //textCodigo.getCaret().setVisible(true);
             mostrarTextoPopUp(contenido);
         }
 
+    }
+
+    public void corrimiento(int caret, int tecla) {
+        boolean borrado = false;
+        Ingrediente temporal = null;
+
+        for (Ingrediente elemento : ingredientes2.values()) {
+            int inicio = elemento.getPosInicial();
+            int fin = elemento.getPosFinal();
+            switch (tecla) {
+                case 1:
+                    if (caret <= elemento.getPosInicial() && caret > 0) {
+                        elemento.setPosInicial(inicio - 1);
+                        elemento.setPosFinal(fin - 1);
+                    } else if (inicio < caret && caret <= fin) {
+                        elemento.setPosFinal(fin - 1);
+                    }
+                    break;
+                case 2:
+                    if (caret == elemento.getPosInicial()) {
+                        elemento.setPosFinal(fin - 1);
+                    } else if (caret < elemento.getPosInicial()) {
+                        elemento.setPosInicial(inicio - 1);
+                        elemento.setPosFinal(fin - 1);
+
+                    } else if (inicio < caret && caret <= fin) {
+                        elemento.setPosFinal(fin - 1);
+                    }
+                    break;
+
+                case 3:
+                    if (caret <= elemento.getPosInicial()) {
+                        elemento.setPosInicial(inicio + 1);
+                        elemento.setPosFinal(fin + 1);
+                    } else if (inicio < caret && caret <= fin) {
+                        elemento.setPosFinal(fin + 1);
+                    }
+                    break;
+
+            }
+
+            if (inicio == fin - 1) {
+                borrado = true;
+                temporal = elemento;
+            }
+            System.out.println("inicio = " + inicio);
+            System.out.println("fin = " + fin);
+            System.out.println("caret = " + caret);
+        }
+
+        if (borrado && temporal != null) {
+            //System.out.println("Borrar");
+            JOptionPane.showMessageDialog(null, "Borraste un elemento del codigo \n "
+                    + "este se borrara de la lista de ingredientes", "", 2);
+            eliminarElemento(temporal.getTitulo());
+        }
     }
 
 }

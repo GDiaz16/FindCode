@@ -25,6 +25,7 @@ public class Registro extends javax.swing.JPanel {
         Utilidades.personalizarCampo(jTextField6, "nickName", "");
         Utilidades.personalizarCampo(jPasswordField1, "Contraseña", "");
         Utilidades.personalizarCampo(jPasswordField3, "Contraseña", "");
+        personalizar();
         
     }
     
@@ -44,6 +45,16 @@ public class Registro extends javax.swing.JPanel {
         Utilidades.personalizarCampo(jTextField6, "nickName", usuario.getNickname());
         Utilidades.personalizarCampo(jPasswordField1, "Contraseña", usuario.getPassword());
         Utilidades.personalizarCampo(jPasswordField3, "Contraseña", usuario.getPassword());
+        personalizar();
+        
+    }
+    
+    public final void personalizar(){
+        
+        Utilidades.personalizarBotones(jButton4);
+        Utilidades.personalizarBotones(jButton5);
+        Utilidades.personalizarBotones(jButton6);
+        Utilidades.personalizarBotones(jButton7);
         
     }
     

@@ -66,6 +66,7 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.personalizarCampo(jTextField3, "Nuevo comentario", "");
 
         // OTras funciones
+        personalizar();
         busquedaComentarios();
         busquedaFichasRelacionadas();
         busquedaIngredientes();
@@ -110,6 +111,7 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.personalizarCampo(jTextField3, "Nuevo comentario", "");
 
         // Otras funciones
+        personalizar();
         busquedaComentarios();
         busquedaFichasRelacionadas();
         busquedaIngredientes();
@@ -185,6 +187,7 @@ public class Ficha extends javax.swing.JPanel {
         jTextField1.setVisible(true);
 
         // Otras funciones
+        personalizar();
         busquedaComentarios();
         busquedaFichasRelacionadas();
         busquedaIngredientes();
@@ -195,6 +198,20 @@ public class Ficha extends javax.swing.JPanel {
                 textDescripcion, textTituloFicha, ingredientes,
                 findcode.clases.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
 
+    }
+    
+    public final void personalizar(){
+        
+        Utilidades.personalizarBotones(botonGuardar);
+        Utilidades.personalizarBotones(botonGuardarFicha);
+        Utilidades.personalizarBotones(botonGuardarFicha1);
+        Utilidades.personalizarBotones(botonGuardarFicha2);
+        Utilidades.personalizarBotones(botonGuardarFicha3);
+        Utilidades.personalizarBotones(botonGuardarFicha4);
+        Utilidades.personalizarBotones(jButton12);
+        Utilidades.personalizarBotones(jButton13);
+        Utilidades.personalizarBotones(jButton8);
+        
     }
 
     public final void busquedaIngredientes() {

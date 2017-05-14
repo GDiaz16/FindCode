@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import findcode.controladores.Utilidades;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +20,17 @@ public class Usuario extends javax.swing.JPanel {
         jScrollPane2.getViewport().setOpaque(false);
         this.contenedor = contenedor;
         this.usuario = usuario;
+        personalizar();
         busqueda();
+    }
+    
+    public final void personalizar(){
+        
+        Utilidades.personalizarBotones(jButton6);
+        Utilidades.personalizarBotones(jButton7);
+        Utilidades.personalizarBotones(jButton8);
+        Utilidades.personalizarBotones(jButton9);
+        
     }
     
     public final void busqueda(){

@@ -15,8 +15,8 @@ public class Inicio extends javax.swing.JPanel {
         initComponents();
         jScrollPane1.getViewport().setOpaque(false);
         jPanel5.setVisible(false);
-        Utilidades.personalizarCampo(jTextField1, "¿Que desea buscar?", "");
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Lenguaje.cargarTodos().toArray()));
+        personalizar();
 
     }
 
@@ -28,7 +28,20 @@ public class Inicio extends javax.swing.JPanel {
         jPanel5.setVisible(true);
         jPanel6.setVisible(false);
         jButton8.setText(usuario.getNickname());
+        personalizar();
 
+    }
+    
+    public final void personalizar(){
+        
+        Utilidades.personalizarCampo(jTextField1, "¿Que desea buscar?", "");
+        Utilidades.personalizarBotones(jButton1);
+        Utilidades.personalizarBotones(jButton12);
+        Utilidades.personalizarBotones(jButton2);
+        Utilidades.personalizarBotones(jButton3);
+        Utilidades.personalizarBotones(jButton5);
+        Utilidades.personalizarBotones(jButton8);
+        
     }
 
     @SuppressWarnings("unchecked")

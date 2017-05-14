@@ -9,12 +9,14 @@ import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.text.JTextComponent;
 
 public class Utilidades {
@@ -85,6 +87,42 @@ public class Utilidades {
 
             }
         });
+
+    }
+    
+    public static void personalizarBotones(JButton botton) {
+        
+        int height = 40;
+        int width = botton.getText().length() * 10;
+        
+        if (width < height) {
+            width = height;
+        }
+        
+        ImageIcon imagen1 = new ImageIcon("imagenes/boton1.png");
+        ImageIcon imagen2 = new ImageIcon("imagenes/boton2.png");
+        ImageIcon imagen3 = new ImageIcon("imagenes/boton3.png");
+
+        imagen1 = new ImageIcon(imagen1.getImage().getScaledInstance(width,height,
+                Image.SCALE_DEFAULT));
+
+        imagen2 = new ImageIcon(imagen2.getImage().getScaledInstance(width,height,
+                Image.SCALE_DEFAULT));
+        
+        imagen3 = new ImageIcon(imagen3.getImage().getScaledInstance(width,height,
+                Image.SCALE_DEFAULT));
+        
+        
+        botton.setBorderPainted(false);
+        botton.setContentAreaFilled(false);
+        botton.setRolloverEnabled(true);
+        botton.setBorder(null);
+        
+        botton.setIcon(imagen1);
+        botton.setRolloverIcon(imagen2);
+        botton.setSelectedIcon(imagen3);
+        botton.setHorizontalTextPosition(SwingConstants.CENTER);
+        botton.setVerticalTextPosition(SwingConstants.CENTER);
 
     }
 

@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import findcode.controladores.Utilidades;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class Resultados extends javax.swing.JPanel {
         this.contenedor = contenedor;
         this.busqueda = busqueda;
         this.lenguaje = lenguaje;
+        personalizar();
         busqueda();
 
     }
@@ -42,8 +44,17 @@ public class Resultados extends javax.swing.JPanel {
         this.lenguaje = lenguaje;
         jButton8.setText(usuario.getNickname());
         this.usuario = usuario;
+        personalizar();
         busqueda();
 
+    }
+    
+    public final void personalizar(){
+        
+        Utilidades.personalizarBotones(jButton6);
+        Utilidades.personalizarBotones(jButton7);
+        Utilidades.personalizarBotones(jButton8);
+        
     }
 
     public final void busqueda() {

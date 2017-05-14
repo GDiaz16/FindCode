@@ -17,9 +17,18 @@ public class Login extends javax.swing.JPanel {
         initComponents();
         this.contenedor = contenedor;
         jScrollPane1.getViewport().setOpaque(false);
+        jTextField1.grabFocus();
+        personalizar();
+        
+    }
+    
+    public final void personalizar(){
+        
         Utilidades.personalizarCampo(jTextField1, "Correo ó NickName", "");
         Utilidades.personalizarCampo(jPasswordField1, "Contraseña", "");
-        jTextField1.grabFocus();
+        Utilidades.personalizarCampo(jTextField1, "¿Que desea buscar?", "");
+        Utilidades.personalizarBotones(jButton4);
+        Utilidades.personalizarBotones(jButton5);
         
     }
 

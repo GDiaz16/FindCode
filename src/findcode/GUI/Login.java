@@ -1,7 +1,7 @@
 
 package findcode.GUI;
 
-import findcode.clases.Usuario;
+import findcode.model.Usuario;
 import findcode.controladores.Utilidades;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;

@@ -1,6 +1,6 @@
 package findcode.GUI;
 
-import findcode.clases.Lenguaje;
+import findcode.model.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 public class Inicio extends javax.swing.JPanel {
 
     private JPanel contenedor;
-    private findcode.clases.Usuario usuario;
+    private findcode.model.Usuario usuario;
 
     public Inicio() {
 
@@ -21,7 +21,7 @@ public class Inicio extends javax.swing.JPanel {
 
     }
 
-    public Inicio(JPanel contenedor, findcode.clases.Usuario usuario) {
+    public Inicio(JPanel contenedor, findcode.model.Usuario usuario) {
 
         this();
         this.contenedor = contenedor;

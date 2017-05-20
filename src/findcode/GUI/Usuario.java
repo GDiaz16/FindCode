@@ -9,11 +9,11 @@ import javax.swing.JPanel;
 public class Usuario extends javax.swing.JPanel {
 
     private JPanel contenedor;
-    private findcode.clases.Usuario usuario;
-    private ArrayList<findcode.clases.Ficha> fichas;
+    private findcode.model.Usuario usuario;
+    private ArrayList<findcode.model.Ficha> fichas;
     private ArrayList<Resultado> resultados;
     
-    public Usuario(JPanel contenedor, findcode.clases.Usuario usuario) {
+    public Usuario(JPanel contenedor, findcode.model.Usuario usuario) {
         initComponents();
         jLabel9.setVisible(false);
         jScrollPane1.getViewport().setOpaque(false);
@@ -46,11 +46,11 @@ public class Usuario extends javax.swing.JPanel {
         }
         
         if (usuario == null) {
-            for (findcode.clases.Ficha ficha : fichas) {
+            for (findcode.model.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, ficha));
             }
         } else {
-            for (findcode.clases.Ficha ficha : fichas) {
+            for (findcode.model.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, usuario, ficha));
             }
         }

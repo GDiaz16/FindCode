@@ -6,11 +6,11 @@ import javax.swing.JPanel;
 
 public class Resultado extends javax.swing.JPanel {
 
-    findcode.clases.Ficha ficha;
+    findcode.model.Ficha ficha;
     JPanel contendor;
-    private findcode.clases.Usuario usuario;
+    private findcode.model.Usuario usuario;
     
-    public Resultado(JPanel contendor, findcode.clases.Ficha ficha) {
+    public Resultado(JPanel contendor, findcode.model.Ficha ficha) {
         
         initComponents();
         this.contendor = contendor;
@@ -20,7 +20,7 @@ public class Resultado extends javax.swing.JPanel {
         
     }
     
-    public Resultado(JPanel contendor, findcode.clases.Usuario usuario, findcode.clases.Ficha ficha) {
+    public Resultado(JPanel contendor, findcode.model.Usuario usuario, findcode.model.Ficha ficha) {
         
         this(contendor, ficha);
         this.usuario = usuario;

@@ -6,9 +6,9 @@ import javax.swing.JPanel;
 public class Comentario extends javax.swing.JPanel {
 
     JPanel contenedor;
-    findcode.clases.Comentario comentario;
+    findcode.model.Comentario comentario;
     
-    public Comentario(JPanel contenedor, findcode.clases.Comentario comentario) {
+    public Comentario(JPanel contenedor, findcode.model.Comentario comentario) {
         initComponents();
         this.contenedor = contenedor;
         this.comentario = comentario;

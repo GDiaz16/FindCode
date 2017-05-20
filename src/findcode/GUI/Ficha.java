@@ -1,7 +1,7 @@
 package findcode.GUI;
 
-import findcode.clases.Ingrediente;
-import findcode.clases.Lenguaje;
+import findcode.model.Ingrediente;
+import findcode.model.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.awt.AWTException;
 import java.awt.Color;
@@ -24,17 +24,17 @@ import javax.swing.text.BadLocationException;
 public class Ficha extends javax.swing.JPanel {
 
     private JPanel contenedor;
-    private findcode.clases.Usuario usuario;
-    private findcode.clases.Ficha ficha;
-    private findcode.clases.Calificacion calificacion;
+    private findcode.model.Usuario usuario;
+    private findcode.model.Ficha ficha;
+    private findcode.model.Calificacion calificacion;
     private findcode.controladores.GestorFicha gestorFicha;
-    private ArrayList<findcode.clases.Comentario> comentarios;
-    private ArrayList<findcode.clases.Ficha> relacionados;
-    private HashMap<String, findcode.clases.Ingrediente> ingredientes;
-    private HashMap<String, findcode.clases.Ingrediente> ingredientesIniciales;
+    private ArrayList<findcode.model.Comentario> comentarios;
+    private ArrayList<findcode.model.Ficha> relacionados;
+    private HashMap<String, findcode.model.Ingrediente> ingredientes;
+    private HashMap<String, findcode.model.Ingrediente> ingredientesIniciales;
 
     // Consultar ficha sin usuario
-    public Ficha(JPanel contenedor, findcode.clases.Ficha ficha) {
+    public Ficha(JPanel contenedor, findcode.model.Ficha ficha) {
 
         initComponents();
         this.contenedor = contenedor;
@@ -75,12 +75,12 @@ public class Ficha extends javax.swing.JPanel {
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
                 textDescripcion, textTituloFicha, ingredientes,
-                findcode.clases.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
+                findcode.model.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
 
     }
 
     // Consultar ficha con usuario
-    public Ficha(JPanel contenedor, findcode.clases.Usuario usuario, findcode.clases.Ficha ficha) {
+    public Ficha(JPanel contenedor, findcode.model.Usuario usuario, findcode.model.Ficha ficha) {
 
         initComponents();
         this.contenedor = contenedor;
@@ -134,17 +134,17 @@ public class Ficha extends javax.swing.JPanel {
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
                 textDescripcion, textTituloFicha, ingredientes,
-                findcode.clases.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
+                findcode.model.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
 
     }
 
     // Crear ficha
-    public Ficha(JPanel contenedor, findcode.clases.Usuario usuario) {
+    public Ficha(JPanel contenedor, findcode.model.Usuario usuario) {
 
         initComponents();
         this.contenedor = contenedor;
         this.usuario = usuario;
-        this.ficha = new findcode.clases.Ficha();
+        this.ficha = new findcode.model.Ficha();
 
         // Visibilidad de los objetos necesarios
         jButton8.setVisible(true);
@@ -194,7 +194,7 @@ public class Ficha extends javax.swing.JPanel {
         gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
                 listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
                 textDescripcion, textTituloFicha, ingredientes,
-                findcode.clases.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
+                findcode.model.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
 
     }
     
@@ -218,12 +218,12 @@ public class Ficha extends javax.swing.JPanel {
 
     public final void busquedaIngredientes() {
 
-        ingredientes = findcode.clases.Ingrediente.cargarPorFicha(ficha.getiD());
+        ingredientes = findcode.model.Ingrediente.cargarPorFicha(ficha.getiD());
         ingredientesIniciales = (HashMap<String, Ingrediente>) ingredientes.clone();
         
         DefaultListModel modelo = new DefaultListModel();
 
-        for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
+        for (findcode.model.Ingrediente ingrediente : ingredientes.values()) {
             modelo.addElement(ingrediente.getTitulo());
         }
 
@@ -235,7 +235,7 @@ public class Ficha extends javax.swing.JPanel {
 
         jPanel7.removeAll();
         ArrayList<Comentario> panelesComentario = new ArrayList<>();
-        comentarios = findcode.clases.Comentario.cargarPorFicha(ficha.getiD());
+        comentarios = findcode.model.Comentario.cargarPorFicha(ficha.getiD());
 
         if (comentarios.isEmpty()) {
             jPanel7.setLayout(new java.awt.GridLayout());
@@ -243,7 +243,7 @@ public class Ficha extends javax.swing.JPanel {
             jLabel9.setVisible(true);
         }
 
-        for (findcode.clases.Comentario comentario : comentarios) {
+        for (findcode.model.Comentario comentario : comentarios) {
             panelesComentario.add(new Comentario(contenedor, comentario));
         }
 
@@ -302,7 +302,7 @@ public class Ficha extends javax.swing.JPanel {
             jLabel10.setVisible(true);
         }
 
-        for (findcode.clases.Ficha ficha1 : relacionados) {
+        for (findcode.model.Ficha ficha1 : relacionados) {
             panelesResultado.add(new Resultado(this, usuario, ficha1));
         }
 
@@ -325,7 +325,7 @@ public class Ficha extends javax.swing.JPanel {
         jLabel1.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella1.png")
                 .getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
 
-        switch (findcode.clases.Calificacion.cargarPromedioFicha(ficha.getiD())) {
+        switch (findcode.model.Calificacion.cargarPromedioFicha(ficha.getiD())) {
             case 5:
                 jLabel7.setIcon(new ImageIcon(new ImageIcon("imagenes/estrella2.png")
                         .getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
@@ -347,7 +347,7 @@ public class Ficha extends javax.swing.JPanel {
 
     public final void busquedaCalificaciones() {
 
-        calificacion = new findcode.clases.Calificacion();
+        calificacion = new findcode.model.Calificacion();
         calificacion.setiDFicha(ficha.getiD());
         calificacion.setiDUsuario(usuario.getCorreo());
 
@@ -1284,7 +1284,7 @@ public class Ficha extends javax.swing.JPanel {
             ficha.crear();
             ficha.cargarIDIngresado();
 
-            for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
+            for (findcode.model.Ingrediente ingrediente : ingredientes.values()) {
                 ingrediente.setiDFicha(ficha.getiD());
                 ingrediente.crear();
             }
@@ -1311,7 +1311,7 @@ public class Ficha extends javax.swing.JPanel {
             ficha.setEjemplo(textCodigo.getText());
             ficha.editar();
 
-            for (findcode.clases.Ingrediente ingrediente : ingredientes.values()) {
+            for (findcode.model.Ingrediente ingrediente : ingredientes.values()) {
 
                 ingrediente.setiDFicha(ficha.getiD());
                 if (ingrediente.getiD() == 0) {
@@ -1350,7 +1350,7 @@ public class Ficha extends javax.swing.JPanel {
 
         if (Utilidades.validarCampo(jTextField3)) {
 
-            findcode.clases.Comentario comentario = new findcode.clases.Comentario();
+            findcode.model.Comentario comentario = new findcode.model.Comentario();
             comentario.setiDFicha(ficha.getiD());
             comentario.setiDUsuario(usuario.getCorreo());
             comentario.setMensaje(jTextField3.getText());

@@ -1,16 +1,9 @@
 package findcode.controladores;
 
 import findcode.GUI.Inicio;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main {
 

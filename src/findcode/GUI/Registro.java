@@ -1,7 +1,7 @@
 
 package findcode.GUI;
 
-import findcode.clases.Usuario;
+import findcode.model.Usuario;
 import findcode.controladores.Utilidades;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 public class Registro extends javax.swing.JPanel {
 
     private JPanel contenedor;
-    private findcode.clases.Usuario usuario;
+    private findcode.model.Usuario usuario;
     
     // Registrar usuario
     public Registro(JPanel contenedor) {
@@ -30,7 +30,7 @@ public class Registro extends javax.swing.JPanel {
     }
     
     // Editar datos usuario
-    public Registro(JPanel contenedor, findcode.clases.Usuario usuario) {
+    public Registro(JPanel contenedor, findcode.model.Usuario usuario) {
         
         initComponents();
         this.contenedor = contenedor;

@@ -1,4 +1,4 @@
-package findcode.clases;
+package findcode.model;
 
 import findcode.controladores.MySQL;
 import java.sql.SQLException;

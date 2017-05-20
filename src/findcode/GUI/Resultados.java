@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 public class Resultados extends javax.swing.JPanel {
 
     private JPanel contenedor;
-    private findcode.clases.Usuario usuario;
-    private ArrayList<findcode.clases.Ficha> fichas;
+    private findcode.model.Usuario usuario;
+    private ArrayList<findcode.model.Ficha> fichas;
     private ArrayList<Resultado> resultados;
     private String busqueda;
     private String lenguaje;
@@ -31,7 +31,7 @@ public class Resultados extends javax.swing.JPanel {
 
     }
 
-    public Resultados(JPanel contenedor, findcode.clases.Usuario usuario, String busqueda, String lenguaje) {
+    public Resultados(JPanel contenedor, findcode.model.Usuario usuario, String busqueda, String lenguaje) {
 
         initComponents();
         jButton7.setVisible(true);
@@ -61,7 +61,7 @@ public class Resultados extends javax.swing.JPanel {
 
         jPanel2.removeAll();
         resultados = new ArrayList<>();
-        fichas = findcode.clases.Ficha.buscarTextoPorLenguaje(busqueda, lenguaje);
+        fichas = findcode.model.Ficha.buscarTextoPorLenguaje(busqueda, lenguaje);
 
         if (fichas.isEmpty()) {
             jPanel2.setLayout(new java.awt.GridLayout());
@@ -70,11 +70,11 @@ public class Resultados extends javax.swing.JPanel {
         }
 
         if (usuario == null) {
-            for (findcode.clases.Ficha ficha : fichas) {
+            for (findcode.model.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, ficha));
             }
         } else {
-            for (findcode.clases.Ficha ficha : fichas) {
+            for (findcode.model.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, usuario, ficha));
             }
         }

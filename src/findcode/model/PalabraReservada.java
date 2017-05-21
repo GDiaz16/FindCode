@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class PalabraReservada {
 
+    int iD;
     String palabraReservada;
     String idLenguaje;
 
@@ -40,7 +41,7 @@ public class PalabraReservada {
 
             MySQL db = new MySQL();
 
-            String query = " insert into TPalabraReservada (iD, iDLenguaje)"
+            String query = " insert into TPalabraReservada (nombre, iDLenguaje)"
                     + " values (?, ?)";
 
             db.setSentencia(query);
@@ -66,7 +67,7 @@ public class PalabraReservada {
                     + "iD = ?";
 
             db.setSentencia(query);
-            db.getSentencia().setString(1, palabraReservada);
+            db.getSentencia().setInt(1, iD);
 
             db.setResultados(db.getSentencia().executeQuery());
 
@@ -75,7 +76,7 @@ public class PalabraReservada {
             }
 
             while (db.getResultados().next()) {
-                palabraReservada = db.getResultados().getString("iD");
+                palabraReservada = db.getResultados().getString("nombre");
                 idLenguaje = db.getResultados().getString("idLenguaje");
             }
 
@@ -107,7 +108,7 @@ public class PalabraReservada {
 
             while (db.getResultados().next()) {
                 
-                palabrasReservadas.add(db.getResultados().getString("iD"));
+                palabrasReservadas.add(db.getResultados().getString("nombre"));
                 
             }
             
@@ -119,21 +120,21 @@ public class PalabraReservada {
 
     }
 
-    public void editar(String nombreNuevo) {
+    public void editar() {
 
         try {
 
             MySQL db = new MySQL();
 
             String query = "UPDATE TPalabraReservada "
-                    + "SET iD = ?, "
+                    + "SET nombre = ?, "
                     + "iDLenguaje = ? "
                     + "WHERE iD = ? ";
 
             db.setSentencia(query);
-            db.getSentencia().setString(1, nombreNuevo);
+            db.getSentencia().setString(1, palabraReservada);
             db.getSentencia().setString(2, idLenguaje);
-            db.getSentencia().setString(3, palabraReservada);
+            db.getSentencia().setInt(3, iD);
 
             db.getSentencia().execute();
             db.conexion().close();
@@ -154,7 +155,7 @@ public class PalabraReservada {
                     + "WHERE iD = ? ";
 
             db.setSentencia(query);
-            db.getSentencia().setString(1, palabraReservada);
+            db.getSentencia().setInt(1, iD);
 
             db.getSentencia().execute();
             db.conexion().close();

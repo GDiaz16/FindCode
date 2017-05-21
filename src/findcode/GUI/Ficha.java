@@ -3,13 +3,8 @@ package findcode.GUI;
 import findcode.model.Ingrediente;
 import findcode.model.Lenguaje;
 import findcode.controladores.Utilidades;
-import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.Robot;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.text.BadLocationException;
 
@@ -61,7 +57,7 @@ public class Ficha extends javax.swing.JPanel {
         // Personalizar campos
         Utilidades.personalizarCampo(textTituloFicha, "Titulo", ficha.getTitulo());
         Utilidades.personalizarCampo(textDescripcion, "Descripcion del codigo", ficha.getDescripcion());
-        Utilidades.personalizarCampo(textCodigo, "Sintaxis", ficha.getEjemplo());
+        textCodigo.setText(ficha.getEjemplo());
         Utilidades.personalizarCampo(jTextField3, "Nuevo comentario", "");
 
         // OTras funciones
@@ -105,7 +101,7 @@ public class Ficha extends javax.swing.JPanel {
         jComboBox1.setFocusable(false);
         Utilidades.personalizarCampo(textTituloFicha, "Titulo", ficha.getTitulo());
         Utilidades.personalizarCampo(textDescripcion, "Descripcion del codigo", ficha.getDescripcion());
-        Utilidades.personalizarCampo(textCodigo, "Sintaxis", ficha.getEjemplo());
+        textCodigo.setText(ficha.getEjemplo());
         Utilidades.personalizarCampo(jTextField3, "Nuevo comentario", "");
 
         // Otras funciones
@@ -170,7 +166,6 @@ public class Ficha extends javax.swing.JPanel {
         // Personalizar campos
         Utilidades.personalizarCampo(textTituloFicha, "Titulo", "");
         Utilidades.personalizarCampo(textDescripcion, "Descripcion del codigo", "");
-        Utilidades.personalizarCampo(textCodigo, "Sintaxis", "");
         Utilidades.personalizarCampo(jTextField3, "Nuevo comentario", "");
 
         // Permitir editar los campos necesarios
@@ -197,13 +192,15 @@ public class Ficha extends javax.swing.JPanel {
                 findcode.model.PalabraReservada.cargarPorLenguaje(ficha.getiDLenguaje()));
 
     }
-    
-    public final void personalizar(){
-        
+
+    public final void personalizar() {
+
         jScrollPane2.getViewport().setOpaque(true);
-        jScrollPane2.getViewport().setBackground(Color.WHITE);
+        jScrollPane2.getViewport().setBackground(Color.decode("#E0F8F7"));
         jScrollPane6.getViewport().setOpaque(true);
-        jScrollPane6.getViewport().setBackground(Color.WHITE);
+        jScrollPane6.getViewport().setBackground(Color.decode("#E0F8F7"));
+        textTituloFicha.setFont(new java.awt.Font("Comic Sans MS", 3, 28));
+
         Utilidades.personalizarBotones(botonGuardar);
         Utilidades.personalizarBotones(botonGuardarFicha);
         Utilidades.personalizarBotones(botonGuardarFicha1);
@@ -213,14 +210,31 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.personalizarBotonBack(jButton12);
         Utilidades.personalizarBotones(jButton13);
         Utilidades.personalizarBotones(jButton8);
-        
+
+        ((JTextField) jComboBox1.getEditor().getEditorComponent()).addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+                    // Gestor de ficha
+                    gestorFicha = new findcode.controladores.GestorFicha(popUp, listaIngredientes, textCodigo,
+                            listaPopUp, itemCargar, itemGuardar, itemBorrar, ventanaGuardar, textComentario, textTitulo,
+                            textDescripcion, textTituloFicha, ingredientes,
+                            findcode.model.PalabraReservada.cargarPorLenguaje((String) jComboBox1.getSelectedItem()));
+
+                }
+
+            }
+        });
+
     }
 
     public final void busquedaIngredientes() {
 
         ingredientes = findcode.model.Ingrediente.cargarPorFicha(ficha.getiD());
         ingredientesIniciales = (HashMap<String, Ingrediente>) ingredientes.clone();
-        
+
         DefaultListModel modelo = new DefaultListModel();
 
         for (findcode.model.Ingrediente ingrediente : ingredientes.values()) {
@@ -858,7 +872,7 @@ public class Ficha extends javax.swing.JPanel {
 
         jScrollPane7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBackground(Color.decode("#E0F8F7"));
         jPanel5.setPreferredSize(new java.awt.Dimension(0, 0));
 
         botonGuardarFicha3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
@@ -1036,9 +1050,8 @@ public class Ficha extends javax.swing.JPanel {
         jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane2.setContinuousLayout(true);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(Color.decode("#E0F8F7"));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel2.setOpaque(false);
 
         jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 153, 153));
@@ -1049,7 +1062,7 @@ public class Ficha extends javax.swing.JPanel {
 
         listaIngredientes.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         listaIngredientes.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        listaIngredientes.setSelectionBackground(new java.awt.Color(51, 204, 0));
+        listaIngredientes.setSelectionBackground(Color.decode("#81F7F3"));
         listaIngredientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 listaIngredientesMousePressed(evt);
@@ -1126,7 +1139,7 @@ public class Ficha extends javax.swing.JPanel {
 
         jSplitPane2.setTopComponent(jPanel2);
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBackground(Color.decode("#E0F8F7"));
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
@@ -1274,8 +1287,7 @@ public class Ficha extends javax.swing.JPanel {
     private void botonGuardarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFichaActionPerformed
 
         if (Utilidades.validarCampo(textTituloFicha)
-                && Utilidades.validarCampo(textDescripcion)
-                && Utilidades.validarCampo(textCodigo)) {
+                && Utilidades.validarCampo(textDescripcion)) {
 
             ficha.setTitulo(textTituloFicha.getText());
             ficha.setDescripcion(textDescripcion.getText());
@@ -1309,6 +1321,15 @@ public class Ficha extends javax.swing.JPanel {
             ficha.setTitulo(textTituloFicha.getText());
             ficha.setDescripcion(textDescripcion.getText());
             ficha.setEjemplo(textCodigo.getText());
+
+            if (!findcode.model.Lenguaje.cargarTodos().contains((String) jComboBox1.getSelectedItem())) {
+                findcode.model.Lenguaje lenguaje = new findcode.model.Lenguaje();
+                lenguaje.setNombre((String) jComboBox1.getSelectedItem());
+                lenguaje.crear();
+            }
+
+            ficha.setiDLenguaje((String) jComboBox1.getSelectedItem());
+
             ficha.editar();
 
             for (findcode.model.Ingrediente ingrediente : ingredientes.values()) {
@@ -1321,14 +1342,13 @@ public class Ficha extends javax.swing.JPanel {
                 }
 
             }
-            
+
             for (String ingrediente : ingredientesIniciales.keySet()) {
                 System.out.println("sadasd");
-                if(!ingredientes.containsKey(ingrediente)){
+                if (!ingredientes.containsKey(ingrediente)) {
                     ingredientesIniciales.get(ingrediente).borrar();
                 }
             }
-            
 
             try {
 
@@ -1689,7 +1709,7 @@ public class Ficha extends javax.swing.JPanel {
                 for (PopupMenuListener p1 : p) {
                     popUp.addPopupMenuListener(p1);
                 }
-                
+
                 listaIngredientes.setSelectedIndex(listaIngredientes.getSelectedIndex() - 1);
                 try {
                     gestorFicha.mostrarElemento();

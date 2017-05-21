@@ -53,6 +53,12 @@ public class Resultado extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                formMouseExited(evt);
+            }
         });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -140,8 +146,8 @@ public class Resultado extends javax.swing.JPanel {
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         
-        jLabel7.setBackground(Color.decode("#CEF6CE"));
-        jLabel8.setBackground(Color.decode("#CEF6CE"));
+        jLabel7.setBackground(Color.decode("#E0F8F7"));
+        jLabel8.setBackground(Color.decode("#E0F8F7"));
         
     }//GEN-LAST:event_formFocusGained
 
@@ -161,6 +167,18 @@ public class Resultado extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_formKeyPressed
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        
+        formFocusGained(null);
+        
+    }//GEN-LAST:event_formMouseEntered
+
+    private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
+        
+        formFocusLost(null);
+        
+    }//GEN-LAST:event_formMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

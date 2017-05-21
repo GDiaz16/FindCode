@@ -231,26 +231,36 @@ public class GestorFicha {
 
 //vuelve a colocar texto en el textpane
     public void setText() {
-        boolean state = false;
+        boolean stateComment = false;
+        boolean stateString = false;
+        boolean stateAux = false;
         separador(textCodigo.getText());
         textCodigo.setText("");
         for (int i = 0; i < codigoDesarmado.length; i++) {
             SimpleAttributeSet simp;
-            if (state || (codigoDesarmado[i].equals("/") && !codigoDesarmado[i + 1].isEmpty() && codigoDesarmado[i].equals("/"))) {
-                simp = formato();
-                state = true;
-            }else {
-                 simp = formato(codigoDesarmado[i]);
+//validar que state sea verdadero o que en el codigo haya doble slash //, si no hay, pinta las palabras normalmente
+            if (stateComment || (codigoDesarmado[i].equals("/") && !codigoDesarmado[i + 1].isEmpty() && codigoDesarmado[i].equals("/"))) {
+                simp = formato(1);
+                stateComment = true;
+            } else if (stateString || codigoDesarmado[i].equals("\"")) {
+                simp = formato(2);                
+                if (stateString == false) {
+                    stateAux = codigoDesarmado[i].equals("\"");
+                }
+                stateString = true;
+            } else {
+                simp = formato(codigoDesarmado[i]);
             }
-            if (state && codigoDesarmado[i].equals("\n")) {
-                //simp = formato(codigoDesarmado[i]);
-                state = false;
+//si encuentra un salto de linea pone state en false y deja de comentar las palabras
+            if (stateComment && codigoDesarmado[i].equals("\n")) {
+                stateComment = false;
+            } else if (stateAux != true && stateString && codigoDesarmado[i].equals("\"")) {
+                stateString = false;
+            } else if (stateString) {
+                stateAux = false;
             }
-//            if (state == false) {
-//               
-//            }
+
             try {
-                //textCodigo.getStyledDocument().
                 textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), codigoDesarmado[i], simp);
 
             } catch (BadLocationException ex) {
@@ -283,15 +293,23 @@ public class GestorFicha {
         return simp;
     }
 
-    public SimpleAttributeSet formato() {
-        SimpleAttributeSet simp = new SimpleAttributeSet();
-        StyleConstants.setBold(simp, false);
-        StyleConstants.setFontSize(simp, 12);
-        StyleConstants.setForeground(simp, Color.LIGHT_GRAY);
-        return simp;
+    public SimpleAttributeSet formato(int color) {
+        if (color == 1) {
+            SimpleAttributeSet simp = new SimpleAttributeSet();
+            StyleConstants.setBold(simp, false);
+            StyleConstants.setFontSize(simp, 12);
+            StyleConstants.setForeground(simp, Color.LIGHT_GRAY);
+            return simp;
+        } else {
+            SimpleAttributeSet simp = new SimpleAttributeSet();
+            StyleConstants.setBold(simp, false);
+            StyleConstants.setFontSize(simp, 12);
+            StyleConstants.setForeground(simp, Color.green);
+            return simp;
+        }
     }
-//Texto a mostrar cuando se seleccione un elemento de la lista
 
+//Texto a mostrar cuando se seleccione un elemento de la lista
     public void mostrarTextoPopUp(String contenido) {
 
         popUp.removeAll();

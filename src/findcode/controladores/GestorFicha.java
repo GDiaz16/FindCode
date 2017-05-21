@@ -203,7 +203,7 @@ public class GestorFicha {
         } else if (simbolos.contains(palabraReservada)) {
             StyleConstants.setBold(simp, false);
             StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.getHSBColor(120, 150, 160));
+            StyleConstants.setForeground(simp, Color.blue);
         } else {
             StyleConstants.setBold(simp, false);
             StyleConstants.setFontSize(simp, 12);

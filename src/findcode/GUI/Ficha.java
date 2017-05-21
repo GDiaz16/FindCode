@@ -1287,12 +1287,21 @@ public class Ficha extends javax.swing.JPanel {
     private void botonGuardarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarFichaActionPerformed
 
         if (Utilidades.validarCampo(textTituloFicha)
-                && Utilidades.validarCampo(textDescripcion)) {
+                && Utilidades.validarCampo(textDescripcion)
+                && Utilidades.validarCampo(((JTextField) jComboBox1.getEditor().getEditorComponent()))) {
 
             ficha.setTitulo(textTituloFicha.getText());
             ficha.setDescripcion(textDescripcion.getText());
             ficha.setEjemplo(textCodigo.getText());
             ficha.setiDUsuario(usuario.getCorreo());
+            
+            if (!findcode.model.Lenguaje.cargarTodos().contains((String) jComboBox1.getSelectedItem())) {
+                findcode.model.Lenguaje lenguaje = new findcode.model.Lenguaje();
+                lenguaje.setNombre((String) jComboBox1.getSelectedItem());
+                lenguaje.crear();
+            }
+
+            ficha.setiDLenguaje((String) jComboBox1.getSelectedItem());
             ficha.crear();
             ficha.cargarIDIngresado();
 
@@ -1316,7 +1325,8 @@ public class Ficha extends javax.swing.JPanel {
 
         if (Utilidades.validarCampo(textTituloFicha)
                 && Utilidades.validarCampo(textDescripcion)
-                && Utilidades.validarCampo(textCodigo)) {
+                && Utilidades.validarCampo(textCodigo)
+                && Utilidades.validarCampo(((JTextField) jComboBox1.getEditor().getEditorComponent()))) {
 
             ficha.setTitulo(textTituloFicha.getText());
             ficha.setDescripcion(textDescripcion.getText());

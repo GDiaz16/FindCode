@@ -207,7 +207,7 @@ public class Ficha extends javax.swing.JPanel {
         Utilidades.asignarFondoFijo(ventanaGuardar, new File("imagenes/fondo.jpg"));
         Utilidades.personalizarCampo(textTitulo, "Titulo", "");
         Utilidades.personalizarCampo(textComentario, "Comentario", "");
-        
+
         Utilidades.personalizarBotones(botonGuardar);
         Utilidades.personalizarBotones(botonCancelar);
         Utilidades.personalizarBotones(botonGuardarFicha);
@@ -1279,7 +1279,14 @@ public class Ficha extends javax.swing.JPanel {
     }//GEN-LAST:event_textTituloActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-        gestorFicha.botonGuardarActionPerformed(evt);
+
+        if (Utilidades.validarCampo(textTitulo)) {
+            
+            gestorFicha.botonGuardarActionPerformed(evt);
+
+            
+        } 
+
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
@@ -1304,7 +1311,7 @@ public class Ficha extends javax.swing.JPanel {
             ficha.setDescripcion(textDescripcion.getText());
             ficha.setEjemplo(textCodigo.getText());
             ficha.setiDUsuario(usuario.getCorreo());
-            
+
             if (!findcode.model.Lenguaje.cargarTodos().contains((String) jComboBox1.getSelectedItem())) {
                 findcode.model.Lenguaje lenguaje = new findcode.model.Lenguaje();
                 lenguaje.setNombre((String) jComboBox1.getSelectedItem());

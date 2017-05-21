@@ -1,5 +1,6 @@
 package findcode.controladores;
 
+import findcode.model.BoardListener;
 import findcode.model.Ingrediente;
 import java.awt.Color;
 import java.awt.Font;
@@ -27,6 +28,8 @@ import javax.swing.JTextField;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class GestorFicha {
 
@@ -37,7 +40,7 @@ public class GestorFicha {
     String[] codigoDesarmado;
     DefaultListModel model = new DefaultListModel();
     DefaultListModel modelPopUp;
-    private JTextPane textCodigo = new JTextPane();
+    private JTextPane textCodigo;
     private JList<String> listaIngredientes = new JList<>();
     private JPopupMenu popUp = new JPopupMenu();
     private JDialog ventanaGuardar;
@@ -47,6 +50,8 @@ public class GestorFicha {
     JMenuItem guardar;
     JMenuItem borrar;
     String seleccion;
+    BoardListener clipboard;
+    int caret;
     //int index;
 
     public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
@@ -69,6 +74,8 @@ public class GestorFicha {
         setListaIngredientes();
         cargarPalabras();
         setText();
+        clipboard = new BoardListener();
+        //corrimiento();
     }
 
     //capturar el evento de escribir en el panel y dejar el cursor en el lugar al que se mueva
@@ -77,24 +84,75 @@ public class GestorFicha {
     }
 
     public void textCodigoKeyPressed(java.awt.event.KeyEvent evt) {
-        int caret = textCodigo.getCaretPosition();
+        caret = textCodigo.getCaretPosition();
+        String sel = textCodigo.getSelectedText();
+
+        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_V) {
+            textCodigo.replaceSelection("");
+        }
+
+        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_C) {
+            clipboard.setClipboard(textCodigo.getSelectedText());
+        }
+
+        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_X) {
+
+            if (sel != null) {
+                clipboard.setClipboard(sel);
+                updateSelection();
+            }
+
+        }
         if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
-                && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_SHIFT) {
+                && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_SHIFT
+                && !evt.isControlDown()) {
+
+            if (sel != null) {
+                updateSelection();
+            }
 
             setText();
             switch (evt.getKeyCode()) {
                 case KeyEvent.VK_BACK_SPACE:
-                    corrimiento(caret, 1);
+                    if (sel != null) {
+                        evt.consume();
+                        corrimiento(caret, 1, sel.length());
+                    } else {
+                        corrimiento(caret, 1, 1);
+                    }
+
                     break;
                 case KeyEvent.VK_DELETE:
-                    corrimiento(caret, 2);
+                    if (sel != null) {
+                        evt.consume();
+                        corrimiento(caret, 2, sel.length());
+                    } else {
+                        corrimiento(caret, 2, 1);
+                    }
+
                     break;
                 default:
-                    corrimiento(caret, 3);
+                    if (sel != null) {
+                        corrimiento(caret, 3, sel.length());
+                    } else {
+                        corrimiento(caret, 3, 1);
+                    }
                     break;
             }
             textCodigo.setCaretPosition(caret);
         }
+    }
+
+    public void updateSelection() {
+        caret = textCodigo.getCaretPosition();
+        String sel = textCodigo.getSelectedText();
+        textCodigo.replaceSelection("");
+        if (sel.length() <= caret) {
+            caret -= sel.length();
+        } else {
+            caret = 0;
+        }
+
     }
 
     //mostrar pop UP con el click en la ventana del codigo
@@ -161,7 +219,7 @@ public class GestorFicha {
 
 //separa las palabras cuando encuentra un espacio, salto de linea, tabulacion o parentesis y las coloca en un array
     public void separador(String codigo) {
-        StringTokenizer st = new StringTokenizer(codigo, " \t\n(),\"", true);
+        StringTokenizer st = new StringTokenizer(codigo, " \t\n(),\"/", true);
         codigoDesarmado = new String[st.countTokens()];
         int i = 0;
         while (st.hasMoreTokens()) {
@@ -173,13 +231,27 @@ public class GestorFicha {
 
 //vuelve a colocar texto en el textpane
     public void setText() {
+        boolean state = false;
         separador(textCodigo.getText());
         textCodigo.setText("");
-        for (String cadena : codigoDesarmado) {
-            SimpleAttributeSet simp = formato(cadena);
+        for (int i = 0; i < codigoDesarmado.length; i++) {
+            SimpleAttributeSet simp;
+            if (state || (codigoDesarmado[i].equals("/") && !codigoDesarmado[i + 1].isEmpty() && codigoDesarmado[i].equals("/"))) {
+                simp = formato();
+                state = true;
+            }else {
+                 simp = formato(codigoDesarmado[i]);
+            }
+            if (state && codigoDesarmado[i].equals("\n")) {
+                //simp = formato(codigoDesarmado[i]);
+                state = false;
+            }
+//            if (state == false) {
+//               
+//            }
             try {
-
-                textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), cadena, simp);
+                //textCodigo.getStyledDocument().
+                textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), codigoDesarmado[i], simp);
 
             } catch (BadLocationException ex) {
                 Logger.getLogger(findcode.GUI.Ficha.class
@@ -211,7 +283,15 @@ public class GestorFicha {
         return simp;
     }
 
+    public SimpleAttributeSet formato() {
+        SimpleAttributeSet simp = new SimpleAttributeSet();
+        StyleConstants.setBold(simp, false);
+        StyleConstants.setFontSize(simp, 12);
+        StyleConstants.setForeground(simp, Color.LIGHT_GRAY);
+        return simp;
+    }
 //Texto a mostrar cuando se seleccione un elemento de la lista
+
     public void mostrarTextoPopUp(String contenido) {
 
         popUp.removeAll();
@@ -336,7 +416,8 @@ public class GestorFicha {
 
     }
 
-    public void corrimiento(int caret, int tecla) {
+    public void corrimiento(int caret, int tecla, int amount) {
+
         boolean borrado = false;
         Ingrediente temporal = null;
 
@@ -346,30 +427,30 @@ public class GestorFicha {
             switch (tecla) {
                 case 1:
                     if (caret <= elemento.getPosInicial() && caret > 0) {
-                        elemento.setPosInicial(inicio - 1);
-                        elemento.setPosFinal(fin - 1);
+                        elemento.setPosInicial(inicio - amount);
+                        elemento.setPosFinal(fin - amount);
                     } else if (inicio < caret && caret <= fin) {
-                        elemento.setPosFinal(fin - 1);
+                        elemento.setPosFinal(fin - amount);
                     }
                     break;
                 case 2:
                     if (caret == elemento.getPosInicial()) {
-                        elemento.setPosFinal(fin - 1);
+                        elemento.setPosFinal(fin - amount);
                     } else if (caret < elemento.getPosInicial()) {
-                        elemento.setPosInicial(inicio - 1);
-                        elemento.setPosFinal(fin - 1);
+                        elemento.setPosInicial(inicio - amount);
+                        elemento.setPosFinal(fin - amount);
 
                     } else if (inicio < caret && caret <= fin) {
-                        elemento.setPosFinal(fin - 1);
+                        elemento.setPosFinal(fin - amount);
                     }
                     break;
 
                 case 3:
                     if (caret <= elemento.getPosInicial()) {
-                        elemento.setPosInicial(inicio + 1);
-                        elemento.setPosFinal(fin + 1);
+                        elemento.setPosInicial(inicio + amount);
+                        elemento.setPosFinal(fin + amount);
                     } else if (inicio < caret && caret <= fin) {
-                        elemento.setPosFinal(fin + 1);
+                        elemento.setPosFinal(fin + amount);
                     }
                     break;
 
@@ -379,9 +460,6 @@ public class GestorFicha {
                 borrado = true;
                 temporal = elemento;
             }
-            System.out.println("inicio = " + inicio);
-            System.out.println("fin = " + fin);
-            System.out.println("caret = " + caret);
         }
 
         if (borrado && temporal != null) {

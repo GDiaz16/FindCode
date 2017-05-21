@@ -266,7 +266,7 @@ public class Utilidades {
                     ((JTextField) jComboBox.getEditor().getEditorComponent()).setText(texto);
                     jComboBox.showPopup();
 
-                }
+                } 
 
             }
         });

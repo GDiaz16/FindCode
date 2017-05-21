@@ -326,7 +326,7 @@ public class GestorFicha {
             int fin = ingredientes2.get(elemento).getPosFinal();
             String contenido = ingredientes2.get(elemento).getDescripcion();
             Highlighter highlighter = textCodigo.getHighlighter();
-            HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.green);
+            HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.decode("#81F7F3"));
             highlighter.removeAllHighlights();
             highlighter.addHighlight(inicio, fin, painter);
 

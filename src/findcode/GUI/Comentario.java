@@ -6,9 +6,9 @@ import javax.swing.JPanel;
 public class Comentario extends javax.swing.JPanel {
 
     JPanel contenedor;
-    findcode.clases.Comentario comentario;
+    findcode.model.Comentario comentario;
     
-    public Comentario(JPanel contenedor, findcode.clases.Comentario comentario) {
+    public Comentario(JPanel contenedor, findcode.model.Comentario comentario) {
         initComponents();
         this.contenedor = contenedor;
         this.comentario = comentario;
@@ -43,6 +43,7 @@ public class Comentario extends javax.swing.JPanel {
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 153, 153));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Usuario");
         jLabel7.setOpaque(true);
@@ -50,6 +51,7 @@ public class Comentario extends javax.swing.JPanel {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(1);
         jTextArea1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(0, 102, 102));
         jTextArea1.setRows(1);
         jTextArea1.setTabSize(1);
         jTextArea1.setText("Este es un comentario");

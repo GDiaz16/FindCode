@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import findcode.controladores.Utilidades;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +9,8 @@ import javax.swing.JPanel;
 public class Resultados extends javax.swing.JPanel {
 
     private JPanel contenedor;
-    private findcode.clases.Usuario usuario;
-    private ArrayList<findcode.clases.Ficha> fichas;
+    private findcode.model.Usuario usuario;
+    private ArrayList<findcode.model.Ficha> fichas;
     private ArrayList<Resultado> resultados;
     private String busqueda;
     private String lenguaje;
@@ -25,11 +26,12 @@ public class Resultados extends javax.swing.JPanel {
         this.contenedor = contenedor;
         this.busqueda = busqueda;
         this.lenguaje = lenguaje;
+        personalizar();
         busqueda();
 
     }
 
-    public Resultados(JPanel contenedor, findcode.clases.Usuario usuario, String busqueda, String lenguaje) {
+    public Resultados(JPanel contenedor, findcode.model.Usuario usuario, String busqueda, String lenguaje) {
 
         initComponents();
         jButton7.setVisible(true);
@@ -42,15 +44,24 @@ public class Resultados extends javax.swing.JPanel {
         this.lenguaje = lenguaje;
         jButton8.setText(usuario.getNickname());
         this.usuario = usuario;
+        personalizar();
         busqueda();
 
+    }
+    
+    public final void personalizar(){
+        
+        Utilidades.personalizarBotonBack(jButton6);
+        Utilidades.personalizarBotones(jButton7);
+        Utilidades.personalizarBotones(jButton8);
+        
     }
 
     public final void busqueda() {
 
         jPanel2.removeAll();
         resultados = new ArrayList<>();
-        fichas = findcode.clases.Ficha.buscarTextoPorLenguaje(busqueda, lenguaje);
+        fichas = findcode.model.Ficha.buscarTextoPorLenguaje(busqueda, lenguaje);
 
         if (fichas.isEmpty()) {
             jPanel2.setLayout(new java.awt.GridLayout());
@@ -59,11 +70,11 @@ public class Resultados extends javax.swing.JPanel {
         }
 
         if (usuario == null) {
-            for (findcode.clases.Ficha ficha : fichas) {
+            for (findcode.model.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, ficha));
             }
         } else {
-            for (findcode.clases.Ficha ficha : fichas) {
+            for (findcode.model.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, usuario, ficha));
             }
         }
@@ -147,11 +158,12 @@ public class Resultados extends javax.swing.JPanel {
         jScrollPane2.setOpaque(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setForeground(new java.awt.Color(0, 153, 153));
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel8.setForeground(java.awt.Color.decode("#D8D8D8"));
+        jLabel8.setForeground(new java.awt.Color(0, 153, 153));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("No hay fichas");
         jPanel2.add(jLabel8);
@@ -187,6 +199,7 @@ public class Resultados extends javax.swing.JPanel {
         });
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 153, 153));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("FindCode");
 

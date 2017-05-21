@@ -6,11 +6,11 @@ import javax.swing.JPanel;
 
 public class Resultado extends javax.swing.JPanel {
 
-    findcode.clases.Ficha ficha;
+    findcode.model.Ficha ficha;
     JPanel contendor;
-    private findcode.clases.Usuario usuario;
+    private findcode.model.Usuario usuario;
     
-    public Resultado(JPanel contendor, findcode.clases.Ficha ficha) {
+    public Resultado(JPanel contendor, findcode.model.Ficha ficha) {
         
         initComponents();
         this.contendor = contendor;
@@ -20,7 +20,7 @@ public class Resultado extends javax.swing.JPanel {
         
     }
     
-    public Resultado(JPanel contendor, findcode.clases.Usuario usuario, findcode.clases.Ficha ficha) {
+    public Resultado(JPanel contendor, findcode.model.Usuario usuario, findcode.model.Ficha ficha) {
         
         this(contendor, ficha);
         this.usuario = usuario;
@@ -53,6 +53,12 @@ public class Resultado extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                formMouseExited(evt);
+            }
         });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -66,6 +72,7 @@ public class Resultado extends javax.swing.JPanel {
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 102, 102));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("FindCode");
         jLabel8.setOpaque(true);
@@ -89,6 +96,7 @@ public class Resultado extends javax.swing.JPanel {
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 153, 153));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("FindCode");
         jLabel7.setOpaque(true);
@@ -138,8 +146,8 @@ public class Resultado extends javax.swing.JPanel {
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         
-        jLabel7.setBackground(Color.decode("#CEF6CE"));
-        jLabel8.setBackground(Color.decode("#CEF6CE"));
+        jLabel7.setBackground(Color.decode("#E0F8F7"));
+        jLabel8.setBackground(Color.decode("#E0F8F7"));
         
     }//GEN-LAST:event_formFocusGained
 
@@ -159,6 +167,18 @@ public class Resultado extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_formKeyPressed
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        
+        formFocusGained(null);
+        
+    }//GEN-LAST:event_formMouseEntered
+
+    private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
+        
+        formFocusLost(null);
+        
+    }//GEN-LAST:event_formMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

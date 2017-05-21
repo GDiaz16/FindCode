@@ -1,6 +1,6 @@
 package findcode.controladores;
 
-import findcode.clases.Ingrediente;
+import findcode.model.Ingrediente;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.HashSet;
@@ -34,7 +34,7 @@ public class GestorFicha {
 
     ArrayList<String> palabrasReservadas;
     HashSet<String> simbolos = new HashSet<>();
-    HashMap<String, findcode.clases.Ingrediente> ingredientes2;
+    HashMap<String, findcode.model.Ingrediente> ingredientes2;
     HashSet<String> ingredientes = new HashSet<>();
     String[] codigoDesarmado;
     DefaultListModel model = new DefaultListModel();
@@ -54,7 +54,7 @@ public class GestorFicha {
     public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
             JList listaPopUp, JMenuItem cargar, JMenuItem guardar, JMenuItem borrar, JDialog ventanaGuadar, JTextArea textComentario,
             JTextField textTitulo, JTextArea textDescripcion, JTextField textTituloFicha,
-            HashMap<String, findcode.clases.Ingrediente> ingredientes2,
+            HashMap<String, findcode.model.Ingrediente> ingredientes2,
             ArrayList<String> palabrasReservadas) {
 
         this.textCodigo = textCodigo;
@@ -305,7 +305,7 @@ public class GestorFicha {
     public void setIngredientes(String titulo, String comentario, int inicio, int fin) {
 
         if (!ingredientes2.containsKey(titulo)) {
-            findcode.clases.Ingrediente ingrediente = new findcode.clases.Ingrediente();
+            findcode.model.Ingrediente ingrediente = new findcode.model.Ingrediente();
             ingrediente.setDescripcion(comentario);
             ingrediente.setTitulo(titulo);
             ingrediente.setPosInicial(inicio);
@@ -328,7 +328,7 @@ public class GestorFicha {
             int fin = ingredientes2.get(elemento).getPosFinal();
             String contenido = ingredientes2.get(elemento).getDescripcion();
             Highlighter highlighter = textCodigo.getHighlighter();
-            HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.green);
+            HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.decode("#81F7F3"));
             highlighter.removeAllHighlights();
             highlighter.addHighlight(inicio, fin, painter);
 

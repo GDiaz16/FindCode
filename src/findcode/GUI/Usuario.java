@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import findcode.controladores.Utilidades;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,18 +9,28 @@ import javax.swing.JPanel;
 public class Usuario extends javax.swing.JPanel {
 
     private JPanel contenedor;
-    private findcode.clases.Usuario usuario;
-    private ArrayList<findcode.clases.Ficha> fichas;
+    private findcode.model.Usuario usuario;
+    private ArrayList<findcode.model.Ficha> fichas;
     private ArrayList<Resultado> resultados;
     
-    public Usuario(JPanel contenedor, findcode.clases.Usuario usuario) {
+    public Usuario(JPanel contenedor, findcode.model.Usuario usuario) {
         initComponents();
         jLabel9.setVisible(false);
         jScrollPane1.getViewport().setOpaque(false);
         jScrollPane2.getViewport().setOpaque(false);
         this.contenedor = contenedor;
         this.usuario = usuario;
+        personalizar();
         busqueda();
+    }
+    
+    public final void personalizar(){
+        
+        Utilidades.personalizarBotonBack(jButton6);
+        Utilidades.personalizarBotones(jButton7);
+        Utilidades.personalizarBotones(jButton8);
+        Utilidades.personalizarBotones(jButton9);
+        
     }
     
     public final void busqueda(){
@@ -35,11 +46,11 @@ public class Usuario extends javax.swing.JPanel {
         }
         
         if (usuario == null) {
-            for (findcode.clases.Ficha ficha : fichas) {
+            for (findcode.model.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, ficha));
             }
         } else {
-            for (findcode.clases.Ficha ficha : fichas) {
+            for (findcode.model.Ficha ficha : fichas) {
                 resultados.add(new Resultado(this, usuario, ficha));
             }
         }
@@ -124,7 +135,7 @@ public class Usuario extends javax.swing.JPanel {
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel9.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel9.setForeground(java.awt.Color.decode("#D8D8D8"));
+        jLabel9.setForeground(new java.awt.Color(0, 153, 153));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("No hay fichas creadas");
         jPanel2.add(jLabel9);
@@ -160,6 +171,7 @@ public class Usuario extends javax.swing.JPanel {
         });
 
         jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 153, 153));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("FindCode");
 
@@ -227,6 +239,7 @@ public class Usuario extends javax.swing.JPanel {
         );
 
         jLabel8.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 153, 153));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Mis aportes:");
 

@@ -1,26 +1,27 @@
 package findcode.GUI;
 
-import findcode.clases.Lenguaje;
+import findcode.model.Lenguaje;
 import findcode.controladores.Utilidades;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Inicio extends javax.swing.JPanel {
 
     private JPanel contenedor;
-    private findcode.clases.Usuario usuario;
+    private findcode.model.Usuario usuario;
 
     public Inicio() {
 
         initComponents();
         jScrollPane1.getViewport().setOpaque(false);
         jPanel5.setVisible(false);
-        Utilidades.personalizarCampo(jTextField1, "¿Que desea buscar?", "");
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Lenguaje.cargarTodos().toArray()));
+        personalizar();
 
     }
 
-    public Inicio(JPanel contenedor, findcode.clases.Usuario usuario) {
+    public Inicio(JPanel contenedor, findcode.model.Usuario usuario) {
 
         this();
         this.contenedor = contenedor;
@@ -28,7 +29,21 @@ public class Inicio extends javax.swing.JPanel {
         jPanel5.setVisible(true);
         jPanel6.setVisible(false);
         jButton8.setText(usuario.getNickname());
+        personalizar();
 
+    }
+    
+    public final void personalizar(){
+        
+        Utilidades.personalizarCampo(jTextField1, "¿Que desea buscar?", "");
+        Utilidades.personalizarComboBox(jComboBox1, "Lenguaje", "");
+        Utilidades.personalizarBotones(jButton1);
+        Utilidades.personalizarBotonBack(jButton12);
+        Utilidades.personalizarBotones(jButton2);
+        Utilidades.personalizarBotones(jButton3);
+        Utilidades.personalizarBotones(jButton5);
+        Utilidades.personalizarBotones(jButton8);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -74,7 +89,7 @@ public class Inicio extends javax.swing.JPanel {
         jPanel1.setOpaque(false);
 
         jTextField1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 153, 153));
+        jTextField1.setForeground(new java.awt.Color(153, 0, 0));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setDragEnabled(true);
         jTextField1.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -102,11 +117,11 @@ public class Inicio extends javax.swing.JPanel {
         });
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 3, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 233, 233));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("FindCode");
 
-        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 2, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 3, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 153, 153));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Una mejor manera de entender el codigo");
@@ -117,6 +132,11 @@ public class Inicio extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jButton1.setText("Buscar");
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton1FocusGained(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -159,6 +179,7 @@ public class Inicio extends javax.swing.JPanel {
         });
 
         jLabel14.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 153, 153));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("FindCode");
 
@@ -344,7 +365,8 @@ public class Inicio extends javax.swing.JPanel {
         String lenguaje = jComboBox1.getSelectedItem().toString();
 
         // Validar campos
-        if (Utilidades.validarCampo(jTextField1)) {
+        if (Utilidades.validarCampo(jTextField1) 
+                && Utilidades.validarCampo(((JTextField) jComboBox1.getEditor().getEditorComponent()))) {
 
             if (usuario == null) {
                 findcode.controladores.Utilidades.cambiarPantalla(this, new Resultados(this, busqueda, lenguaje));
@@ -447,6 +469,12 @@ public class Inicio extends javax.swing.JPanel {
 
     private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
 
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            jButton1ActionPerformed(null);
+
+        }
+        
         jButton12KeyPressed(evt);
 
     }//GEN-LAST:event_jButton1KeyPressed
@@ -462,6 +490,10 @@ public class Inicio extends javax.swing.JPanel {
         jButton12KeyPressed(evt);
 
     }//GEN-LAST:event_jButton3KeyPressed
+
+    private void jButton1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1FocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

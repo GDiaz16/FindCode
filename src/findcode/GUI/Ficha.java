@@ -6,6 +6,7 @@ import findcode.controladores.Utilidades;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -199,9 +200,16 @@ public class Ficha extends javax.swing.JPanel {
         jScrollPane2.getViewport().setBackground(Color.decode("#E0F8F7"));
         jScrollPane6.getViewport().setOpaque(true);
         jScrollPane6.getViewport().setBackground(Color.decode("#E0F8F7"));
+        jScrollPane4.getViewport().setOpaque(true);
+        jScrollPane4.getViewport().setBackground(Color.decode("#E0F8F7"));
         textTituloFicha.setFont(new java.awt.Font("Comic Sans MS", 3, 28));
 
+        Utilidades.asignarFondoFijo(ventanaGuardar, new File("imagenes/fondo.jpg"));
+        Utilidades.personalizarCampo(textTitulo, "Titulo", "");
+        Utilidades.personalizarCampo(textComentario, "Comentario", "");
+        
         Utilidades.personalizarBotones(botonGuardar);
+        Utilidades.personalizarBotones(botonCancelar);
         Utilidades.personalizarBotones(botonGuardarFicha);
         Utilidades.personalizarBotones(botonGuardarFicha1);
         Utilidades.personalizarBotones(botonGuardarFicha2);
@@ -555,7 +563,8 @@ public class Ficha extends javax.swing.JPanel {
         ventanaGuardar.setMinimumSize(new java.awt.Dimension(20, 10));
         ventanaGuardar.setModal(true);
 
-        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelTitulo.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        labelTitulo.setForeground(new java.awt.Color(0, 153, 153));
         labelTitulo.setText("Titulo:");
 
         textTitulo.setToolTipText("Ingrese un titulo para la lista de ingredientes");
@@ -566,7 +575,8 @@ public class Ficha extends javax.swing.JPanel {
             }
         });
 
-        labelComentario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelComentario.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        labelComentario.setForeground(new java.awt.Color(0, 153, 153));
         labelComentario.setText("Comentario:");
 
         botonGuardar.setText("Guardar");
@@ -608,7 +618,7 @@ public class Ficha extends javax.swing.JPanel {
                     .addGroup(ventanaGuardarLayout.createSequentialGroup()
                         .addGroup(ventanaGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ventanaGuardarLayout.createSequentialGroup()
-                                .addGap(0, 122, Short.MAX_VALUE)
+                                .addGap(0, 116, Short.MAX_VALUE)
                                 .addComponent(botonGuardar)
                                 .addGap(18, 18, 18)
                                 .addComponent(botonCancelar))
@@ -633,8 +643,8 @@ public class Ficha extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelComentario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ventanaGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonGuardar)
                     .addComponent(botonCancelar))
@@ -846,7 +856,7 @@ public class Ficha extends javax.swing.JPanel {
 
         textCodigo.setEditable(false);
         textCodigo.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        textCodigo.setText("Sintaxis");
+        textCodigo.setAutoscrolls(false);
         textCodigo.setMargin(new java.awt.Insets(3, 30, 3, 3));
         textCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {

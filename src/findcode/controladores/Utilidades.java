@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -127,6 +128,7 @@ public class Utilidades {
         botton.setRolloverEnabled(true);
         botton.setBorder(null);
         botton.setForeground(COLOR_INICIAL);
+        botton.setFont(new java.awt.Font("Comic Sans MS", 1, 14));
 
         botton.setIcon(imagen1);
         botton.setRolloverIcon(imagen2);
@@ -318,6 +320,58 @@ public class Utilidades {
     }
 
     public static void asignarFondoFijo(JFrame frame, File rutaImagen) {
+
+        // Fondo inicial
+        ((JPanel) frame.getContentPane()).setOpaque(false);
+        ImageIcon imagen = null;
+        try {
+            imagen = new ImageIcon(rutaImagen.getCanonicalPath());
+        } catch (IOException ex) {
+        }
+
+        imagen = new ImageIcon(imagen.getImage().getScaledInstance(frame.getWidth(),
+                frame.getHeight(),
+                Image.SCALE_DEFAULT));
+
+        JLabel fondo = new JLabel();
+        fondo.setIcon(imagen);
+        fondo.setHorizontalAlignment(JLabel.RIGHT);
+        fondo.setVerticalAlignment(JLabel.BOTTOM);
+        frame.getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
+        fondo.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+
+        // Fondo al redimencionar
+        frame.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+
+                Thread hilo = new Thread("") {
+
+                    @Override
+                    public void run() {
+
+                        ImageIcon imagen = null;
+                        try {
+                            imagen = new ImageIcon(rutaImagen.getCanonicalPath());
+                        } catch (IOException ex) {
+                        }
+                        imagen = new ImageIcon(imagen.getImage().getScaledInstance(frame.getWidth(),
+                                frame.getHeight(),
+                                Image.SCALE_DEFAULT));
+                        fondo.setIcon(imagen);
+                        fondo.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+
+                    }
+
+                };
+                hilo.start();
+
+            }
+        });
+
+    }
+    
+    public static void asignarFondoFijo(JDialog frame, File rutaImagen) {
 
         // Fondo inicial
         ((JPanel) frame.getContentPane()).setOpaque(false);

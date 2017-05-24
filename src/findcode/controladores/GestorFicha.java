@@ -1,5 +1,6 @@
 package findcode.controladores;
 
+import findcode.model.BoardListener;
 import findcode.model.Ingrediente;
 import java.awt.Color;
 import java.awt.Font;
@@ -27,6 +28,8 @@ import javax.swing.JTextField;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class GestorFicha {
 
@@ -37,7 +40,7 @@ public class GestorFicha {
     String[] codigoDesarmado;
     DefaultListModel model = new DefaultListModel();
     DefaultListModel modelPopUp;
-    private JTextPane textCodigo = new JTextPane();
+    private JTextPane textCodigo;
     private JList<String> listaIngredientes = new JList<>();
     private JPopupMenu popUp = new JPopupMenu();
     private JDialog ventanaGuardar;
@@ -47,6 +50,8 @@ public class GestorFicha {
     JMenuItem guardar;
     JMenuItem borrar;
     String seleccion;
+    BoardListener clipboard;
+    int caret;
     //int index;
 
     public GestorFicha(JPopupMenu popUp, JList<String> listaIngredientes, JTextPane textCodigo,
@@ -69,6 +74,8 @@ public class GestorFicha {
         setListaIngredientes();
         cargarPalabras();
         setText();
+        clipboard = new BoardListener();
+        //corrimiento();
     }
 
     //capturar el evento de escribir en el panel y dejar el cursor en el lugar al que se mueva
@@ -77,24 +84,75 @@ public class GestorFicha {
     }
 
     public void textCodigoKeyPressed(java.awt.event.KeyEvent evt) {
-        int caret = textCodigo.getCaretPosition();
+        caret = textCodigo.getCaretPosition();
+        String sel = textCodigo.getSelectedText();
+
+        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_V) {
+            textCodigo.replaceSelection("");
+        }
+
+        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_C) {
+            clipboard.setClipboard(textCodigo.getSelectedText());
+        }
+
+        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_X) {
+
+            if (sel != null) {
+                clipboard.setClipboard(sel);
+                updateSelection();
+            }
+
+        }
         if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
-                && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_SHIFT) {
+                && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_SHIFT
+                && !evt.isControlDown()) {
+
+            if (sel != null) {
+                updateSelection();
+            }
 
             setText();
             switch (evt.getKeyCode()) {
                 case KeyEvent.VK_BACK_SPACE:
-                    corrimiento(caret, 1);
+                    if (sel != null) {
+                        evt.consume();
+                        corrimiento(caret, 1, sel.length(), true);
+                    } else {
+                        corrimiento(caret, 1, 1, false);
+                    }
+
                     break;
                 case KeyEvent.VK_DELETE:
-                    corrimiento(caret, 2);
+                    if (sel != null) {
+                        evt.consume();
+                        corrimiento(caret, 2, sel.length(), true);
+                    } else {
+                        corrimiento(caret, 2, 1, false);
+                    }
+
                     break;
                 default:
-                    corrimiento(caret, 3);
+                    if (sel != null) {
+                        corrimiento(caret, 3, sel.length(), true);
+                    } else {
+                        corrimiento(caret, 3, 1, false);
+                    }
                     break;
             }
             textCodigo.setCaretPosition(caret);
         }
+    }
+
+    public void updateSelection() {
+        caret = textCodigo.getCaretPosition();
+        String sel = textCodigo.getSelectedText();
+        textCodigo.replaceSelection("");
+        if (sel.length() <= caret) {
+            caret -= sel.length();
+        } else {
+            caret = 0;
+        }
+
     }
 
     //mostrar pop UP con el click en la ventana del codigo
@@ -161,7 +219,7 @@ public class GestorFicha {
 
 //separa las palabras cuando encuentra un espacio, salto de linea, tabulacion o parentesis y las coloca en un array
     public void separador(String codigo) {
-        StringTokenizer st = new StringTokenizer(codigo, " \t\n(),\"", true);
+        StringTokenizer st = new StringTokenizer(codigo, " \t\n(),\"/", true);
         codigoDesarmado = new String[st.countTokens()];
         int i = 0;
         while (st.hasMoreTokens()) {
@@ -173,13 +231,40 @@ public class GestorFicha {
 
 //vuelve a colocar texto en el textpane
     public void setText() {
+        boolean stateComment = false;
+        boolean stateString = false;
+        boolean stateAux = false;
         separador(textCodigo.getText());
         textCodigo.setText("");
-        for (String cadena : codigoDesarmado) {
-            SimpleAttributeSet simp = formato(cadena);
-            try {
+        for (int i = 0; i < codigoDesarmado.length; i++) {
+            SimpleAttributeSet simp;
+//validar que state sea verdadero o que en el codigo haya doble slash //, si no hay, pinta las palabras normalmente
+            if (stateComment || (codigoDesarmado[i].equals("/") && !codigoDesarmado[i + 1].isEmpty() && codigoDesarmado[i].equals("/"))) {
+                simp = formato(1);
+                stateComment = true;
+//validar las comillas para los string y pintar todo lo que esta dentro de otro color
+            } else if (stateString || codigoDesarmado[i].equals("\"")) {
+                simp = formato(2);
+                if (stateString == false) {
+//flag stateAux en verdadero para evitar que el comentario se anule a si mismo con la misma comilla
+                    stateAux = codigoDesarmado[i].equals("\"");
+                }
+                stateString = true;
+            } else {
+                simp = formato(codigoDesarmado[i]);
+            }
+//si encuentra un salto de linea pone state en false y deja de comentar las palabras
+            if (stateComment && codigoDesarmado[i].equals("\n")) {
+                stateComment = false;
+            } else if (stateAux != true && stateString && codigoDesarmado[i].equals("\"")) {
+                stateString = false;
+            } else if (stateString) {
+//flag stateAux en false para que las proximas comillas si las reconozca
+                stateAux = false;
+            }
 
-                textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), cadena, simp);
+            try {
+                textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), codigoDesarmado[i], simp);
 
             } catch (BadLocationException ex) {
                 Logger.getLogger(findcode.GUI.Ficha.class
@@ -209,6 +294,22 @@ public class GestorFicha {
         }
 
         return simp;
+    }
+
+    public SimpleAttributeSet formato(int color) {
+        if (color == 1) {
+            SimpleAttributeSet simp = new SimpleAttributeSet();
+            StyleConstants.setBold(simp, false);
+            StyleConstants.setFontSize(simp, 12);
+            StyleConstants.setForeground(simp, Color.LIGHT_GRAY);
+            return simp;
+        } else {
+            SimpleAttributeSet simp = new SimpleAttributeSet();
+            StyleConstants.setBold(simp, false);
+            StyleConstants.setFontSize(simp, 12);
+            StyleConstants.setForeground(simp, Color.green);
+            return simp;
+        }
     }
 
 //Texto a mostrar cuando se seleccione un elemento de la lista
@@ -336,7 +437,8 @@ public class GestorFicha {
 
     }
 
-    public void corrimiento(int caret, int tecla) {
+    public void corrimiento(int caret, int tecla, int amount, boolean sel) {
+
         boolean borrado = false;
         Ingrediente temporal = null;
 
@@ -344,44 +446,112 @@ public class GestorFicha {
             int inicio = elemento.getPosInicial();
             int fin = elemento.getPosFinal();
             switch (tecla) {
+//1 = backspace
+//2 = delete
+//3 = escritura normal              
                 case 1:
-                    if (caret <= elemento.getPosInicial() && caret > 0) {
-                        elemento.setPosInicial(inicio - 1);
-                        elemento.setPosFinal(fin - 1);
-                    } else if (inicio < caret && caret <= fin) {
-                        elemento.setPosFinal(fin - 1);
+// |palabra
+                    if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > inicio && textCodigo.getSelectionEnd() < fin) {
+                        elemento.setPosInicial(inicio - (inicio - textCodigo.getSelectionStart()));
+                        elemento.setPosFinal(fin - amount);
+                    } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionStart() < fin && textCodigo.getSelectionEnd() > fin) {
+                        elemento.setPosInicial(fin - (fin - textCodigo.getSelectionStart()));
+                    } else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > fin) {
+                        break;
+                    } else if (caret <= elemento.getPosInicial() && caret > 0) {
+                        if (sel) {
+                            elemento.setPosInicial(inicio - amount);
+                            elemento.setPosFinal(fin - amount);
+                        } else {
+                            elemento.setPosInicial(inicio - 1);
+                            elemento.setPosFinal(fin - 1);
+                        }
+// pal|abra
+                    } else if (inicio < caret && caret < fin) {
+
+                        if (sel && inicio < (fin - amount)) {
+                            elemento.setPosFinal(fin - amount);
+                        } else if (sel && inicio >= (fin - amount)) {
+                            break;
+                        } else {
+                            elemento.setPosFinal(fin - 1);
+                        }
+                    }else if (caret == fin) {
+
+                        if (sel && inicio < (fin - amount)) {
+                            elemento.setPosFinal(fin - amount);
+                        } else if (sel && inicio >= (fin - amount)) {
+                            break;
+                        } else {
+                            elemento.setPosFinal(fin - 1);
+                        }
                     }
                     break;
                 case 2:
-                    if (caret == elemento.getPosInicial()) {
-                        elemento.setPosFinal(fin - 1);
-                    } else if (caret < elemento.getPosInicial()) {
-                        elemento.setPosInicial(inicio - 1);
-                        elemento.setPosFinal(fin - 1);
+// |palabra
+                    if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > inicio && textCodigo.getSelectionEnd() < fin) {
+                        elemento.setPosInicial(inicio - (inicio - textCodigo.getSelectionStart()));
+                        elemento.setPosFinal(fin - amount);
+                    } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionStart() < fin && textCodigo.getSelectionEnd() > fin) {
+                        elemento.setPosInicial(fin - (fin - textCodigo.getSelectionStart()));
+                    } else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > fin) {
+                        break;
+                    } else if (caret == elemento.getPosInicial()) {
+                        if (sel && (fin - amount) <= inicio) {
+                            break;
+                        } else {
+                            elemento.setPosFinal(fin - 1);
 
-                    } else if (inicio < caret && caret <= fin) {
-                        elemento.setPosFinal(fin - 1);
+                        }
+// |  palabra                   
+                    } else if (caret < elemento.getPosInicial()) {
+                        if (sel) {
+                            elemento.setPosInicial(inicio - amount);
+                            elemento.setPosFinal(fin - amount);
+                        } else {
+                            elemento.setPosInicial(inicio - 1);
+                            elemento.setPosFinal(fin - 1);
+                        }
+// pal|abra                  
+                    } else if (inicio < caret && caret < fin) {
+                        if (sel) {
+
+                            elemento.setPosFinal(fin - amount);
+                        } else {
+                            elemento.setPosFinal(fin - 1);
+                        }
                     }
                     break;
 
                 case 3:
-                    if (caret <= elemento.getPosInicial()) {
+// |palabra                  
+                    if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > inicio && textCodigo.getSelectionEnd() < fin) {
+                        elemento.setPosInicial((inicio - (inicio - textCodigo.getSelectionStart())) + 1);
+                        elemento.setPosFinal((fin - amount) + 1);
+                    } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionStart() < fin && textCodigo.getSelectionEnd() > fin) {
+                        elemento.setPosInicial(fin - (fin - textCodigo.getSelectionStart()));
+                    }else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > fin) {
+                        break;
+                    } else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() < inicio) {
+                        elemento.setPosInicial((inicio - amount) + 1);
+                        elemento.setPosFinal((fin - amount) + 1);
+                    } else if (caret <= elemento.getPosInicial()) {
                         elemento.setPosInicial(inicio + 1);
                         elemento.setPosFinal(fin + 1);
-                    } else if (inicio < caret && caret <= fin) {
+// pal|abra
+                    } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionEnd() < fin) {
+                        elemento.setPosFinal((fin - amount) + 1);
+                    } else if (inicio < caret && caret < fin) {
                         elemento.setPosFinal(fin + 1);
                     }
                     break;
 
             }
 
-            if (inicio == fin - 1) {
+            if (inicio == fin - 1 || fin < inicio) {
                 borrado = true;
                 temporal = elemento;
             }
-            System.out.println("inicio = " + inicio);
-            System.out.println("fin = " + fin);
-            System.out.println("caret = " + caret);
         }
 
         if (borrado && temporal != null) {

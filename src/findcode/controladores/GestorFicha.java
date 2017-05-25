@@ -89,6 +89,11 @@ public class GestorFicha {
 
         if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_V) {
             textCodigo.replaceSelection("");
+            if (sel != null) {
+                corrimiento(caret, 4, sel.length(), true);
+            } else {
+                corrimiento(caret, 4, 1, false);
+            }
         }
 
         if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_C) {
@@ -100,6 +105,7 @@ public class GestorFicha {
             if (sel != null) {
                 clipboard.setClipboard(sel);
                 updateSelection();
+                corrimiento(caret, 1, sel.length(), true);
             }
 
         }
@@ -307,7 +313,7 @@ public class GestorFicha {
             SimpleAttributeSet simp = new SimpleAttributeSet();
             StyleConstants.setBold(simp, false);
             StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.green);
+            StyleConstants.setForeground(simp, Color.ORANGE);
             return simp;
         }
     }
@@ -448,7 +454,8 @@ public class GestorFicha {
             switch (tecla) {
 //1 = backspace
 //2 = delete
-//3 = escritura normal              
+//3 = escritura normal          
+//4 = pegar
                 case 1:
 // |palabra
                     if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > inicio && textCodigo.getSelectionEnd() < fin) {
@@ -457,6 +464,8 @@ public class GestorFicha {
                     } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionStart() < fin && textCodigo.getSelectionEnd() > fin) {
                         elemento.setPosInicial(fin - (fin - textCodigo.getSelectionStart()));
                     } else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > fin) {
+                        //fin = 0;
+                        //inicio = 2;
                         break;
                     } else if (caret <= elemento.getPosInicial() && caret > 0) {
                         if (sel) {
@@ -476,7 +485,7 @@ public class GestorFicha {
                         } else {
                             elemento.setPosFinal(fin - 1);
                         }
-                    }else if (caret == fin) {
+                    } else if (caret == fin) {
 
                         if (sel && inicio < (fin - amount)) {
                             elemento.setPosFinal(fin - amount);
@@ -530,7 +539,9 @@ public class GestorFicha {
                         elemento.setPosFinal((fin - amount) + 1);
                     } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionStart() < fin && textCodigo.getSelectionEnd() > fin) {
                         elemento.setPosInicial(fin - (fin - textCodigo.getSelectionStart()));
-                    }else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > fin) {
+                    } else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > fin) {
+                        //fin = 0;
+                        //inicio = 2;
                         break;
                     } else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() < inicio) {
                         elemento.setPosInicial((inicio - amount) + 1);
@@ -545,7 +556,36 @@ public class GestorFicha {
                         elemento.setPosFinal(fin + 1);
                     }
                     break;
+                case 4:
+                    if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > inicio && textCodigo.getSelectionEnd() < fin) {
+                        elemento.setPosInicial((inicio - (inicio - textCodigo.getSelectionStart())) + 1);
+                        elemento.setPosFinal((fin - amount) + 1);
+                        elemento.setPosInicial(inicio + clipboard.getClipboard().length());
+                        elemento.setPosFinal(fin + clipboard.getClipboard().length());
 
+                    } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionStart() < fin && textCodigo.getSelectionEnd() > fin) {
+                        elemento.setPosInicial(fin - (fin - textCodigo.getSelectionStart()));
+                        elemento.setPosFinal(fin + clipboard.getClipboard().length());
+                    } else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > fin) {
+                        //fin = 0;
+                        //inicio = 2;
+                        break;
+                    } else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() < inicio) {
+                        elemento.setPosInicial((inicio - amount) + 1);
+                        elemento.setPosFinal((fin - amount) + 1);
+                        elemento.setPosInicial(inicio + clipboard.getClipboard().length());
+                        elemento.setPosFinal(fin + clipboard.getClipboard().length());
+                    } else if (caret <= elemento.getPosInicial()) {
+                        elemento.setPosInicial(inicio + clipboard.getClipboard().length());
+                        elemento.setPosFinal(fin + clipboard.getClipboard().length());
+// pal|abra
+                    } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionEnd() < fin) {
+                        elemento.setPosFinal((fin - amount) + 1);
+                        elemento.setPosFinal(fin + clipboard.getClipboard().length());
+                    } else if (inicio < caret && caret < fin) {
+                        elemento.setPosFinal(fin + clipboard.getClipboard().length());
+                    }
+                    break;
             }
 
             if (inicio == fin - 1 || fin < inicio) {

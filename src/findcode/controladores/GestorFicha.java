@@ -73,7 +73,7 @@ public class GestorFicha {
         this.palabrasReservadas = palabrasReservadas;
         setListaIngredientes();
         cargarPalabras();
-        setText();
+        // setText();
         clipboard = new BoardListener();
         //corrimiento();
     }
@@ -111,7 +111,7 @@ public class GestorFicha {
                 updateSelection();
             }
 
-            setText();
+            //setText();
             switch (evt.getKeyCode()) {
                 case KeyEvent.VK_BACK_SPACE:
                     if (sel != null) {
@@ -307,7 +307,7 @@ public class GestorFicha {
             SimpleAttributeSet simp = new SimpleAttributeSet();
             StyleConstants.setBold(simp, false);
             StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.green);
+            StyleConstants.setForeground(simp, Color.orange);
             return simp;
         }
     }

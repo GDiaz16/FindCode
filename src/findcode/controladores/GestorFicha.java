@@ -87,22 +87,22 @@ public class GestorFicha {
         caret = textCodigo.getCaretPosition();
         String sel = textCodigo.getSelectedText();
 
-        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_V) {
-            textCodigo.replaceSelection("");
-        }
-
-        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_C) {
-            clipboard.setClipboard(textCodigo.getSelectedText());
-        }
-
-        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_X) {
-
-            if (sel != null) {
-                clipboard.setClipboard(sel);
-                updateSelection();
-            }
-
-        }
+//        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_V) {
+//            textCodigo.replaceSelection("");
+//        }
+//
+//        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_C) {
+//            clipboard.setClipboard(textCodigo.getSelectedText());
+//        }
+//
+//        if (evt.isControlDown() && evt.getKeyCode() == KeyEvent.VK_X) {
+//
+//            if (sel != null) {
+//                clipboard.setClipboard(sel);
+//                updateSelection();
+//            }
+//
+//        }
         if (evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT
                 && evt.getKeyCode() != KeyEvent.VK_UP && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_SHIFT
                 && !evt.isControlDown()) {
@@ -110,32 +110,32 @@ public class GestorFicha {
             if (sel != null) {
                 updateSelection();
             }
-
+            caret = textCodigo.getCaretPosition();
             setText();
             switch (evt.getKeyCode()) {
                 case KeyEvent.VK_BACK_SPACE:
                     if (sel != null) {
                         evt.consume();
-                        corrimiento(caret, 1, sel.length(), true);
+                        corrimiento(caret, 1, sel.length());
                     } else {
-                        corrimiento(caret, 1, 1, false);
+                        corrimiento(caret, 1, 1);
                     }
 
                     break;
                 case KeyEvent.VK_DELETE:
                     if (sel != null) {
                         evt.consume();
-                        corrimiento(caret, 2, sel.length(), true);
+                        corrimiento(caret, 2, sel.length());
                     } else {
-                        corrimiento(caret, 2, 1, false);
+                        corrimiento(caret, 2, 1);
                     }
 
                     break;
                 default:
                     if (sel != null) {
-                        corrimiento(caret, 3, sel.length(), true);
+                       corrimiento(caret, 3, sel.length());
                     } else {
-                        corrimiento(caret, 3, 1, false);
+                       corrimiento(caret, 3, 1);
                     }
                     break;
             }
@@ -231,39 +231,26 @@ public class GestorFicha {
 
 //vuelve a colocar texto en el textpane
     public void setText() {
-        boolean stateComment = false;
-        boolean stateString = false;
-        boolean stateAux = false;
+        boolean state = false;
         separador(textCodigo.getText());
         textCodigo.setText("");
         for (int i = 0; i < codigoDesarmado.length; i++) {
             SimpleAttributeSet simp;
-//validar que state sea verdadero o que en el codigo haya doble slash //, si no hay, pinta las palabras normalmente
-            if (stateComment || (codigoDesarmado[i].equals("/") && !codigoDesarmado[i + 1].isEmpty() && codigoDesarmado[i].equals("/"))) {
-                simp = formato(1);
-                stateComment = true;
-//validar las comillas para los string y pintar todo lo que esta dentro de otro color
-            } else if (stateString || codigoDesarmado[i].equals("\"")) {
-                simp = formato(2);
-                if (stateString == false) {
-//flag stateAux en verdadero para evitar que el comentario se anule a si mismo con la misma comilla
-                    stateAux = codigoDesarmado[i].equals("\"");
-                }
-                stateString = true;
-            } else {
-                simp = formato(codigoDesarmado[i]);
+            if (state || (codigoDesarmado[i].equals("/") && !codigoDesarmado[i + 1].isEmpty() && codigoDesarmado[i].equals("/"))) {
+                simp = formato();
+                state = true;
+            }else {
+                 simp = formato(codigoDesarmado[i]);
             }
-//si encuentra un salto de linea pone state en false y deja de comentar las palabras
-            if (stateComment && codigoDesarmado[i].equals("\n")) {
-                stateComment = false;
-            } else if (stateAux != true && stateString && codigoDesarmado[i].equals("\"")) {
-                stateString = false;
-            } else if (stateString) {
-//flag stateAux en false para que las proximas comillas si las reconozca
-                stateAux = false;
+            if (state && codigoDesarmado[i].equals("\n")) {
+                //simp = formato(codigoDesarmado[i]);
+                state = false;
             }
-
+           if (state == false) {
+              
+            }
             try {
+
                 textCodigo.getStyledDocument().insertString(textCodigo.getCaretPosition(), codigoDesarmado[i], simp);
 
             } catch (BadLocationException ex) {
@@ -296,23 +283,15 @@ public class GestorFicha {
         return simp;
     }
 
-    public SimpleAttributeSet formato(int color) {
-        if (color == 1) {
-            SimpleAttributeSet simp = new SimpleAttributeSet();
-            StyleConstants.setBold(simp, false);
-            StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.LIGHT_GRAY);
-            return simp;
-        } else {
-            SimpleAttributeSet simp = new SimpleAttributeSet();
-            StyleConstants.setBold(simp, false);
-            StyleConstants.setFontSize(simp, 12);
-            StyleConstants.setForeground(simp, Color.green);
-            return simp;
-        }
+    public SimpleAttributeSet formato() {
+        SimpleAttributeSet simp = new SimpleAttributeSet();
+        StyleConstants.setBold(simp, false);
+        StyleConstants.setFontSize(simp, 12);
+        StyleConstants.setForeground(simp, Color.LIGHT_GRAY);
+        return simp;
     }
-
 //Texto a mostrar cuando se seleccione un elemento de la lista
+
     public void mostrarTextoPopUp(String contenido) {
 
         popUp.removeAll();
@@ -437,7 +416,7 @@ public class GestorFicha {
 
     }
 
-    public void corrimiento(int caret, int tecla, int amount, boolean sel) {
+    public void corrimiento(int caret, int tecla, int amount) {
 
         boolean borrado = false;
         Ingrediente temporal = null;
@@ -446,109 +425,38 @@ public class GestorFicha {
             int inicio = elemento.getPosInicial();
             int fin = elemento.getPosFinal();
             switch (tecla) {
-//1 = backspace
-//2 = delete
-//3 = escritura normal              
                 case 1:
-// |palabra
-                    if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > inicio && textCodigo.getSelectionEnd() < fin) {
-                        elemento.setPosInicial(inicio - (inicio - textCodigo.getSelectionStart()));
+                    if (caret <= elemento.getPosInicial() && caret > 0) {
+                        elemento.setPosInicial(inicio - amount);
                         elemento.setPosFinal(fin - amount);
-                    } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionStart() < fin && textCodigo.getSelectionEnd() > fin) {
-                        elemento.setPosInicial(fin - (fin - textCodigo.getSelectionStart()));
-                    } else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > fin) {
-                        break;
-                    } else if (caret <= elemento.getPosInicial() && caret > 0) {
-                        if (sel) {
-                            elemento.setPosInicial(inicio - amount);
-                            elemento.setPosFinal(fin - amount);
-                        } else {
-                            elemento.setPosInicial(inicio - 1);
-                            elemento.setPosFinal(fin - 1);
-                        }
-// pal|abra
-                    } else if (inicio < caret && caret < fin) {
-
-                        if (sel && inicio < (fin - amount)) {
-                            elemento.setPosFinal(fin - amount);
-                        } else if (sel && inicio >= (fin - amount)) {
-                            break;
-                        } else {
-                            elemento.setPosFinal(fin - 1);
-                        }
-                    }else if (caret == fin) {
-
-                        if (sel && inicio < (fin - amount)) {
-                            elemento.setPosFinal(fin - amount);
-                        } else if (sel && inicio >= (fin - amount)) {
-                            break;
-                        } else {
-                            elemento.setPosFinal(fin - 1);
-                        }
+                    } else if (inicio < caret && caret <= fin) {
+                        elemento.setPosFinal(fin - amount);
                     }
                     break;
                 case 2:
-// |palabra
-                    if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > inicio && textCodigo.getSelectionEnd() < fin) {
-                        elemento.setPosInicial(inicio - (inicio - textCodigo.getSelectionStart()));
+                    if (caret == elemento.getPosInicial()) {
                         elemento.setPosFinal(fin - amount);
-                    } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionStart() < fin && textCodigo.getSelectionEnd() > fin) {
-                        elemento.setPosInicial(fin - (fin - textCodigo.getSelectionStart()));
-                    } else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > fin) {
-                        break;
-                    } else if (caret == elemento.getPosInicial()) {
-                        if (sel && (fin - amount) <= inicio) {
-                            break;
-                        } else {
-                            elemento.setPosFinal(fin - 1);
-
-                        }
-// |  palabra                   
                     } else if (caret < elemento.getPosInicial()) {
-                        if (sel) {
-                            elemento.setPosInicial(inicio - amount);
-                            elemento.setPosFinal(fin - amount);
-                        } else {
-                            elemento.setPosInicial(inicio - 1);
-                            elemento.setPosFinal(fin - 1);
-                        }
-// pal|abra                  
-                    } else if (inicio < caret && caret < fin) {
-                        if (sel) {
+                        elemento.setPosInicial(inicio - amount);
+                        elemento.setPosFinal(fin - amount);
 
-                            elemento.setPosFinal(fin - amount);
-                        } else {
-                            elemento.setPosFinal(fin - 1);
-                        }
+                    } else if (inicio < caret && caret <= fin) {
+                        elemento.setPosFinal(fin - amount);
                     }
                     break;
 
                 case 3:
-// |palabra                  
-                    if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > inicio && textCodigo.getSelectionEnd() < fin) {
-                        elemento.setPosInicial((inicio - (inicio - textCodigo.getSelectionStart())) + 1);
-                        elemento.setPosFinal((fin - amount) + 1);
-                    } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionStart() < fin && textCodigo.getSelectionEnd() > fin) {
-                        elemento.setPosInicial(fin - (fin - textCodigo.getSelectionStart()));
-                    }else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() > fin) {
-                        break;
-                    } else if (sel && textCodigo.getSelectionStart() < inicio && textCodigo.getSelectionEnd() < inicio) {
-                        elemento.setPosInicial((inicio - amount) + 1);
-                        elemento.setPosFinal((fin - amount) + 1);
-                    } else if (caret <= elemento.getPosInicial()) {
-                        elemento.setPosInicial(inicio + 1);
-                        elemento.setPosFinal(fin + 1);
-// pal|abra
-                    } else if (sel && textCodigo.getSelectionStart() > inicio && textCodigo.getSelectionEnd() < fin) {
-                        elemento.setPosFinal((fin - amount) + 1);
-                    } else if (inicio < caret && caret < fin) {
-                        elemento.setPosFinal(fin + 1);
+                    if (caret <= elemento.getPosInicial()) {
+                        elemento.setPosInicial(inicio + amount);
+                        elemento.setPosFinal(fin + amount);
+                    } else if (inicio < caret && caret <= fin) {
+                        elemento.setPosFinal(fin + amount);
                     }
                     break;
 
             }
 
-            if (inicio == fin - 1 || fin < inicio) {
+            if (inicio == fin - 1) {
                 borrado = true;
                 temporal = elemento;
             }

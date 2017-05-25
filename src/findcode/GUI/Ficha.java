@@ -618,7 +618,7 @@ public class Ficha extends javax.swing.JPanel {
                     .addGroup(ventanaGuardarLayout.createSequentialGroup()
                         .addGroup(ventanaGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ventanaGuardarLayout.createSequentialGroup()
-                                .addGap(0, 116, Short.MAX_VALUE)
+                                .addGap(0, 303, Short.MAX_VALUE)
                                 .addComponent(botonGuardar)
                                 .addGap(18, 18, 18)
                                 .addComponent(botonCancelar))
@@ -643,7 +643,7 @@ public class Ficha extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelComentario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ventanaGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonGuardar)
@@ -1284,7 +1284,6 @@ public class Ficha extends javax.swing.JPanel {
             
             gestorFicha.botonGuardarActionPerformed(evt);
 
-            
         } 
 
     }//GEN-LAST:event_botonGuardarActionPerformed

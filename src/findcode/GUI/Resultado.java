@@ -1,5 +1,6 @@
 package findcode.GUI;
 
+import findcode.controladores.Utilidades;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
@@ -16,7 +17,9 @@ public class Resultado extends javax.swing.JPanel {
         this.contendor = contendor;
         this.ficha = ficha;
         jLabel7.setText(ficha.getTitulo());
-        jLabel8.setText(ficha.getDescripcion());
+        jScrollPane4.getViewport().setOpaque(true);
+        jScrollPane4.getViewport().setBackground(Color.white);
+        Utilidades.personalizarCampo(textComentario, "", ficha.getDescripcion());
         
     }
     
@@ -32,7 +35,8 @@ public class Resultado extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        textComentario = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
 
@@ -70,24 +74,36 @@ public class Resultado extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setOpaque(false);
 
-        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("FindCode");
-        jLabel8.setOpaque(true);
+        jScrollPane4.setBackground(new java.awt.Color(102, 255, 51));
+        jScrollPane4.setBorder(null);
+
+        textComentario.setEditable(false);
+        textComentario.setColumns(20);
+        textComentario.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        textComentario.setLineWrap(true);
+        textComentario.setRows(1);
+        textComentario.setTabSize(1);
+        textComentario.setText("j");
+        textComentario.setToolTipText("mostrar algo");
+        textComentario.setWrapStyleWord(true);
+        textComentario.setAlignmentX(3.0F);
+        textComentario.setBorder(null);
+        textComentario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        textComentario.setDragEnabled(true);
+        textComentario.setMargin(new java.awt.Insets(0, 20, 20, 0));
+        jScrollPane4.setViewportView(textComentario);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -105,7 +121,7 @@ public class Resultado extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,9 +134,9 @@ public class Resultado extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -129,7 +145,7 @@ public class Resultado extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -147,14 +163,12 @@ public class Resultado extends javax.swing.JPanel {
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         
         jLabel7.setBackground(Color.decode("#E0F8F7"));
-        jLabel8.setBackground(Color.decode("#E0F8F7"));
         
     }//GEN-LAST:event_formFocusGained
 
     private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
         
         jLabel7.setBackground(Color.decode("#FFFFFF"));
-        jLabel8.setBackground(Color.decode("#FFFFFF"));
         
     }//GEN-LAST:event_formFocusLost
 
@@ -183,8 +197,9 @@ public class Resultado extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextArea textComentario;
     // End of variables declaration//GEN-END:variables
 }

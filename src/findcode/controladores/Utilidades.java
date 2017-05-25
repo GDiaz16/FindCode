@@ -247,6 +247,7 @@ public class Utilidades {
         ((JTextField) jComboBox.getEditor().getEditorComponent()).setOpaque(false);
         ((JTextField) jComboBox.getEditor().getEditorComponent()).setHorizontalAlignment(javax.swing.JTextField.CENTER);
         personalizarCampo(((JTextField) jComboBox.getEditor().getEditorComponent()), textoDefault, texto);
+        jComboBox.setSelectedItem(texto);
         
         ((JTextField) jComboBox.getEditor().getEditorComponent()).addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -267,6 +268,19 @@ public class Utilidades {
                     jComboBox.setModel(new javax.swing.DefaultComboBoxModel(datosTemporales.toArray()));
                     ((JTextField) jComboBox.getEditor().getEditorComponent()).setText(texto);
                     jComboBox.showPopup();
+
+                } 
+
+            }
+        });
+        
+        ((JTextField) jComboBox.getEditor().getEditorComponent()).addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+                    ((JTextField) jComboBox.getEditor().getEditorComponent()).setText(jComboBox.getSelectedItem().toString());
 
                 } 
 
